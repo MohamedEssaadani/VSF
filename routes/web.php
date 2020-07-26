@@ -14,7 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'DashboardController@dashboard')->name('Dashboard');
+Route::get('/', function () {
+    return view('layouts.master')->with('page_title', 'Dashboard');
+})->name('Dashboard');
+
+Route::get('/{any}', function () {
+    return view('layouts.master')->with('page_title', 'Dashboard');
+})->where('any', '.*');
 
 Auth::routes();
 

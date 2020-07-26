@@ -15,11 +15,11 @@
         <div class="nav-container">
             <nav id="main-menu-navigation" class="navigation-main">
                 <div class="nav-lavel">Gestion</div>
-                <div class="nav-item active">
-                    <a href=""><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
+                <div class="nav-item ">
+                    <router-link :to="{ name: 'Dashboard'}" ><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></router-link>
                 </div>
                 <div class="nav-item">
-                    <a href=""><i class="ik ik-user"></i><span>Clients</span> <span
+                    <a href="#"><i class="ik ik-user"></i><span>Clients</span> <span
                             class="badge badge-success">33+</span></a>
                 </div>
                 <div class="nav-item">
@@ -27,8 +27,8 @@
                             class="badge badge-danger">120+</span></a>
                 </div>
                 <div class="nav-item">
-                    <a href=""><i class="ik ik-user"></i><span>Utilisateurs</span> <span
-                            class="badge badge-danger">120+</span></a>
+                    <router-link :to="{name:'Users.all'}"><i class="ik ik-user"></i><span>Utilisateurs</span> <span
+                            class="badge badge-danger">120+</span></router-link>
                 </div>
               
                 <div class="nav-lavel">Statistiques</div>

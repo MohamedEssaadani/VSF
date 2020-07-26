@@ -32,8 +32,8 @@
 </head>
 
 <body>
-
-    <div class="wrapper">
+    @csrf
+    <div class="wrapper"  id="app">
         <!--header here-->
         @include('layouts.partials.header')
         <!--header here-->
@@ -43,7 +43,7 @@
             @include('layouts.partials.side-bar')
             <!--sidebar here-->
 
-            <div class="main-content" id="app">
+            <div class="main-content">
                 <div class="container-fluid">
                     @if ($errors->any())
                     <div class="alert alert-danger">
@@ -54,7 +54,7 @@
                         </ul>
                     </div>
                     @endif
-                    @yield('content')
+                      <router-view></router-view>
                 </div>
             </div>
 
