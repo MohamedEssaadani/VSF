@@ -2,17 +2,17 @@
     <!-- Modal -->
     <div
         class="modal fade"
-        id="createUserModal"
+        id="editUserModal"
         tabindex="-1"
         role="dialog"
-        aria-labelledby="createUserModalLabel"
+        aria-labelledby="editUserModalLabel"
         aria-hidden="true"
     >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createUserModalLabel">
-                        Nouveau Utilisateur
+                    <h5 class="modal-title" id="editUserModalLabel">
+                        Modifier Utilisateur
                     </h5>
                     <button
                         type="button"
@@ -38,10 +38,10 @@
                                 <input
                                     type="text"
                                     name="name"
-                                    v-model="form.name"
+                                    v-model="user.name"
                                     class="form-control"
                                     :class="{
-                                        'is-invalid': form.errors.has('name'),
+                                        'is-invalid': form.errors.has('name')
                                     }"
                                     required
                                 />
@@ -65,10 +65,10 @@
                                 <input
                                     type="text"
                                     name="email"
-                                    v-model="form.email"
+                                    v-model="user.email"
                                     class="form-control"
                                     :class="{
-                                        'is-invalid': form.errors.has('email'),
+                                        'is-invalid': form.errors.has('email')
                                     }"
                                     required
                                 />
@@ -80,7 +80,7 @@
                         </div>
 
                         <label class="col-sm-4 col-lg-4 col-form-label"
-                            >Mot de passe</label
+                            >Nouveau Mot de passe</label
                         >
                         <div class="col-sm-8 col-lg-8">
                             <div class="input-group">
@@ -92,12 +92,12 @@
                                 <input
                                     type="password"
                                     name="password"
-                                    v-model="form.password"
+                                    v-model="user.password"
                                     class="form-control"
                                     :class="{
                                         'is-invalid': form.errors.has(
                                             'password'
-                                        ),
+                                        )
                                     }"
                                     required
                                 />
@@ -120,12 +120,12 @@
                                 </span>
                                 <select
                                     class="form-control"
-                                    v-model="form.userType"
+                                    v-model="user.userType"
                                     name="userType"
                                     :class="{
                                         'is-invalid': form.errors.has(
                                             'userType'
-                                        ),
+                                        )
                                     }"
                                 >
                                     <option value="admin">admin</option>
@@ -172,9 +172,18 @@ export default {
                 name: "",
                 email: "",
                 password: "",
-                userType: "",
-            }),
+                userType: ""
+            })
         };
+    },
+    props: {
+        user: {
+            type: Object,
+            required: true
+        }
+    },
+    mounted() {
+        console.log(this.user);
     },
     methods: {
         add() {
@@ -188,7 +197,7 @@ export default {
                         this.closeModal();
                     });
                 })
-                .catch((error) => {
+                .catch(error => {
                     console.log(`ERROR : ${error}`);
                 });
             //dispatch addUser action
@@ -208,7 +217,7 @@ export default {
             this.form.email = "";
             this.form.userType = "";
             this.form.password = "";
-        },
-    },
+        }
+    }
 };
 </script>

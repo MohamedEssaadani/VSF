@@ -46,7 +46,12 @@
                                                 ></i>
                                             </a>
                                             /
-                                            <a href>
+                                            <a
+                                                style="cursor: pointer;"
+                                                data-toggle="modal"
+                                                data-target="#editUserModal"
+                                                @click="edit(user)"
+                                            >
                                                 <i
                                                     class="ik ik-edit-2 text-green"
                                                 ></i>
@@ -73,15 +78,23 @@
         <create-user></create-user>
         <!--Confirm dialog -->
         <vue-confirm-dialog></vue-confirm-dialog>
+        <!---Edit modal-->
+        <edit-user :user="user"></edit-user>
     </div>
 </template>
 
 <script>
 import CreateUser from "./Create-User";
-
+import EditUser from "./Edit-User";
 export default {
+    data() {
+        return {
+            user: null,
+        };
+    },
     components: {
-        "create-user": CreateUser
+        "create-user": CreateUser,
+        "edit-user": EditUser,
     },
     mounted() {
         this.$store.dispatch("usersList");
@@ -92,24 +105,27 @@ export default {
                 message: `Vous êtes sure?`,
                 button: {
                     no: "Non",
-                    yes: "Oui"
+                    yes: "Oui",
                 },
                 /**
                  * Callback Function
                  * @param {Boolean} confirm
                  */
-                callback: confirm => {
+                callback: (confirm) => {
                     if (confirm) {
                         this.$store.dispatch("deleteUser", user);
                     }
-                }
+                },
             });
-        }
+        },
+        edit(user) {
+            this.user = user;
+        },
     },
     computed: {
         getUsers() {
             return this.$store.getters.getUsers;
-        }
-    }
+        },
+    },
 };
 </script>
