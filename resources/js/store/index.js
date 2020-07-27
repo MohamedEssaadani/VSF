@@ -16,6 +16,9 @@ const storeData = {
         usersList(state, data) {
             state.users = data;
         }
+        // addUser(state, data) {
+        //     state.users.push(user);
+        // }
     },
     actions: {
         usersList(context) {
@@ -29,7 +32,14 @@ const storeData = {
                 });
         },
         addUser(context, user) {
-            axios.post("api/post", user).then(response => {});
+            axios
+                .post("api/user", user)
+                .then(() => {
+                    context.dispatch("usersList");
+                })
+                .catch(error => {
+                    console.log(`ERROR! ${error}`);
+                });
         }
     }
 };

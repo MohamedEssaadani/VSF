@@ -15,8 +15,10 @@ class UserController extends Controller
      */
     public function index()
     {
+        //get latest users (users order by created_date) and paginate them by 10
         $users = User::latest()->paginate(10);
 
+        //return json response which is the user object
         return response()->json($users);
     }
 
@@ -28,7 +30,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate request data
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
+            'userType' => 'required|string'
+        ]);
+
+        //create new user and set values
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = $request->input('password');
+        $user->userType = $request->input('userType');
+
+        //save to db
+        $user->save();
+
+        //return json response which is the new user
+        return response()->json($user);
     }
 
     /**
