@@ -81,7 +81,7 @@ import CreateUser from "./Create-User";
 
 export default {
     components: {
-        "create-user": CreateUser,
+        "create-user": CreateUser
     },
     mounted() {
         this.$store.dispatch("usersList");
@@ -92,24 +92,24 @@ export default {
                 message: `Vous êtes sure?`,
                 button: {
                     no: "Non",
-                    yes: "Oui",
+                    yes: "Oui"
                 },
                 /**
                  * Callback Function
                  * @param {Boolean} confirm
                  */
-                callback: (confirm) => {
+                callback: confirm => {
                     if (confirm) {
                         this.$store.dispatch("deleteUser", user);
                     }
-                },
+                }
             });
-        },
+        }
     },
     computed: {
         getUsers() {
             return this.$store.getters.getUsers;
-        },
-    },
+        }
+    }
 };
 </script>
