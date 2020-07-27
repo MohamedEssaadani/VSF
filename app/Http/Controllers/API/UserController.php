@@ -35,7 +35,7 @@ class UserController extends Controller
             'name' => 'required|string',
             'email' => 'required|email',
             'password' => 'required|string|min:8',
-            'userType' => 'required|string'
+            'userType' => 'required|string|in:user,admin'
         ]);
 
         //create new user and set values

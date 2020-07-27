@@ -45,6 +45,10 @@
                                     }"
                                     required
                                 />
+                                <has-error
+                                    :form="form"
+                                    field="name"
+                                ></has-error>
                             </div>
                         </div>
 
@@ -64,10 +68,14 @@
                                     v-model="form.email"
                                     class="form-control"
                                     :class="{
-                                        'is-invalid': form.errors.has('name'),
+                                        'is-invalid': form.errors.has('email'),
                                     }"
                                     required
                                 />
+                                <has-error
+                                    :form="form"
+                                    field="email"
+                                ></has-error>
                             </div>
                         </div>
 
@@ -93,6 +101,10 @@
                                     }"
                                     required
                                 />
+                                <has-error
+                                    :form="form"
+                                    field="password"
+                                ></has-error>
                             </div>
                         </div>
 
@@ -109,14 +121,20 @@
                                 <select
                                     class="form-control"
                                     v-model="form.userType"
-                                    name="type"
+                                    name="userType"
                                     :class="{
-                                        'is-invalid': form.errors.has('type'),
+                                        'is-invalid': form.errors.has(
+                                            'userType'
+                                        ),
                                     }"
                                 >
                                     <option value="admin">admin</option>
                                     <option value="user">user</option>
                                 </select>
+                                <has-error
+                                    :form="form"
+                                    field="userType"
+                                ></has-error>
                             </div>
                         </div>
                     </div>
@@ -160,13 +178,26 @@ export default {
     },
     methods: {
         add() {
+            this.form
+                .post("api/user")
+                .then(() => {
+                    this.$store.dispatch("usersList").then(() => {
+                        // clear data
+                        this.clear();
+                        // close modal
+                        this.closeModal();
+                    });
+                })
+                .catch((error) => {
+                    console.log(`ERROR : ${error}`);
+                });
             //dispatch addUser action
-            this.$store.dispatch("addUser", this.form).then(() => {
-                //clear data
-                this.clear();
-                //close modal
-                this.closeModal();
-            });
+            // this.$store.dispatch("addUser", this.form).then(() => {
+            //     //clear data
+            //     this.clear();
+            //     //close modal
+            //     this.closeModal();
+            // });
         },
         closeModal() {
             $("#createUserModal").modal("hide");
