@@ -15,10 +15,11 @@ const storeData = {
     mutations: {
         usersList(state, data) {
             state.users = data;
+        },
+        deleteUser(state, user) {
+            let index = state.users.indexOf(user);
+            state.users.splice(index, 1);
         }
-        // addUser(state, data) {
-        //     state.users.push(user);
-        // }
     },
     actions: {
         usersList(context) {
@@ -36,6 +37,16 @@ const storeData = {
                 .post("api/user", user)
                 .then(() => {
                     context.dispatch("usersList");
+                })
+                .catch(error => {
+                    console.log(`ERROR! ${error}`);
+                });
+        },
+        deleteUser(context, user) {
+            axios
+                .delete(`api/user/${user.id}`)
+                .then(() => {
+                    context.commit("deleteUser", user);
                 })
                 .catch(error => {
                     console.log(`ERROR! ${error}`);
