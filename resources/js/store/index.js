@@ -27,6 +27,9 @@ const storeData = {
                 .catch(error => {
                     console.log(`ERROR! ${error}`);
                 });
+        },
+        addUser(context, user) {
+            axios.post("api/post", user).then(response => {});
         }
     }
 };

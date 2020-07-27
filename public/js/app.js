@@ -56069,6 +56069,9 @@ var storeData = {
       })["catch"](function (error) {
         console.log("ERROR! ".concat(error));
       });
+    },
+    addUser: function addUser(context, user) {
+      axios.post("api/post", user).then(function (response) {});
     }
   }
 };
