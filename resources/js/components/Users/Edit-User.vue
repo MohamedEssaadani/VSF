@@ -80,35 +80,6 @@
                         </div>
 
                         <label class="col-sm-4 col-lg-4 col-form-label"
-                            >Nouveau Mot de passe</label
-                        >
-                        <div class="col-sm-8 col-lg-8">
-                            <div class="input-group">
-                                <span class="input-group-prepend">
-                                    <label class="input-group-text">
-                                        <i class="ik ik-terminal"></i>
-                                    </label>
-                                </span>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    v-model="user.password"
-                                    class="form-control"
-                                    :class="{
-                                        'is-invalid': form.errors.has(
-                                            'password'
-                                        )
-                                    }"
-                                    required
-                                />
-                                <has-error
-                                    :form="form"
-                                    field="password"
-                                ></has-error>
-                            </div>
-                        </div>
-
-                        <label class="col-sm-4 col-lg-4 col-form-label"
                             >Type D'utilisateur</label
                         >
                         <div class="col-sm-8 col-lg-8">
@@ -149,7 +120,7 @@
                     </button>
 
                     <button
-                        @click="add"
+                        @click="edit"
                         class="btn btn-success"
                         style="float: right;"
                     >
@@ -171,7 +142,6 @@ export default {
             form: new Form({
                 name: "",
                 email: "",
-                password: "",
                 userType: ""
             })
         };
@@ -182,13 +152,15 @@ export default {
             required: true
         }
     },
-    mounted() {
-        console.log(this.user);
-    },
+   
     methods: {
-        add() {
+        edit() {
+            this.form.name= this.user.name; 
+            this.form.email = this.user.email;
+            this.form.userType = this.user.userType;
+            console.log(this.user);
             this.form
-                .post("api/user")
+                .put(`api/user/${this.user.id}`)
                 .then(() => {
                     this.$store.dispatch("usersList").then(() => {
                         // clear data
@@ -200,23 +172,16 @@ export default {
                 .catch(error => {
                     console.log(`ERROR : ${error}`);
                 });
-            //dispatch addUser action
-            // this.$store.dispatch("addUser", this.form).then(() => {
-            //     //clear data
-            //     this.clear();
-            //     //close modal
-            //     this.closeModal();
-            // });
+    
         },
         closeModal() {
-            $("#createUserModal").modal("hide");
+            $("#editUserModal").modal("hide");
             $(".modal-backdrop").remove();
         },
         clear() {
             this.form.name = "";
             this.form.email = "";
             this.form.userType = "";
-            this.form.password = "";
         }
     }
 };

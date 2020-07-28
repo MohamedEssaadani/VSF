@@ -79,7 +79,7 @@
         <!--Confirm dialog -->
         <vue-confirm-dialog></vue-confirm-dialog>
         <!---Edit modal-->
-        <edit-user :user="user"></edit-user>
+        <edit-user v-if="isEdit" :user="user"></edit-user>
     </div>
 </template>
 
@@ -90,6 +90,7 @@ export default {
     data() {
         return {
             user: null,
+            isEdit : false
         };
     },
     components: {
@@ -119,6 +120,7 @@ export default {
             });
         },
         edit(user) {
+            this.isEdit = true;
             this.user = user;
         },
     },
