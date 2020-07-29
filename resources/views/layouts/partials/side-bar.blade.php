@@ -19,12 +19,12 @@
                     <router-link :to="{ name: 'Dashboard'}" ><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></router-link>
                 </div>
                 <div class="nav-item">
-                    <a href="#"><i class="ik ik-user"></i><span>Clients</span> <span
-                            class="badge badge-success">33+</span></a>
+                    <router-link :to="{ name:'Customers.all' }"><i class="ik ik-user"></i><span>Clients</span> <span
+                            class="badge badge-success">33+</span></router-link>
                 </div>
                 <div class="nav-item">
-                    <a href=""><i class="ik ik-layers"></i><span>Visites</span> <span
-                            class="badge badge-danger">120+</span></a>
+                    <router-link :to="{ name:'Visits.all' }"><i class="ik ik-layers"></i><span>Visites</span> <span
+                            class="badge badge-danger">120+</span></router-link>
                 </div>
                 <div class="nav-item">
                     <router-link :to="{name:'Users.all'}"><i class="ik ik-user"></i><span>Utilisateurs</span> <span
