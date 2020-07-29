@@ -8,11 +8,16 @@ const storeData = {
         users: []
     },
     getters: {
+        //users
         getUsers(state) {
             return state.users;
+        },
+        getUser: state => id => {
+            return state.users.find(user => user.id === id);
         }
     },
     mutations: {
+        //users
         usersList(state, data) {
             state.users = data;
         },
@@ -22,6 +27,7 @@ const storeData = {
         }
     },
     actions: {
+        //users
         usersList(context) {
             axios
                 .get("api/user")

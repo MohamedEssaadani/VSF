@@ -21,6 +21,9 @@ import VueConfirmDialog from "vue-confirm-dialog";
 Vue.use(VueConfirmDialog);
 Vue.component("vue-confirm-dialog", VueConfirmDialog.default);
 
+//moment for dates
+Vue.use(require("vue-moment"));
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -31,8 +34,6 @@ Vue.component("vue-confirm-dialog", VueConfirmDialog.default);
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -35,7 +35,7 @@ class UserController extends Controller
             'name' => 'required|string',
             'email' => 'required|email',
             'password' => 'required|string|min:8',
-            'userType' => 'required|string|in:user,admin'
+            'userType' => 'required|string|in:utilisateur,administrateur'
         ]);
 
         //create new user and set values
@@ -76,7 +76,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
-            'userType' => 'required|string|in:user,admin'
+            'userType' => 'required|string|in:utilisateur,administrateur'
         ]);
         
         //find user with id
