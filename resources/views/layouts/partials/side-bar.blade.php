@@ -1,6 +1,6 @@
 <div class="app-sidebar colored">
     <div class="sidebar-header">
-        <a class="header-brand" href="index.html">
+        <a class="header-brand" >
             <div class="logo-img">
                 <!--LOGO-->
             </div>

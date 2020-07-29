@@ -1924,9 +1924,105 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log("Dashboard Component mounted.");
+    this.$store.dispatch("usersList");
+  },
+  computed: {
+    getUsers: function getUsers() {
+      var _this = this;
+
+      var users = undefined; //if user type something for filtering
+
+      if (this.query !== "") {
+        //filter data
+        users = this.$store.getters.getUsers.filter(function (user) {
+          return JSON.stringify(user).toLowerCase().indexOf(_this.query.toLowerCase()) !== -1;
+        });
+        console.log(users);
+      } //else get all data without filtering
+      else users = this.$store.getters.getUsers;
+
+      return users;
+    }
   }
 });
 
@@ -2421,6 +2517,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Create_User__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Create-User */ "./resources/js/components/Users/Create-User.vue");
 /* harmony import */ var _Edit_User__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Edit-User */ "./resources/js/components/Users/Edit-User.vue");
 /* harmony import */ var _Show_User__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Show-User */ "./resources/js/components/Users/Show-User.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -40032,27 +40144,158 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header d-block" }, [
+          _c("h3", { staticStyle: { float: "left" } }, [
+            _vm._v("Utilisateurs")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row", staticStyle: { float: "right" } }, [
+            _c("div", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.query,
+                    expression: "query"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "rechercher" },
+                domProps: { value: _vm.query },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.query = $event.target.value
+                  }
+                }
+              })
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body p-0 table-border-style" }, [
+          _c("div", { staticClass: "table-responsive" }, [
+            _c("table", { staticClass: "table" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.getUsers, function(user) {
+                  return _c("tr", { key: user.id }, [
+                    _c("th", { attrs: { scope: "row" } }, [
+                      _vm._v(_vm._s(user.id))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(user.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(user.email))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(user.userType))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("div", { staticClass: "table-actions" }, [
+                        _c(
+                          "a",
+                          {
+                            staticStyle: { cursor: "pointer" },
+                            attrs: {
+                              "data-toggle": "modal",
+                              "data-target": "#showUserModal"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.show(user)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "ik ik-eye text-blue" })]
+                        ),
+                        _vm._v(
+                          "\n                                        /\n                                        "
+                        ),
+                        _c(
+                          "a",
+                          {
+                            staticStyle: { cursor: "pointer" },
+                            attrs: {
+                              "data-toggle": "modal",
+                              "data-target": "#editUserModal"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.edit(user)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "ik ik-edit-2 text-green" })]
+                        ),
+                        _vm._v(
+                          "\n                                        /\n                                        "
+                        ),
+                        _c(
+                          "a",
+                          {
+                            staticStyle: { cursor: "pointer" },
+                            on: {
+                              click: function($event) {
+                                return _vm.remove(user)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "ik ik-trash-2 text-red" })]
+                        )
+                      ])
+                    ])
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Customers List")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nom")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("E-mail")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Type D'utilisateur")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "nosort" }, [
+          _c(
+            "a",
+            {
+              staticClass: "text-green",
+              staticStyle: { float: "right", cursor: "pointer" },
+              attrs: {
+                "data-toggle": "modal",
+                "data-target": "#createUserModal"
+              }
+            },
+            [
+              _c("i", { staticClass: "ik ik-plus-circle text-green" }),
               _vm._v(
-                "\n                    This is customers list component.\n                "
+                "\n                                        Nouveau\n                                    "
               )
-            ])
-          ])
+            ]
+          )
         ])
       ])
     ])
@@ -40948,7 +41191,7 @@ var render = function() {
                             [_c("i", { staticClass: "ik ik-eye text-blue" })]
                           ),
                           _vm._v(
-                            "\n                    /\n                    "
+                            "\n                                        /\n                                        "
                           ),
                           _c(
                             "a",
@@ -40971,7 +41214,7 @@ var render = function() {
                             ]
                           ),
                           _vm._v(
-                            "\n                    /\n                    "
+                            "\n                                        /\n                                        "
                           ),
                           _c(
                             "a",
@@ -41036,7 +41279,9 @@ var staticRenderFns = [
             },
             [
               _c("i", { staticClass: "ik ik-plus-circle text-green" }),
-              _vm._v("\n                    Nouveau\n                  ")
+              _vm._v(
+                "\n                                        Nouveau\n                                    "
+              )
             ]
           )
         ])
