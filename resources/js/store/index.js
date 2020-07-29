@@ -5,16 +5,23 @@ Vue.use(Vuex);
 
 const storeData = {
     state: {
-        users: []
+        users: [],
+        customers: [],
+        visits: []
     },
     getters: {
         //users
-        getUsers(state) {
-            return state.users;
-        },
+        getUsers: state => state.users,
         getUser: state => id => {
             return state.users.find(user => user.id === id);
-        }
+        },
+        //customers
+        getCustomers: state => state.customers,
+        getCustomer: state => id => {
+            return state.customers.find(customer => customer.id == id);
+        },
+        //visits
+        getVisits: state => state.visits
     },
     mutations: {
         //users
@@ -24,6 +31,13 @@ const storeData = {
         deleteUser(state, user) {
             let index = state.users.indexOf(user);
             state.users.splice(index, 1);
+        },
+        //customers
+        customersList(state, data) {
+            state.customers = data;
+        },
+        visits(state, data) {
+            state.visits = data;
         }
     },
     actions: {
@@ -56,6 +70,28 @@ const storeData = {
                 })
                 .catch(error => {
                     console.log(`ERROR! ${error}`);
+                });
+        },
+        //customers
+        customersList(context) {
+            axios
+                .get("api/customer")
+                .then(response => {
+                    context.commit("customersList", response.data.data);
+                })
+                .catch(error => {
+                    console.log(`ERROR! ${error}`);
+                });
+        },
+        //visits
+        visits(context) {
+            axios
+                .get("api/visit")
+                .then(res => {
+                    context.commit("visits", res.data);
+                })
+                .catch(err => {
+                    console.log(`Error! ${err}`);
                 });
         }
     }

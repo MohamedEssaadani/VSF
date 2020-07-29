@@ -13,6 +13,7 @@ class CreateCustomersTable extends Migration
      */
     public function up()
     {
+        //still need date for this table
         Schema::create('customers', function (Blueprint $table) {
             $table->string('matricule');
             $table->bigInteger('visite_type')->unsigned();

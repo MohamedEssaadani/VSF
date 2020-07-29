@@ -3,13 +3,12 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-block">
-                    <h3 style="float:left;">Utilisateurs</h3>
+                    <h3 style="float:left;">Clients</h3>
                     <div class="row" style="float:right;">
                         <div>
                             <input
                                 type="text"
                                 placeholder="rechercher"
-                                v-model="query"
                                 class="form-control"
                             />
                         </div>
@@ -20,14 +19,15 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Nom</th>
-                                    <th>E-mail</th>
-                                    <th>Type D'utilisateur</th>
+                                    <th># Matricule</th>
+                                    <th>Nom & Prénom</th>
+                                    <th>Téléphone</th>
+                                    <th>Visite</th>
+                                    <th>Marque</th>
                                     <th class="nosort">
                                         <a
                                             data-toggle="modal"
-                                            data-target="#createUserModal"
+                                            data-target="#createCustomerModal"
                                             class="text-green"
                                             style="
                                                 float: right;
@@ -43,39 +43,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="user in getUsers" :key="user.id">
-                                    <th scope="row">{{ user.id }}</th>
-                                    <td>{{ user.name }}</td>
-                                    <td>{{ user.email }}</td>
-                                    <td>{{ user.userType }}</td>
+                                <tr
+                                    v-for="customer in getCustomers"
+                                    :key="customer.matricule"
+                                >
+                                    <th scope="row">
+                                        {{ customer.matricule }}
+                                    </th>
+                                    <td>{{ customer.full_name }}</td>
+                                    <td>{{ customer.phone }}</td>
+                                    <td>{{ customer.visite_type }}</td>
+                                    <td>{{ customer.car_brand }}</td>
                                     <td>
                                         <div class="table-actions">
-                                            <a
-                                                style="cursor: pointer;"
-                                                data-toggle="modal"
-                                                data-target="#showUserModal"
-                                                @click="show(user)"
-                                            >
+                                            <a style="cursor: pointer;">
                                                 <i
                                                     class="ik ik-eye text-blue"
                                                 ></i>
                                             </a>
                                             /
-                                            <a
-                                                style="cursor: pointer;"
-                                                data-toggle="modal"
-                                                data-target="#editUserModal"
-                                                @click="edit(user)"
-                                            >
+                                            <a style="cursor: pointer;">
                                                 <i
                                                     class="ik ik-edit-2 text-green"
                                                 ></i>
                                             </a>
                                             /
-                                            <a
-                                                @click="remove(user)"
-                                                style="cursor: pointer;"
-                                            >
+                                            <a style="cursor: pointer;">
                                                 <i
                                                     class="ik ik-trash-2 text-red"
                                                 ></i>
@@ -89,30 +82,26 @@
                 </div>
             </div>
         </div>
+        <!--Create customer modal-->
+        <create-customer></create-customer>
     </div>
 </template>
 
 <script>
+import CreateCustomer from "./Create-Customer";
+
 export default {
+    components: {
+        "create-customer": CreateCustomer
+    },
     mounted() {
-        this.$store.dispatch("usersList");
+        this.$store.dispatch("customersList");
     },
     computed: {
-        getUsers() {
-            let users = undefined;
-            //if user type something for filtering
-            if (this.query !== "") {
-                //filter data
-                users = this.$store.getters.getUsers.filter(
-                    user =>
-                        JSON.stringify(user)
-                            .toLowerCase()
-                            .indexOf(this.query.toLowerCase()) !== -1
-                );
-                console.log(users);
-            } //else get all data without filtering
-            else users = this.$store.getters.getUsers;
-            return users;
+        getCustomers() {
+            let customers = this.$store.getters.getCustomers;
+
+            return customers;
         }
     }
 };

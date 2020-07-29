@@ -2,17 +2,17 @@
     <!-- Modal -->
     <div
         class="modal fade"
-        id="editUserModal"
+        id="createCustomerModal"
         tabindex="-1"
         role="dialog"
-        aria-labelledby="editUserModalLabel"
+        aria-labelledby="createCustomerModalLabel"
         aria-hidden="true"
     >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editUserModalLabel">
-                        Modifier Utilisateur
+                    <h5 class="modal-title" id="createCustomerModalLabel">
+                        Nouveau Utilisateur
                     </h5>
                     <button
                         type="button"
@@ -26,6 +26,33 @@
                 <div class="modal-body">
                     <div class="row">
                         <label class="col-sm-4 col-lg-4 col-form-label"
+                            >Matricule</label
+                        >
+                        <div class="col-sm-8 col-lg-8">
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <label class="input-group-text">
+                                        <i class="ik ik-terminal"></i>
+                                    </label>
+                                </span>
+                                <input
+                                    type="text"
+                                    v-model="form.matricule"
+                                    class="form-control"
+                                    :class="{
+                                        'is-invalid': form.errors.has(
+                                            'matricule'
+                                        )
+                                    }"
+                                />
+                                <has-error
+                                    :form="form"
+                                    field="matricule"
+                                ></has-error>
+                            </div>
+                        </div>
+
+                        <label class="col-sm-4 col-lg-4 col-form-label"
                             >Nom & Prénom</label
                         >
                         <div class="col-sm-8 col-lg-8">
@@ -37,23 +64,23 @@
                                 </span>
                                 <input
                                     type="text"
-                                    name="name"
-                                    v-model="user.name"
+                                    v-model="form.full_name"
                                     class="form-control"
                                     :class="{
-                                        'is-invalid': form.errors.has('name')
+                                        'is-invalid': form.errors.has(
+                                            'full_name'
+                                        )
                                     }"
-                                    required
                                 />
                                 <has-error
                                     :form="form"
-                                    field="name"
+                                    field="full_name"
                                 ></has-error>
                             </div>
                         </div>
 
                         <label class="col-sm-4 col-lg-4 col-form-label"
-                            >Email</label
+                            >Téléphone</label
                         >
                         <div class="col-sm-8 col-lg-8">
                             <div class="input-group">
@@ -64,23 +91,58 @@
                                 </span>
                                 <input
                                     type="text"
-                                    name="email"
-                                    v-model="user.email"
+                                    v-model="form.phone"
                                     class="form-control"
                                     :class="{
-                                        'is-invalid': form.errors.has('email')
+                                        'is-invalid': form.errors.has('phone')
                                     }"
                                     required
                                 />
                                 <has-error
                                     :form="form"
-                                    field="email"
+                                    field="phone"
                                 ></has-error>
                             </div>
                         </div>
 
                         <label class="col-sm-4 col-lg-4 col-form-label"
-                            >Type D'utilisateur</label
+                            >Visite</label
+                        >
+                        <div class="col-sm-8 col-lg-8">
+                            <div class="input-group">
+                                <span class="input-group-prepend">
+                                    <label class="input-group-text">
+                                        <i class="ik ik-terminal"></i>
+                                    </label>
+                                </span>
+
+                                <select
+                                    class="form-control"
+                                    v-model="form.visite_type"
+                                    :class="{
+                                        'is-invalid': form.errors.has(
+                                            'visite_type'
+                                        )
+                                    }"
+                                >
+                                    <option
+                                        v-for="visit in getVisits"
+                                        :key="visit.id"
+                                        :value="visit.id"
+                                        >{{ visit.type }}</option
+                                    >
+
+                                    >
+                                </select>
+                                <has-error
+                                    :form="form"
+                                    field="visite"
+                                ></has-error>
+                            </div>
+                        </div>
+
+                        <label class="col-sm-4 col-lg-4 col-form-label"
+                            >Marque</label
                         >
                         <div class="col-sm-8 col-lg-8">
                             <div class="input-group">
@@ -89,24 +151,18 @@
                                         <i class="ik ik-user"></i>
                                     </label>
                                 </span>
-                                <select
+                                <input
                                     class="form-control"
-                                    v-model="user.userType"
-                                    name="userType"
+                                    v-model="form.car_brand"
                                     :class="{
                                         'is-invalid': form.errors.has(
-                                            'userType'
+                                            'car_brand'
                                         )
                                     }"
-                                >
-                                    <option value="administrateur"
-                                        >administrateur</option
-                                    >
-                                    <option value="utilisateur">user</option>
-                                </select>
+                                />
                                 <has-error
                                     :form="form"
-                                    field="userType"
+                                    field="car_brand"
                                 ></has-error>
                             </div>
                         </div>
@@ -116,14 +172,13 @@
                     <button
                         type="button"
                         class="btn btn-danger"
-                        @click="refresh"
                         data-dismiss="modal"
                     >
                         &times; Annuler
                     </button>
 
                     <button
-                        @click="edit"
+                        @click="add"
                         class="btn btn-success"
                         style="float: right;"
                     >
@@ -143,54 +198,48 @@ export default {
     data() {
         return {
             form: new Form({
-                name: "",
-                email: "",
-                userType: ""
+                matricule: "",
+                full_name: "",
+                phone: "",
+                visite_type: undefined,
+                car_brand: ""
             })
         };
     },
-    props: {
-        user: {
-            type: Object,
-            required: true
+    mounted() {
+        this.$store.dispatch("visits");
+    },
+    computed: {
+        getVisits() {
+            return this.$store.getters.getVisits;
         }
     },
-
     methods: {
-        edit() {
-            this.form.name = this.user.name;
-            this.form.email = this.user.email;
-            this.form.userType = this.user.userType;
-            console.log(this.user);
+        add() {
             this.form
-                .put(`api/user/${this.user.id}`)
+                .post("api/customer")
                 .then(() => {
-                    this.$store.dispatch("usersList").then(() => {
+                    this.$store.dispatch("customersList").then(() => {
                         // clear data
                         this.clear();
                         // close modal
                         this.closeModal();
                     });
                 })
-                .catch(error => {
-                    console.log(`ERROR : ${error}`);
+                .catch(err => {
+                    console.log(`ERROR! ${err}`);
                 });
         },
         closeModal() {
-            $("#editUserModal").modal("hide");
+            $("#createCustomerModal").modal("hide");
             $(".modal-backdrop").remove();
         },
         clear() {
-            this.form.name = "";
-            this.form.email = "";
-            this.form.userType = "";
-        },
-        /*v-model change data of user of the parent component in realtime
-    if we clicked annuler then this button will close the modal but changement not canceled
-    (changements are in the user object not in our source data) So we fire this method to reload the html table
-    if user do not change anything*/
-        refresh() {
-            this.$store.dispatch("usersList");
+            this.form.matricule = "";
+            this.form.full_name = "";
+            this.form.phone = "";
+            this.form.visite_type = undefined;
+            this.form.car_brand = "";
         }
     }
 };
