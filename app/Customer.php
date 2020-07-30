@@ -6,10 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    protected $primaryKey = 'matricule';
+    // protected $primaryKey = 'matricule';
 
-    public $incrementing = false;
+    // public $incrementing = false;
 
-    protected $keyType = 'string';
+    // protected $keyType = 'string';
 
+    public function visits()
+    {
+
+        return $this->hasMany('App\Visite');
+    }
 }

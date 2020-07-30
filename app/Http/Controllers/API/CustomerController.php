@@ -27,16 +27,26 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        // $data = $request->validate([
-        //     'matricule' => 'required|string',
-        //     'full_name' => 'required|string',
-        //     //moroccan number ex : 0655669966 or +212696966555
-        //     'phone' => 'required|string|min:10,max:13',
-        //     'visite_type' => 
-        // ]);
-
+    {   
+        //validate attributes
+        $request->validate([
+            'matricule' => 'required|string',
+            'full_name' => 'required|string',
+            //moroccan number ex : 0655669966 or +212696966555
+            'phone' => 'required|string|min:10|max:12',
+            'car_brand' => 'required|string'
+        ]);
         
+        //create new customer
+        $customer = new Customer();
+        $customer->matricule = $request->matricule;
+        $customer->full_name= $request->full_name;
+        $customer->phone = $request->phone;
+        $customer->car_brand = $request->car_brand;
+
+        //save to db
+        $customer->save();
+
         return response(201);
     }
 

@@ -2058,51 +2058,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2111,14 +2066,13 @@ __webpack_require__.r(__webpack_exports__);
         matricule: "",
         full_name: "",
         phone: "",
-        visite_type: undefined,
         car_brand: ""
       })
     };
   },
-  mounted: function mounted() {
-    this.$store.dispatch("visits");
-  },
+  // mounted() {
+  //     this.$store.dispatch("visits");
+  // },
   computed: {
     getVisits: function getVisits() {
       return this.$store.getters.getVisits;
@@ -2128,6 +2082,7 @@ __webpack_require__.r(__webpack_exports__);
     add: function add() {
       var _this = this;
 
+      this.form.phone = this.form.phone.toString();
       this.form.post("api/customer").then(function () {
         _this.$store.dispatch("customersList").then(function () {
           // clear data
@@ -2166,25 +2121,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Create_Customer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Create-Customer */ "./resources/js/components/Customers/Create-Customer.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -40591,7 +40527,7 @@ var render = function() {
                       class: {
                         "is-invalid": _vm.form.errors.has("phone")
                       },
-                      attrs: { type: "text", required: "" },
+                      attrs: { type: "number", required: "" },
                       domProps: { value: _vm.form.phone },
                       on: {
                         input: function($event) {
@@ -40612,75 +40548,6 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("label", { staticClass: "col-sm-4 col-lg-4 col-form-label" }, [
-                _vm._v("Visite")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-8 col-lg-8" }, [
-                _c(
-                  "div",
-                  { staticClass: "input-group" },
-                  [
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.visite_type,
-                            expression: "form.visite_type"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        class: {
-                          "is-invalid": _vm.form.errors.has("visite_type")
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.form,
-                              "visite_type",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _vm._l(_vm.getVisits, function(visit) {
-                          return _c(
-                            "option",
-                            { key: visit.id, domProps: { value: visit.id } },
-                            [_vm._v(_vm._s(visit.type))]
-                          )
-                        }),
-                        _vm._v(
-                          "\n\n                                >\n                            "
-                        )
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c("has-error", {
-                      attrs: { form: _vm.form, field: "visite" }
-                    })
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "col-sm-4 col-lg-4 col-form-label" }, [
                 _vm._v("Marque")
               ]),
               _vm._v(" "),
@@ -40689,7 +40556,7 @@ var render = function() {
                   "div",
                   { staticClass: "input-group" },
                   [
-                    _vm._m(5),
+                    _vm._m(4),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -40732,7 +40599,7 @@ var render = function() {
                 staticClass: "btn btn-danger",
                 attrs: { type: "button", "data-dismiss": "modal" }
               },
-              [_vm._v("\n                    × Annuler\n                ")]
+              [_vm._v("× Annuler")]
             ),
             _vm._v(" "),
             _c(
@@ -40744,7 +40611,7 @@ var render = function() {
               },
               [
                 _c("i", { staticClass: "ik ik-save" }),
-                _vm._v("\n                    Enregistrer\n                ")
+                _vm._v("\n          Enregistrer\n        ")
               ]
             )
           ])
@@ -40765,7 +40632,7 @@ var staticRenderFns = [
           staticClass: "modal-title",
           attrs: { id: "createCustomerModalLabel" }
         },
-        [_vm._v("\n                    Nouveau Utilisateur\n                ")]
+        [_vm._v("Nouveau Client")]
       ),
       _vm._v(" "),
       _c(
@@ -40809,16 +40676,6 @@ var staticRenderFns = [
     return _c("span", { staticClass: "input-group-prepend" }, [
       _c("label", { staticClass: "input-group-text" }, [
         _c("i", { staticClass: "ik ik-at-sign" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "input-group-prepend" }, [
-      _c("label", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "ik ik-terminal" })
       ])
     ])
   },
@@ -40872,18 +40729,12 @@ var render = function() {
                   _vm._l(_vm.getCustomers, function(customer) {
                     return _c("tr", { key: customer.matricule }, [
                       _c("th", { attrs: { scope: "row" } }, [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(customer.matricule) +
-                            "\n                                "
-                        )
+                        _vm._v(_vm._s(customer.matricule))
                       ]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(customer.full_name))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(customer.phone))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(customer.visite_type))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(customer.car_brand))]),
                       _vm._v(" "),
@@ -40933,8 +40784,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Téléphone")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Visite")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Marque")]),
         _vm._v(" "),
         _c("th", { staticClass: "nosort" }, [
@@ -40950,9 +40799,7 @@ var staticRenderFns = [
             },
             [
               _c("i", { staticClass: "ik ik-plus-circle text-green" }),
-              _vm._v(
-                "\n                                        Nouveau\n                                    "
-              )
+              _vm._v("\n                    Nouveau\n                  ")
             ]
           )
         ])
@@ -40968,15 +40815,11 @@ var staticRenderFns = [
         _c("a", { staticStyle: { cursor: "pointer" } }, [
           _c("i", { staticClass: "ik ik-eye text-blue" })
         ]),
-        _vm._v(
-          "\n                                        /\n                                        "
-        ),
+        _vm._v("\n                    /\n                    "),
         _c("a", { staticStyle: { cursor: "pointer" } }, [
           _c("i", { staticClass: "ik ik-edit-2 text-green" })
         ]),
-        _vm._v(
-          "\n                                        /\n                                        "
-        ),
+        _vm._v("\n                    /\n                    "),
         _c("a", { staticStyle: { cursor: "pointer" } }, [
           _c("i", { staticClass: "ik ik-trash-2 text-red" })
         ])
