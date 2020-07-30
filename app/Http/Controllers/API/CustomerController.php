@@ -79,8 +79,11 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($matricule)
     {
-        //
+        //get the customer who have $matricule then delete it
+        Customer::where("matricule", $matricule)->delete();
+
+        return response(201);
     }
 }

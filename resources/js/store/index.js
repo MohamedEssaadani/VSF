@@ -20,6 +20,7 @@ const storeData = {
         getCustomer: state => id => {
             return state.customers.find(customer => customer.id == id);
         },
+        getCustomersNumber: (state, getters) => getters.getCustomers.length,
         //visits
         getVisits: state => state.visits
     },
@@ -38,6 +39,10 @@ const storeData = {
         },
         visits(state, data) {
             state.visits = data;
+        },
+        deleteCustomer(state, customer) {
+            let index = state.customers.indexOf(customer);
+            state.customers.splice(index, 1);
         }
     },
     actions: {
@@ -92,6 +97,16 @@ const storeData = {
                 })
                 .catch(err => {
                     console.log(`Error! ${err}`);
+                });
+        },
+        deleteCustomer(context, customer) {
+            axios
+                .delete(`api/customer/${customer.matricule}`)
+                .then(() => {
+                    context.commit("deleteCustomer", customer);
+                })
+                .catch(error => {
+                    console.log(`ERROR! ${error}`);
                 });
         }
     }

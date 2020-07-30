@@ -2,16 +2,16 @@
   <!-- Modal -->
   <div
     class="modal fade"
-    id="createCustomerModal"
+    id="editCustomerModal"
     tabindex="-1"
     role="dialog"
-    aria-labelledby="createCustomerModalLabel"
+    aria-labelledby="editCustomerModalLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="createCustomerModalLabel">Nouveau Client</h5>
+          <h5 class="modal-title" id="editCustomerModalLabel">Modifier Client</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -28,7 +28,7 @@
                 </span>
                 <input
                   type="text"
-                  v-model="form.matricule"
+                  v-model="customer.matricule"
                   class="form-control"
                   :class="{
                            'is-invalid': form.errors.has('matricule')
@@ -48,7 +48,7 @@
                 </span>
                 <input
                   type="text"
-                  v-model="form.full_name"
+                  v-model="customer.full_name"
                   class="form-control"
                   :class="{
                            'is-invalid': form.errors.has('full_name')
@@ -68,7 +68,7 @@
                 </span>
                 <input
                   type="number"
-                  v-model="form.phone"
+                  v-model="customer.phone"
                   class="form-control"
                   :class="{
                           'is-invalid': form.errors.has('phone')
@@ -117,7 +117,7 @@
                 </span>
                 <input
                   class="form-control"
-                  v-model="form.car_brand"
+                  v-model="customer.car_brand"
                   :class="{
                             'is-invalid': form.errors.has('car_brand')
                           }"
@@ -130,7 +130,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">&times; Annuler</button>
 
-          <button @click="add" class="btn btn-success" style="float: right;">
+          <button class="btn btn-success" style="float: right;">
             <i class="ik ik-save"></i>
             Enregistrer
           </button>
@@ -139,6 +139,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import { Form } from "vform";
@@ -154,42 +155,49 @@ export default {
       }),
     };
   },
-  // mounted() {
-  //     this.$store.dispatch("visits");
-  // },
-  computed: {
-    getVisits() {
-      return this.$store.getters.getVisits;
+  props: {
+    customer: {
+      type: Object,
+      required: true,
     },
   },
-  methods: {
-    add() {
-      this.form.phone = this.form.phone.toString();
-      this.form
-        .post("api/customer")
-        .then(() => {
-          this.$store.dispatch("customersList").then(() => {
-            // clear data
-            this.clear();
-            // close modal
-            this.closeModal();
-          });
-        })
-        .catch((err) => {
-          console.log(`ERROR! ${err}`);
-        });
-    },
-    closeModal() {
-      $("#createCustomerModal").modal("hide");
-      $(".modal-backdrop").remove();
-    },
-    clear() {
-      this.form.matricule = "";
-      this.form.full_name = "";
-      this.form.phone = "";
-      this.form.visite_type = undefined;
-      this.form.car_brand = "";
-    },
-  },
+
+  //   methods: {
+  //     edit() {
+  //       this.form.name = this.user.name;
+  //       this.form.email = this.user.email;
+  //       this.form.userType = this.user.userType;
+  //       console.log(this.user);
+  //       this.form
+  //         .put(`api/user/${this.user.id}`)
+  //         .then(() => {
+  //           this.$store.dispatch("usersList").then(() => {
+  //             // clear data
+  //             this.clear();
+  //             // close modal
+  //             this.closeModal();
+  //           });
+  //         })
+  //         .catch((error) => {
+  //           console.log(`ERROR : ${error}`);
+  //         });
+  //     },
+  //     closeModal() {
+  //       $("#editUserModal").modal("hide");
+  //       $(".modal-backdrop").remove();
+  //     },
+  //     clear() {
+  //       this.form.name = "";
+  //       this.form.email = "";
+  //       this.form.userType = "";
+  //     },
+  //     /*v-model change data of user of the parent component in realtime
+  //     if we clicked annuler then this button will close the modal but changement not canceled
+  //     (changements are in the user object not in our source data) So we fire this method to reload the html table
+  //     if user do not change anything*/
+  //     refresh() {
+  //       this.$store.dispatch("usersList");
+  //     },
+  //   },
 };
 </script>
