@@ -23,8 +23,8 @@
                             class="badge badge-success">33+</span></router-link>
                 </div>
                 <div class="nav-item">
-                    <router-link :to="{ name:'Visits.all' }"><i class="ik ik-layers"></i><span>Visites</span> <span
-                            class="badge badge-danger">120+</span></router-link>
+                    <router-link :to="{ name:'Visits.all' }"><i class="ik ik-layers"></i><span>Types des Visites</span> <span
+                            class="badge badge-danger">20+</span></router-link>
                 </div>
                 <div class="nav-item">
                     <router-link :to="{name:'Users.all'}"><i class="ik ik-user"></i><span>Utilisateurs</span> <span

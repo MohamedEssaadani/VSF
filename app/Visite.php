@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Visite extends Model
 {
 
+    protected $fillable = ['type', 'price', 'tva', 'narfa', 'kitonse', 'local'];
+    
     public function customers()
     {
 
