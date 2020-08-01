@@ -87,7 +87,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->userType = $request->userType;
 
-        $user->save();
+        $user->update();
 
         return response()->json($user);
     }

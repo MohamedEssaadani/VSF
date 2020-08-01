@@ -2430,6 +2430,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2447,44 +2456,46 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       required: true
     }
-  } //   methods: {
-  //     edit() {
-  //       this.form.name = this.user.name;
-  //       this.form.email = this.user.email;
-  //       this.form.userType = this.user.userType;
-  //       console.log(this.user);
-  //       this.form
-  //         .put(`api/user/${this.user.id}`)
-  //         .then(() => {
-  //           this.$store.dispatch("usersList").then(() => {
-  //             // clear data
-  //             this.clear();
-  //             // close modal
-  //             this.closeModal();
-  //           });
-  //         })
-  //         .catch((error) => {
-  //           console.log(`ERROR : ${error}`);
-  //         });
-  //     },
-  //     closeModal() {
-  //       $("#editUserModal").modal("hide");
-  //       $(".modal-backdrop").remove();
-  //     },
-  //     clear() {
-  //       this.form.name = "";
-  //       this.form.email = "";
-  //       this.form.userType = "";
-  //     },
-  //     /*v-model change data of user of the parent component in realtime
-  //     if we clicked annuler then this button will close the modal but changement not canceled
-  //     (changements are in the user object not in our source data) So we fire this method to reload the html table
-  //     if user do not change anything*/
-  //     refresh() {
-  //       this.$store.dispatch("usersList");
-  //     },
-  //   },
+  },
+  methods: {
+    edit: function edit() {
+      var _this = this;
 
+      this.form.matricule = this.customer.matricule;
+      this.form.full_name = this.customer.full_name;
+      this.form.phone = this.customer.phone;
+      this.form.car_brand = this.customer.car_brand;
+      this.form.put("api/customer/".concat(this.customer.matricule)).then(function () {
+        _this.$store.dispatch("customersList").then(function () {
+          // clear data
+          _this.clear(); // close modal
+
+
+          _this.closeModal();
+        });
+      })["catch"](function (error) {
+        console.log("ERROR : ".concat(error));
+      });
+    },
+    closeModal: function closeModal() {
+      $("#editCustomerModal").modal("hide");
+      $(".modal-backdrop").remove();
+    },
+    clear: function clear() {
+      this.form.matricule = "";
+      this.form.full_name = "";
+      this.form.phone = "";
+      this.form.car_brand = "";
+    },
+
+    /*v-model change data of user of the parent component in realtime
+      if we clicked annuler then this button will close the modal but changement not canceled
+      (changements are in the user object not in our source data) So we fire this method to reload the html table
+      if user do not change anything*/
+    refresh: function refresh() {
+      this.$store.dispatch("customersList");
+    }
+  }
 });
 
 /***/ }),
@@ -2984,7 +2995,6 @@ __webpack_require__.r(__webpack_exports__);
       this.form.name = this.user.name;
       this.form.email = this.user.email;
       this.form.userType = this.user.userType;
-      console.log(this.user);
       this.form.put("api/user/".concat(this.user.id)).then(function () {
         _this.$store.dispatch("usersList").then(function () {
           // clear data
@@ -41259,7 +41269,7 @@ var render = function() {
                       class: {
                         "is-invalid": _vm.form.errors.has("matricule")
                       },
-                      attrs: { type: "text" },
+                      attrs: { type: "text", name: "matricule" },
                       domProps: { value: _vm.customer.matricule },
                       on: {
                         input: function($event) {
@@ -41307,7 +41317,7 @@ var render = function() {
                       class: {
                         "is-invalid": _vm.form.errors.has("full_name")
                       },
-                      attrs: { type: "text" },
+                      attrs: { type: "text", name: "full_name" },
                       domProps: { value: _vm.customer.full_name },
                       on: {
                         input: function($event) {
@@ -41355,7 +41365,7 @@ var render = function() {
                       class: {
                         "is-invalid": _vm.form.errors.has("phone")
                       },
-                      attrs: { type: "number", required: "" },
+                      attrs: { type: "number", name: "phone", required: "" },
                       domProps: { value: _vm.customer.phone },
                       on: {
                         input: function($event) {
@@ -41399,6 +41409,7 @@ var render = function() {
                       class: {
                         "is-invalid": _vm.form.errors.has("car_brand")
                       },
+                      attrs: { name: "car_brand" },
                       domProps: { value: _vm.customer.car_brand },
                       on: {
                         input: function($event) {
@@ -41424,7 +41435,30 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(5)
+          _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger",
+                attrs: { type: "button", "data-dismiss": "modal" },
+                on: { click: _vm.refresh }
+              },
+              [_vm._v("× Annuler")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success",
+                staticStyle: { float: "right" },
+                on: { click: _vm.edit }
+              },
+              [
+                _c("i", { staticClass: "ik ik-save" }),
+                _vm._v("\n          Enregistrer\n        ")
+              ]
+            )
+          ])
         ])
       ])
     ]
@@ -41494,30 +41528,6 @@ var staticRenderFns = [
       _c("label", { staticClass: "input-group-text" }, [
         _c("i", { staticClass: "ik ik-user" })
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("× Annuler")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-success", staticStyle: { float: "right" } },
-        [
-          _c("i", { staticClass: "ik ik-save" }),
-          _vm._v("\n          Enregistrer\n        ")
-        ]
-      )
     ])
   }
 ]

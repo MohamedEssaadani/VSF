@@ -32,8 +32,8 @@ class CustomerController extends Controller
         $request->validate([
             'matricule' => 'required|string',
             'full_name' => 'required|string',
-            //moroccan number ex : 0655669966 or +212696966555
-            'phone' => 'required|string|min:10|max:12',
+            //moroccan number ex : 0655669966 
+            'phone' => 'required|string|size:10',
             'car_brand' => 'required|string'
         ]);
         
@@ -46,6 +46,8 @@ class CustomerController extends Controller
 
         //save to db
         $customer->save();
+
+        //customers_visites table
 
         return response(201);
     }
@@ -68,9 +70,26 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $matricule)
     {
-        //
+       //validate attributes
+       $request->validate([
+        'matricule' => 'required|string',
+        'full_name' => 'required|string',
+        //moroccan number ex : 0655669966 
+        'phone' => 'required|string|size:10',
+        'car_brand' => 'required|string'
+        ]);
+    
+        //get the customer with $matricule & update data with update()
+        $customer = Customer::where("matricule", $matricule)
+                    ->update([
+                        "full_name"=> $request->full_name,
+                        "phone" => $request->phone, 
+                        "car_brand" => $request->car_brand
+                    ]);
+
+        return response(201);
     }
 
     /**
@@ -82,7 +101,8 @@ class CustomerController extends Controller
     public function destroy($matricule)
     {
         //get the customer who have $matricule then delete it
-        Customer::where("matricule", $matricule)->delete();
+        Customer::where("matricule", $matricule)
+                  ->delete();
 
         return response(201);
     }

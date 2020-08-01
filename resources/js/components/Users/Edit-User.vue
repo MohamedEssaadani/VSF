@@ -131,7 +131,6 @@ export default {
       this.form.name = this.user.name;
       this.form.email = this.user.email;
       this.form.userType = this.user.userType;
-      console.log(this.user);
       this.form
         .put(`api/user/${this.user.id}`)
         .then(() => {

@@ -28,6 +28,7 @@
                 </span>
                 <input
                   type="text"
+                  name="matricule"
                   v-model="customer.matricule"
                   class="form-control"
                   :class="{
@@ -48,6 +49,7 @@
                 </span>
                 <input
                   type="text"
+                  name="full_name"
                   v-model="customer.full_name"
                   class="form-control"
                   :class="{
@@ -68,6 +70,7 @@
                 </span>
                 <input
                   type="number"
+                  name="phone"
                   v-model="customer.phone"
                   class="form-control"
                   :class="{
@@ -117,6 +120,7 @@
                 </span>
                 <input
                   class="form-control"
+                  name="car_brand"
                   v-model="customer.car_brand"
                   :class="{
                             'is-invalid': form.errors.has('car_brand')
@@ -128,9 +132,14 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">&times; Annuler</button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            @click="refresh"
+            data-dismiss="modal"
+          >&times; Annuler</button>
 
-          <button class="btn btn-success" style="float: right;">
+          <button class="btn btn-success" @click="edit" style="float: right;">
             <i class="ik ik-save"></i>
             Enregistrer
           </button>
@@ -161,43 +170,43 @@ export default {
       required: true,
     },
   },
-
-  //   methods: {
-  //     edit() {
-  //       this.form.name = this.user.name;
-  //       this.form.email = this.user.email;
-  //       this.form.userType = this.user.userType;
-  //       console.log(this.user);
-  //       this.form
-  //         .put(`api/user/${this.user.id}`)
-  //         .then(() => {
-  //           this.$store.dispatch("usersList").then(() => {
-  //             // clear data
-  //             this.clear();
-  //             // close modal
-  //             this.closeModal();
-  //           });
-  //         })
-  //         .catch((error) => {
-  //           console.log(`ERROR : ${error}`);
-  //         });
-  //     },
-  //     closeModal() {
-  //       $("#editUserModal").modal("hide");
-  //       $(".modal-backdrop").remove();
-  //     },
-  //     clear() {
-  //       this.form.name = "";
-  //       this.form.email = "";
-  //       this.form.userType = "";
-  //     },
-  //     /*v-model change data of user of the parent component in realtime
-  //     if we clicked annuler then this button will close the modal but changement not canceled
-  //     (changements are in the user object not in our source data) So we fire this method to reload the html table
-  //     if user do not change anything*/
-  //     refresh() {
-  //       this.$store.dispatch("usersList");
-  //     },
-  //   },
+  methods: {
+    edit() {
+      this.form.matricule = this.customer.matricule;
+      this.form.full_name = this.customer.full_name;
+      this.form.phone = this.customer.phone;
+      this.form.car_brand = this.customer.car_brand;
+      this.form
+        .put(`api/customer/${this.customer.matricule}`)
+        .then(() => {
+          this.$store.dispatch("customersList").then(() => {
+            // clear data
+            this.clear();
+            // close modal
+            this.closeModal();
+          });
+        })
+        .catch((error) => {
+          console.log(`ERROR : ${error}`);
+        });
+    },
+    closeModal() {
+      $("#editCustomerModal").modal("hide");
+      $(".modal-backdrop").remove();
+    },
+    clear() {
+      this.form.matricule = "";
+      this.form.full_name = "";
+      this.form.phone = "";
+      this.form.car_brand = "";
+    },
+    /*v-model change data of user of the parent component in realtime
+      if we clicked annuler then this button will close the modal but changement not canceled
+      (changements are in the user object not in our source data) So we fire this method to reload the html table
+      if user do not change anything*/
+    refresh() {
+      this.$store.dispatch("customersList");
+    },
+  },
 };
 </script>
