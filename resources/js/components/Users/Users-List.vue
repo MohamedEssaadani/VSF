@@ -145,7 +145,6 @@ export default {
               .toLowerCase()
               .indexOf(this.query.toLowerCase()) !== -1
         );
-        console.log(users);
       } //else get all data without filtering
       else users = this.$store.getters.getUsers;
       return users;

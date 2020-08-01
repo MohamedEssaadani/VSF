@@ -87,7 +87,7 @@ class CustomerController extends Controller
                         "full_name"=> $request->full_name,
                         "phone" => $request->phone, 
                         "car_brand" => $request->car_brand
-                    ]);
+                         ]);
 
         return response(201);
     }
@@ -102,7 +102,7 @@ class CustomerController extends Controller
     {
         //get the customer who have $matricule then delete it
         Customer::where("matricule", $matricule)
-                  ->delete();
+                ->delete();
 
         return response(201);
     }

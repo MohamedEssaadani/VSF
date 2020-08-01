@@ -2227,7 +2227,18 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     getCustomers: function getCustomers() {
-      var customers = this.$store.getters.getCustomers;
+      var _this2 = this;
+
+      var customers = undefined; //if user type something for filtering
+
+      if (this.query !== "") {
+        //filter data
+        customers = this.$store.getters.getCustomers.filter(function (customer) {
+          return JSON.stringify(customer).toLowerCase().indexOf(_this2.query.toLowerCase()) !== -1;
+        });
+      } //else get all data without filtering
+      else customers = this.$store.getters.getCustomers;
+
       return customers;
     },
     getCustomersNumber: function getCustomersNumber() {
@@ -2244,7 +2255,7 @@ __webpack_require__.r(__webpack_exports__);
       this.customer = customer;
     },
     remove: function remove(customer) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$confirm({
         message: "Vous \xEAtes sure?",
@@ -2259,7 +2270,7 @@ __webpack_require__.r(__webpack_exports__);
          */
         callback: function callback(confirm) {
           if (confirm) {
-            _this2.$store.dispatch("deleteCustomer", customer);
+            _this3.$store.dispatch("deleteCustomer", customer);
           }
         }
       });
@@ -2269,7 +2280,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       isEdit: false,
       isShow: false,
-      customer: {}
+      customer: {},
+      query: ""
     };
   }
 });
@@ -3248,7 +3260,6 @@ __webpack_require__.r(__webpack_exports__);
         users = this.$store.getters.getUsers.filter(function (user) {
           return JSON.stringify(user).toLowerCase().indexOf(_this2.query.toLowerCase()) !== -1;
         });
-        console.log(users);
       } //else get all data without filtering
       else users = this.$store.getters.getUsers;
 
@@ -3282,9 +3293,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log("Dashboard Component mounted.");
+    this.$store.dispatch("visits");
+  },
+  computed: {
+    getVisits: function getVisits() {
+      return this.$store.getters.getVisits;
+    }
   }
 });
 
@@ -41036,13 +41095,45 @@ var render = function() {
           "div",
           { staticClass: "card" },
           [
-            _vm._m(0),
+            _c("div", { staticClass: "card-header d-block" }, [
+              _c("h3", { staticStyle: { float: "left" } }, [_vm._v("Clients")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "row", staticStyle: { float: "right" } },
+                [
+                  _c("div", [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.query,
+                          expression: "query"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "rechercher" },
+                      domProps: { value: _vm.query },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.query = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]
+              )
+            ]),
             _vm._v(" "),
             _vm.getCustomersNumber > 0
               ? _c("div", { staticClass: "card-body p-0 table-border-style" }, [
                   _c("div", { staticClass: "table-responsive" }, [
                     _c("table", { staticClass: "table" }, [
-                      _vm._m(1),
+                      _vm._m(0),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -41153,23 +41244,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header d-block" }, [
-      _c("h3", { staticStyle: { float: "left" } }, [_vm._v("Clients")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row", staticStyle: { float: "right" } }, [
-        _c("div", [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "rechercher" }
-          })
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -42678,24 +42752,108 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body p-0 table-border-style" }, [
+            _c("div", { staticClass: "table-responsive" }, [
+              _c("table", { staticClass: "table" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.getVisits, function(visit) {
+                    return _c("tr", { key: visit.id }, [
+                      _c("th", { attrs: { scope: "row" } }, [
+                        _vm._v(_vm._s(visit.id))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(visit.type))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(visit.price) + " DH")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(visit.tva) + " DH")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(visit.narfa) + " DH")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(visit.kitonse) + " DH")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(visit.local) + " DH")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("b", [_vm._v(_vm._s(visit.total) + " DH")])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "a",
+                          {
+                            staticStyle: {
+                              cursor: "pointer",
+                              "font-size": "15px"
+                            },
+                            attrs: {
+                              "data-toggle": "modal",
+                              "data-target": "#editVisitModal"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.edit(_vm.customer)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "ik ik-edit-2 text-green" })]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Visits List")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v("This is visits list component.")
-            ])
-          ])
-        ])
+    return _c("div", { staticClass: "card-header d-block" }, [
+      _c("h3", { staticStyle: { float: "left" } }, [
+        _vm._v("Types des visites")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Prix")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("tva")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("narfa")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("kitonse")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("local")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("total")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "nosort" })
       ])
     ])
   }
@@ -64974,19 +65132,19 @@ var storeData = {
         console.log("ERROR! ".concat(error));
       });
     },
+    deleteCustomer: function deleteCustomer(context, customer) {
+      axios["delete"]("api/customer/".concat(customer.matricule)).then(function () {
+        context.commit("deleteCustomer", customer);
+      })["catch"](function (error) {
+        console.log("ERROR! ".concat(error));
+      });
+    },
     //visits
     visits: function visits(context) {
       axios.get("api/visit").then(function (res) {
         context.commit("visits", res.data);
       })["catch"](function (err) {
         console.log("Error! ".concat(err));
-      });
-    },
-    deleteCustomer: function deleteCustomer(context, customer) {
-      axios["delete"]("api/customer/".concat(customer.matricule)).then(function () {
-        context.commit("deleteCustomer", customer);
-      })["catch"](function (error) {
-        console.log("ERROR! ".concat(error));
       });
     }
   }

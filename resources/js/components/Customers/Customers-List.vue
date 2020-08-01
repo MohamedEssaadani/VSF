@@ -6,7 +6,7 @@
           <h3 style="float:left;">Clients</h3>
           <div class="row" style="float:right;">
             <div>
-              <input type="text" placeholder="rechercher" class="form-control" />
+              <input type="text" placeholder="rechercher" v-model="query" class="form-control" />
             </div>
           </div>
         </div>
@@ -107,7 +107,18 @@ export default {
   },
   computed: {
     getCustomers() {
-      let customers = this.$store.getters.getCustomers;
+      let customers = undefined;
+      //if user type something for filtering
+      if (this.query !== "") {
+        //filter data
+        customers = this.$store.getters.getCustomers.filter(
+          (customer) =>
+            JSON.stringify(customer)
+              .toLowerCase()
+              .indexOf(this.query.toLowerCase()) !== -1
+        );
+      } //else get all data without filtering
+      else customers = this.$store.getters.getCustomers;
 
       return customers;
     },
@@ -148,6 +159,7 @@ export default {
       isEdit: false,
       isShow: false,
       customer: {},
+      query: "",
     };
   },
 };

@@ -88,6 +88,16 @@ const storeData = {
                     console.log(`ERROR! ${error}`);
                 });
         },
+        deleteCustomer(context, customer) {
+            axios
+                .delete(`api/customer/${customer.matricule}`)
+                .then(() => {
+                    context.commit("deleteCustomer", customer);
+                })
+                .catch(error => {
+                    console.log(`ERROR! ${error}`);
+                });
+        },
         //visits
         visits(context) {
             axios
@@ -97,16 +107,6 @@ const storeData = {
                 })
                 .catch(err => {
                     console.log(`Error! ${err}`);
-                });
-        },
-        deleteCustomer(context, customer) {
-            axios
-                .delete(`api/customer/${customer.matricule}`)
-                .then(() => {
-                    context.commit("deleteCustomer", customer);
-                })
-                .catch(error => {
-                    console.log(`ERROR! ${error}`);
                 });
         }
     }
