@@ -101,8 +101,11 @@
                           }"
                   required
                 >
-                  <option value="quittance">Quittance</option>
-                  <option value="locale">Locale</option>
+                  <option
+                    v-for="stamp in getStamps"
+                    :key="stamp.id"
+                    :value="stamp.id"
+                  >{{stamp.type}}</option>
                 </select>
                 <has-error :form="form" field="timbre"></has-error>
               </div>
@@ -156,14 +159,13 @@ export default {
   props: {
     visit: {},
   },
-  data() {
-    return {
-      form: new Form({
-        type: "",
-        price: 0,
-        tva: 0,
-      }),
-    };
+  mounted() {
+    this.$store.dispatch("getStamps");
+  },
+  computed: {
+    getStamps() {
+      return this.$store.getters.getStamps;
+    },
   },
   methods: {
     //calculate total when a price changed
@@ -213,6 +215,15 @@ export default {
     refresh() {
       this.$store.dispatch("visits");
     },
+  },
+  data() {
+    return {
+      form: new Form({
+        type: "",
+        price: 0,
+        tva: 0,
+      }),
+    };
   },
 };
 </script>

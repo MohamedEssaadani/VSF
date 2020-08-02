@@ -3434,19 +3434,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     visit: {}
   },
-  data: function data() {
-    return {
-      form: new vform__WEBPACK_IMPORTED_MODULE_0__["Form"]({
-        type: "",
-        price: 0,
-        tva: 0
-      })
-    };
+  mounted: function mounted() {
+    this.$store.dispatch("getStamps");
+  },
+  computed: {
+    getStamps: function getStamps() {
+      return this.$store.getters.getStamps;
+    }
   },
   methods: {
     //calculate total when a price changed
@@ -3496,6 +3498,15 @@ __webpack_require__.r(__webpack_exports__);
     refresh: function refresh() {
       this.$store.dispatch("visits");
     }
+  },
+  data: function data() {
+    return {
+      form: new vform__WEBPACK_IMPORTED_MODULE_0__["Form"]({
+        type: "",
+        price: 0,
+        tva: 0
+      })
+    };
   }
 });
 
@@ -43165,15 +43176,14 @@ var render = function() {
                         },
                         attrs: { name: "timbres", multiple: "", required: "" }
                       },
-                      [
-                        _c("option", { attrs: { value: "quittance" } }, [
-                          _vm._v("Quittance")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "locale" } }, [
-                          _vm._v("Locale")
-                        ])
-                      ]
+                      _vm._l(_vm.getStamps, function(stamp) {
+                        return _c(
+                          "option",
+                          { key: stamp.id, domProps: { value: stamp.id } },
+                          [_vm._v(_vm._s(stamp.type))]
+                        )
+                      }),
+                      0
                     ),
                     _vm._v(" "),
                     _c("has-error", {
@@ -65711,7 +65721,8 @@ var storeData = {
   state: {
     users: [],
     customers: [],
-    visits: []
+    visits: [],
+    stamps: []
   },
   getters: {
     //users
@@ -65742,6 +65753,10 @@ var storeData = {
     //visits
     getVisits: function getVisits(state) {
       return state.visits;
+    },
+    //stamps
+    getStamps: function getStamps(state) {
+      return state.stamps;
     }
   },
   mutations: {
@@ -65763,6 +65778,10 @@ var storeData = {
     deleteCustomer: function deleteCustomer(state, customer) {
       var index = state.customers.indexOf(customer);
       state.customers.splice(index, 1);
+    },
+    //stamps
+    getStamps: function getStamps(state, data) {
+      state.stamps = data;
     }
   },
   actions: {
@@ -65809,6 +65828,14 @@ var storeData = {
         context.commit("visits", res.data);
       })["catch"](function (err) {
         console.log("Error! ".concat(err));
+      });
+    },
+    //stamps
+    getStamps: function getStamps(context) {
+      axios.get("api/stamp").then(function (res) {
+        context.commit("getStamps", res.data);
+      })["catch"](function (err) {
+        console.log("ERROR : ".concat(err));
       });
     }
   }

@@ -7,7 +7,8 @@ const storeData = {
     state: {
         users: [],
         customers: [],
-        visits: []
+        visits: [],
+        stamps: []
     },
     getters: {
         //users
@@ -22,7 +23,9 @@ const storeData = {
         },
         getCustomersNumber: (state, getters) => getters.getCustomers.length,
         //visits
-        getVisits: state => state.visits
+        getVisits: state => state.visits,
+        //stamps
+        getStamps: state => state.stamps
     },
     mutations: {
         //users
@@ -43,6 +46,10 @@ const storeData = {
         deleteCustomer(state, customer) {
             let index = state.customers.indexOf(customer);
             state.customers.splice(index, 1);
+        },
+        //stamps
+        getStamps(state, data) {
+            state.stamps = data;
         }
     },
     actions: {
@@ -107,6 +114,17 @@ const storeData = {
                 })
                 .catch(err => {
                     console.log(`Error! ${err}`);
+                });
+        },
+        //stamps
+        getStamps(context) {
+            axios
+                .get("api/stamp")
+                .then(res => {
+                    context.commit("getStamps", res.data);
+                })
+                .catch(err => {
+                    console.log(`ERROR : ${err}`);
                 });
         }
     }

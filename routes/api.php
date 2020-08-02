@@ -24,5 +24,6 @@ Route::apiResources(
         'user' => 'API\UserController',
         'customer' => 'API\CustomerController',
         'visit' => 'API\VisitController',
+        'stamp' => 'API\StampController'
     ]
 );
