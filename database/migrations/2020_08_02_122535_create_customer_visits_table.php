@@ -17,21 +17,18 @@ class CreateCustomerVisitsTable extends Migration
             $table->id();
 
             $table->string('customer');
-
             $table->foreign('customer')
-            ->references('matricule')
-            ->on('customers')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            ->references('matricuke')
+            ->on('customers');
 
-            $table->bigInteger('visit')->unsigned();
-            
+            $table->bigInteger('visit');
+
             $table->foreign('visit')
             ->references('id')
-            ->on('visites')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
-
+            ->on('visits');
+            
+            $table->double('total');
+            
             $table->timestamps();
         });
     }

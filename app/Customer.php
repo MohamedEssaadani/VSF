@@ -15,6 +15,6 @@ class Customer extends Model
     public function visits()
     {
 
-        return $this->hasMany('App\Visite');
+        return $this->hasMany('App\Visit');
     }
 }
