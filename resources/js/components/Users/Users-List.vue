@@ -80,6 +80,8 @@
     <edit-user v-if="isEdit" :user="user"></edit-user>
     <!---Show modal-->
     <show-user v-if="isShow" :user="user"></show-user>
+    <!--Confirm dialog -->
+    <vue-confirm-dialog></vue-confirm-dialog>
   </div>
 </template>
 

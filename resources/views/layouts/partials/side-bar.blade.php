@@ -22,10 +22,16 @@
                     <router-link :to="{ name:'Customers.all' }"><i class="ik ik-user"></i><span>Clients</span> <span
                             class="badge badge-success">33+</span></router-link>
                 </div>
-                <div class="nav-item">
-                    <router-link :to="{ name:'Visits.all' }"><i class="ik ik-layers"></i><span>Types des Visites</span> <span
-                            class="badge badge-danger">20+</span></router-link>
+               
+
+                <div class="nav-item has-sub">
+                    <a href="#"><i class="ik ik-layers"></i><span>Visites</span></a>
+                    <div class="submenu-content">
+                        <router-link :to="{ name:'Visits.all' }" class="menu-item"><i class="ik ik-layers"></i><span>Types des Visites</span></router-link>                    
+                            <router-link :to="{ name:'Visits.all' }" class="menu-item"><i class="ik ik-layers"></i><span>Visites des clients</span> </router-link>            
+                     </div>
                 </div>
+
                 <div class="nav-item">
                     <router-link :to="{name:'Users.all'}"><i class="ik ik-user"></i><span>Utilisateurs</span> <span
                             class="badge badge-danger">120+</span></router-link>

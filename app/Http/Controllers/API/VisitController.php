@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Visite;
+use App\Visit;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -16,7 +16,7 @@ class VisitController extends Controller
     
     public function index()
     {
-        return response(Visite::all());
+        return response(Visit::all());
     }
 
     /**
@@ -55,21 +55,14 @@ class VisitController extends Controller
             'type' => 'required|string',
             'price' => 'required|numeric', 
             'tva' => 'required|numeric', 
-            'narfa' => 'required|numeric',
-            'kitonse' => 'required|numeric',
-            'local' => 'required|numeric',
         ]);
 
         //get the visit by $id and update data with update()
-        $visit = Visite::findOrFail($id)
+        $visit = Visit::findOrFail($id)
                     ->update([
                         'type' => $request->type,
                         'price' => $request->price,
                         'tva' => $request->tva,
-                        'narfa' => $request->narfa,
-                        'kitonse' => $request->kitonse,
-                        'local' => $request->local,
-                        'total' => $request->total
                     ]);
 
             return response(201);

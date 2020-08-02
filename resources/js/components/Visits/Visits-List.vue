@@ -15,9 +15,6 @@
                     <th>Type</th>
                     <th>Prix</th>
                     <th>Tva</th>
-                    <th>Narfa</th>
-                    <th>Kitonse</th>
-                    <th>Local</th>
                     <th>Total</th>
                     <th class="nosort"></th>
                   </tr>
@@ -28,12 +25,7 @@
                     <td>{{ visit.type }}</td>
                     <td>{{ visit.price }} DH</td>
                     <td>{{ visit.tva }} %</td>
-                    <td>{{ visit.narfa }} DH</td>
-                    <td>{{ visit.kitonse }} DH</td>
-                    <td>{{ visit.local }} DH</td>
-                    <td>
-                      <b>{{ visit.total }} DH</b>
-                    </td>
+                    <td>0</td>
                     <td>
                       <a
                         style="cursor: pointer; font-size:15px;"

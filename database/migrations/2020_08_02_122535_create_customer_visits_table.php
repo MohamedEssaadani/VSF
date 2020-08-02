@@ -18,10 +18,10 @@ class CreateCustomerVisitsTable extends Migration
 
             $table->string('customer');
             $table->foreign('customer')
-            ->references('matricuke')
+            ->references('matricule')
             ->on('customers');
 
-            $table->bigInteger('visit');
+            $table->bigInteger('visit')->unsigned();
 
             $table->foreign('visit')
             ->references('id')

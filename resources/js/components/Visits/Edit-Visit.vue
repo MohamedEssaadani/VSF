@@ -23,7 +23,7 @@
               <div class="input-group">
                 <span class="input-group-prepend">
                   <label class="input-group-text">
-                    <i class="ik ik-file-text"></i>
+                    <i class="ik ik-terminal"></i>
                   </label>
                 </span>
                 <input
@@ -45,14 +45,13 @@
               <div class="input-group">
                 <span class="input-group-prepend">
                   <label class="input-group-text">
-                    <i class="ik ik-at-sign"></i>
+                    <i class="ik ik-terminal"></i>
                   </label>
                 </span>
                 <input
                   type="text"
                   name="price"
                   v-model="visit.price"
-                  @keyup="calculateTotal"
                   class="form-control"
                   :class="{
                             'is-invalid': form.errors.has('price')
@@ -68,14 +67,13 @@
               <div class="input-group">
                 <span class="input-group-prepend">
                   <label class="input-group-text">
-                    <i class="ik ik-user"></i>
+                    <i class="ik ik-terminal"></i>
                   </label>
                 </span>
                 <input
                   type="text"
                   name="tva"
                   v-model="visit.tva"
-                  @keyup="calculateTotal"
                   class="form-control"
                   :class="{
                             'is-invalid': form.errors.has('tva')
@@ -86,72 +84,27 @@
               </div>
             </div>
 
-            <label class="col-sm-4 col-lg-4 col-form-label">Narfa</label>
+            <label class="col-sm-4 col-lg-4 col-form-label">Timbres</label>
             <div class="col-sm-8 col-lg-8">
               <div class="input-group">
                 <span class="input-group-prepend">
                   <label class="input-group-text">
-                    <i class="ik ik-user"></i>
+                    <i class="ik ik-terminal"></i>
                   </label>
                 </span>
-                <input
-                  type="text"
-                  name="tva"
-                  v-model="visit.narfa"
-                  @keyup="calculateTotal"
+                <select
+                  name="timbres"
                   class="form-control"
+                  multiple
                   :class="{
-                            'is-invalid': form.errors.has('narfa')
+                            'is-invalid': form.errors.has('timbre')
                           }"
                   required
-                />
-                <has-error :form="form" field="narfa"></has-error>
-              </div>
-            </div>
-
-            <label class="col-sm-4 col-lg-4 col-form-label">Kitonce</label>
-            <div class="col-sm-8 col-lg-8">
-              <div class="input-group">
-                <span class="input-group-prepend">
-                  <label class="input-group-text">
-                    <i class="ik ik-user"></i>
-                  </label>
-                </span>
-                <input
-                  type="text"
-                  name="kitonse"
-                  v-model="visit.kitonse"
-                  @keyup="calculateTotal"
-                  class="form-control"
-                  :class="{
-                            'is-invalid': form.errors.has('kitonse')
-                          }"
-                  required
-                />
-                <has-error :form="form" field="kitonse"></has-error>
-              </div>
-            </div>
-
-            <label class="col-sm-4 col-lg-4 col-form-label">Local</label>
-            <div class="col-sm-8 col-lg-8">
-              <div class="input-group">
-                <span class="input-group-prepend">
-                  <label class="input-group-text">
-                    <i class="ik ik-user"></i>
-                  </label>
-                </span>
-                <input
-                  type="text"
-                  name="local"
-                  v-model="visit.local"
-                  @keyup="calculateTotal"
-                  class="form-control"
-                  :class="{
-                         'is-invalid': form.errors.has('local')
-                      }"
-                  required
-                />
-                <has-error :form="form" field="local"></has-error>
+                >
+                  <option value="quittance">Quittance</option>
+                  <option value="locale">Locale</option>
+                </select>
+                <has-error :form="form" field="timbre"></has-error>
               </div>
             </div>
 
@@ -160,10 +113,19 @@
               <div class="input-group">
                 <span class="input-group-prepend">
                   <label class="input-group-text">
-                    <i class="ik ik-user"></i>
+                    <i class="ik ik-terminal"></i>
                   </label>
                 </span>
-                <input type="text" name="total" v-model="visit.total" class="form-control" disabled />
+                <input
+                  type="text"
+                  name="total"
+                  class="form-control"
+                  :class="{
+                            'is-invalid': form.errors.has('total')
+                          }"
+                  disabled
+                />
+                <has-error :form="form" field="total"></has-error>
               </div>
             </div>
           </div>
@@ -200,30 +162,22 @@ export default {
         type: "",
         price: 0,
         tva: 0,
-        narfa: 0,
-        kitonse: 0,
-        local: 0,
-        total: 0,
       }),
     };
   },
   methods: {
     //calculate total when a price changed
-    calculateTotal() {
-      let tva = this.visit.tva / 100;
-      let ttc = this.visit.price * tva;
-      let total =
-        ttc + this.visit.narfa + this.visit.kitonse + this.visit.local;
-      this.visit.total = total;
-    },
+    // calculateTotal() {
+    //   let tva = this.visit.tva / 100;
+    //   let ttc = this.visit.price * tva;
+    //   let total =
+    //     ttc + this.visit.narfa + this.visit.kitonse + this.visit.local;
+    //   this.visit.total = total;
+    // },
     edit() {
       this.form.type = this.visit.type;
       this.form.price = this.visit.price;
       this.form.tva = this.visit.tva;
-      this.form.narfa = this.visit.narfa;
-      this.form.kitonse = this.visit.kitonse;
-      this.form.local = this.visit.local;
-      this.form.total = this.visit.total;
 
       this.form
         .put(`api/visit/${this.visit.id}`)

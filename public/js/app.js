@@ -3198,6 +3198,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -3432,44 +3434,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -3480,32 +3444,25 @@ __webpack_require__.r(__webpack_exports__);
       form: new vform__WEBPACK_IMPORTED_MODULE_0__["Form"]({
         type: "",
         price: 0,
-        tva: 0,
-        narfa: 0,
-        kitonse: 0,
-        local: 0,
-        total: 0
+        tva: 0
       })
     };
   },
   methods: {
     //calculate total when a price changed
-    calculateTotal: function calculateTotal() {
-      var tva = this.visit.tva / 100;
-      var ttc = this.visit.price * tva;
-      var total = ttc + this.visit.narfa + this.visit.kitonse + this.visit.local;
-      this.visit.total = total;
-    },
+    // calculateTotal() {
+    //   let tva = this.visit.tva / 100;
+    //   let ttc = this.visit.price * tva;
+    //   let total =
+    //     ttc + this.visit.narfa + this.visit.kitonse + this.visit.local;
+    //   this.visit.total = total;
+    // },
     edit: function edit() {
       var _this = this;
 
       this.form.type = this.visit.type;
       this.form.price = this.visit.price;
       this.form.tva = this.visit.tva;
-      this.form.narfa = this.visit.narfa;
-      this.form.kitonse = this.visit.kitonse;
-      this.form.local = this.visit.local;
-      this.form.total = this.visit.total;
       this.form.put("api/visit/".concat(this.visit.id)).then(function () {
         _this.$store.dispatch("visits").then(function (res) {
           console.log(res); // clear data
@@ -3554,14 +3511,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Edit_Visit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Edit-Visit */ "./resources/js/components/Visits/Edit-Visit.vue");
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -42983,7 +42932,9 @@ var render = function() {
       _vm._v(" "),
       _vm.isEdit ? _c("edit-user", { attrs: { user: _vm.user } }) : _vm._e(),
       _vm._v(" "),
-      _vm.isShow ? _c("show-user", { attrs: { user: _vm.user } }) : _vm._e()
+      _vm.isShow ? _c("show-user", { attrs: { user: _vm.user } }) : _vm._e(),
+      _vm._v(" "),
+      _c("vue-confirm-dialog")
     ],
     1
   )
@@ -43135,7 +43086,6 @@ var render = function() {
                       attrs: { type: "text", name: "price", required: "" },
                       domProps: { value: _vm.visit.price },
                       on: {
-                        keyup: _vm.calculateTotal,
                         input: function($event) {
                           if ($event.target.composing) {
                             return
@@ -43180,7 +43130,6 @@ var render = function() {
                       attrs: { type: "text", name: "tva", required: "" },
                       domProps: { value: _vm.visit.tva },
                       on: {
-                        keyup: _vm.calculateTotal,
                         input: function($event) {
                           if ($event.target.composing) {
                             return
@@ -43197,7 +43146,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("label", { staticClass: "col-sm-4 col-lg-4 col-form-label" }, [
-                _vm._v("Narfa")
+                _vm._v("Timbres")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-8 col-lg-8" }, [
@@ -43207,124 +43156,28 @@ var render = function() {
                   [
                     _vm._m(4),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.visit.narfa,
-                          expression: "visit.narfa"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      class: {
-                        "is-invalid": _vm.form.errors.has("narfa")
+                    _c(
+                      "select",
+                      {
+                        staticClass: "form-control",
+                        class: {
+                          "is-invalid": _vm.form.errors.has("timbre")
+                        },
+                        attrs: { name: "timbres", multiple: "", required: "" }
                       },
-                      attrs: { type: "text", name: "tva", required: "" },
-                      domProps: { value: _vm.visit.narfa },
-                      on: {
-                        keyup: _vm.calculateTotal,
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.visit, "narfa", $event.target.value)
-                        }
-                      }
-                    }),
+                      [
+                        _c("option", { attrs: { value: "quittance" } }, [
+                          _vm._v("Quittance")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "locale" } }, [
+                          _vm._v("Locale")
+                        ])
+                      ]
+                    ),
                     _vm._v(" "),
                     _c("has-error", {
-                      attrs: { form: _vm.form, field: "narfa" }
-                    })
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "col-sm-4 col-lg-4 col-form-label" }, [
-                _vm._v("Kitonce")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-8 col-lg-8" }, [
-                _c(
-                  "div",
-                  { staticClass: "input-group" },
-                  [
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.visit.kitonse,
-                          expression: "visit.kitonse"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      class: {
-                        "is-invalid": _vm.form.errors.has("kitonse")
-                      },
-                      attrs: { type: "text", name: "kitonse", required: "" },
-                      domProps: { value: _vm.visit.kitonse },
-                      on: {
-                        keyup: _vm.calculateTotal,
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.visit, "kitonse", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("has-error", {
-                      attrs: { form: _vm.form, field: "kitonse" }
-                    })
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "col-sm-4 col-lg-4 col-form-label" }, [
-                _vm._v("Local")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-8 col-lg-8" }, [
-                _c(
-                  "div",
-                  { staticClass: "input-group" },
-                  [
-                    _vm._m(6),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.visit.local,
-                          expression: "visit.local"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      class: {
-                        "is-invalid": _vm.form.errors.has("local")
-                      },
-                      attrs: { type: "text", name: "local", required: "" },
-                      domProps: { value: _vm.visit.local },
-                      on: {
-                        keyup: _vm.calculateTotal,
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.visit, "local", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("has-error", {
-                      attrs: { form: _vm.form, field: "local" }
+                      attrs: { form: _vm.form, field: "timbre" }
                     })
                   ],
                   1
@@ -43336,31 +43189,26 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-8 col-lg-8" }, [
-                _c("div", { staticClass: "input-group" }, [
-                  _vm._m(7),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.visit.total,
-                        expression: "visit.total"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text", name: "total", disabled: "" },
-                    domProps: { value: _vm.visit.total },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.visit, "total", $event.target.value)
-                      }
-                    }
-                  })
-                ])
+                _c(
+                  "div",
+                  { staticClass: "input-group" },
+                  [
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      class: {
+                        "is-invalid": _vm.form.errors.has("total")
+                      },
+                      attrs: { type: "text", name: "total", disabled: "" }
+                    }),
+                    _vm._v(" "),
+                    _c("has-error", {
+                      attrs: { form: _vm.form, field: "total" }
+                    })
+                  ],
+                  1
+                )
               ])
             ])
           ]),
@@ -43426,7 +43274,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "input-group-prepend" }, [
       _c("label", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "ik ik-file-text" })
+        _c("i", { staticClass: "ik ik-terminal" })
       ])
     ])
   },
@@ -43436,7 +43284,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "input-group-prepend" }, [
       _c("label", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "ik ik-at-sign" })
+        _c("i", { staticClass: "ik ik-terminal" })
       ])
     ])
   },
@@ -43446,7 +43294,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "input-group-prepend" }, [
       _c("label", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "ik ik-user" })
+        _c("i", { staticClass: "ik ik-terminal" })
       ])
     ])
   },
@@ -43456,7 +43304,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "input-group-prepend" }, [
       _c("label", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "ik ik-user" })
+        _c("i", { staticClass: "ik ik-terminal" })
       ])
     ])
   },
@@ -43466,27 +43314,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "input-group-prepend" }, [
       _c("label", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "ik ik-user" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "input-group-prepend" }, [
-      _c("label", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "ik ik-user" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "input-group-prepend" }, [
-      _c("label", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "ik ik-user" })
+        _c("i", { staticClass: "ik ik-terminal" })
       ])
     ])
   }
@@ -43540,15 +43368,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(visit.tva) + " %")]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(visit.narfa) + " DH")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(visit.kitonse) + " DH")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(visit.local) + " DH")]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c("b", [_vm._v(_vm._s(visit.total) + " DH")])
-                        ]),
+                        _c("td", [_vm._v("0")]),
                         _vm._v(" "),
                         _c("td", [
                           _c(
@@ -43625,12 +43445,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Prix")]),
         _vm._v(" "),
         _c("th", [_vm._v("Tva")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Narfa")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Kitonse")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Local")]),
         _vm._v(" "),
         _c("th", [_vm._v("Total")]),
         _vm._v(" "),
