@@ -6,10 +6,7 @@
         data-toggle="modal"
         data-target="#createCustomerModal"
         class="text-green"
-        style="
-                              float: right;
-                              cursor: pointer;
-                            "
+        style="float: right; cursor: pointer;"
       >
         <i class="ik ik-plus-circle text-green"></i>
         Nouveau

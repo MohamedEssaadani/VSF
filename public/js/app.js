@@ -1967,6 +1967,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.$store.dispatch("visits");
@@ -2133,26 +2134,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2161,13 +2142,14 @@ __webpack_require__.r(__webpack_exports__);
         matricule: "",
         full_name: "",
         phone: "",
-        car_brand: ""
+        car_brand: "",
+        visit: undefined
       })
     };
   },
-  // mounted() {
-  //     this.$store.dispatch("visits");
-  // },
+  mounted: function mounted() {
+    this.$store.dispatch("visits");
+  },
   computed: {
     getVisits: function getVisits() {
       return this.$store.getters.getVisits;
@@ -2236,8 +2218,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Edit_Customer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Edit-Customer */ "./resources/js/components/Customers/Edit-Customer.vue");
 /* harmony import */ var _Show_Customer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Show-Customer */ "./resources/js/components/Customers/Show-Customer.vue");
 /* harmony import */ var _Not_Available__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Not-Available */ "./resources/js/components/Customers/Not-Available.vue");
-//
-//
 //
 //
 //
@@ -2645,9 +2625,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
 //
 //
 //
@@ -41149,9 +41126,11 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Customer")]),
+        _c("th", [_vm._v("Client")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Visit")]),
+        _c("th", [_vm._v("Visite")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Date Visite")]),
         _vm._v(" "),
         _c("th", [_vm._v("Total")]),
         _vm._v(" "),
@@ -41418,32 +41397,56 @@ var render = function() {
                   [
                     _vm._m(5),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.car_brand,
-                          expression: "form.car_brand"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      class: {
-                        "is-invalid": _vm.form.errors.has("car_brand")
-                      },
-                      domProps: { value: _vm.form.car_brand },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.visite_type,
+                            expression: "form.visite_type"
                           }
-                          _vm.$set(_vm.form, "car_brand", $event.target.value)
+                        ],
+                        staticClass: "form-control",
+                        class: {
+                          "is-invalid": _vm.form.errors.has("visit")
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "visite_type",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
                         }
-                      }
-                    }),
+                      },
+                      [
+                        _vm._l(_vm.getVisits, function(visit) {
+                          return _c(
+                            "option",
+                            { key: visit.id, domProps: { value: visit.id } },
+                            [_vm._v(_vm._s(visit.type))]
+                          )
+                        }),
+                        _vm._v(">\n              ")
+                      ],
+                      2
+                    ),
                     _vm._v(" "),
                     _c("has-error", {
-                      attrs: { form: _vm.form, field: "car_brand" }
+                      attrs: { form: _vm.form, field: "visit" }
                     })
                   ],
                   1
@@ -41555,7 +41558,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "input-group-prepend" }, [
       _c("label", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "ik ik-user" })
+        _c("i", { staticClass: "ik ik-terminal" })
       ])
     ])
   }
@@ -41644,11 +41647,9 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(customer.car_brand))]),
                             _vm._v(" "),
-                            _c("td", [_vm._v("hna date visit")]),
+                            _c("td", [_vm._v("hna visit")]),
                             _vm._v(" "),
-                            _c("td", [_vm._v("Hna visit")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("Hna total")]),
+                            _c("td", [_vm._v("Hna date akhir whda")]),
                             _vm._v(" "),
                             _c("td", [
                               _c("div", { staticClass: "table-actions" }, [
@@ -41759,11 +41760,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Marque")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Date visite")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Visite")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Total")]),
+        _c("th", [_vm._v("Date dernier visite")]),
         _vm._v(" "),
         _c("th", { staticClass: "nosort" }, [
           _c(

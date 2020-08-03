@@ -12,8 +12,9 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Customer</th>
-                    <th>Visit</th>
+                    <th>Client</th>
+                    <th>Visite</th>
+                    <th>Date Visite</th>
                     <th>Total</th>
                     <th class="nosort">
                       <a

@@ -80,34 +80,6 @@
               </div>
             </div>
 
-            <!-- <label class="col-sm-4 col-lg-4 col-form-label">Visite</label>
-            <div class="col-sm-8 col-lg-8">
-              <div class="input-group">
-                <span class="input-group-prepend">
-                  <label class="input-group-text">
-                    <i class="ik ik-terminal"></i>
-                  </label>
-                </span>
-
-                <select
-                  class="form-control"
-                  v-model="form.visite_type"
-                  :class="{
-                                        'is-invalid': form.errors.has(
-                                            'visite_type'
-                                        )
-                                    }"
-                >
-                  <option
-                    v-for="visit in getVisits"
-                    :key="visit.id"
-                    :value="visit.id"
-                  >{{ visit.type }}</option>>
-                </select>
-                <has-error :form="form" field="visite"></has-error>
-              </div>
-            </div>-->
-
             <label class="col-sm-4 col-lg-4 col-form-label">Marque</label>
             <div class="col-sm-8 col-lg-8">
               <div class="input-group">
@@ -126,23 +98,31 @@
                 <has-error :form="form" field="car_brand"></has-error>
               </div>
             </div>
-
             <label class="col-sm-4 col-lg-4 col-form-label">Visite</label>
             <div class="col-sm-8 col-lg-8">
               <div class="input-group">
                 <span class="input-group-prepend">
                   <label class="input-group-text">
-                    <i class="ik ik-user"></i>
+                    <i class="ik ik-terminal"></i>
                   </label>
                 </span>
-                <input
+
+                <select
                   class="form-control"
-                  v-model="form.car_brand"
+                  v-model="form.visite_type"
                   :class="{
-                            'is-invalid': form.errors.has('car_brand')
-                          }"
-                />
-                <has-error :form="form" field="car_brand"></has-error>
+                                        'is-invalid': form.errors.has(
+                                            'visit'
+                                        )
+                                    }"
+                >
+                  <option
+                    v-for="visit in getVisits"
+                    :key="visit.id"
+                    :value="visit.id"
+                  >{{ visit.type }}</option>>
+                </select>
+                <has-error :form="form" field="visit"></has-error>
               </div>
             </div>
           </div>
@@ -171,12 +151,13 @@ export default {
         full_name: "",
         phone: "",
         car_brand: "",
+        visit: undefined,
       }),
     };
   },
-  // mounted() {
-  //     this.$store.dispatch("visits");
-  // },
+  mounted() {
+    this.$store.dispatch("visits");
+  },
   computed: {
     getVisits() {
       return this.$store.getters.getVisits;
