@@ -3414,10 +3414,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -3449,11 +3445,12 @@ __webpack_require__.r(__webpack_exports__);
       this.form.type = this.visit.type;
       this.form.price = this.visit.price;
       this.form.tva = this.visit.tva;
-      this.form.stamps = this.selectedStamps;
+      this.form.stamps = this.selectedStamps.map(function (stamp) {
+        return stamp.id;
+      });
       this.form.put("api/visit/".concat(this.visit.id)).then(function () {
         _this.$store.dispatch("visits").then(function (res) {
-          console.log(res); // clear data
-
+          // clear data
           _this.clear(); // close modal
 
 
@@ -3482,12 +3479,11 @@ __webpack_require__.r(__webpack_exports__);
     if user do not change anything*/
     refresh: function refresh() {
       this.$store.dispatch("visits");
-    },
-    addStamp: function addStamp(id) {
-      if (!this.selectedStamps.find(function (item) {
-        return item == id;
-      })) this.selectedStamps.push(id);
-    }
+    } // addStamp(id) {
+    //   if (!this.selectedStamps.find((item) => item == id))
+    //     this.selectedStamps.push(id);
+    // },
+
   },
   data: function data() {
     return {
@@ -43159,29 +43155,39 @@ var render = function() {
                     _c(
                       "select",
                       {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.selectedStamps,
+                            expression: "selectedStamps"
+                          }
+                        ],
                         staticClass: "form-control",
                         class: {
                           "is-invalid": _vm.form.errors.has("timbre")
                         },
                         attrs: { name: "timbres", multiple: "", required: "" },
                         on: {
-                          unselect: function($event) {
-                            return _vm.stampUnselected(_vm.stamp.id)
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.selectedStamps = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
                           }
                         }
                       },
                       _vm._l(_vm.getStamps, function(stamp) {
                         return _c(
                           "option",
-                          {
-                            key: stamp.id,
-                            domProps: { value: stamp },
-                            on: {
-                              click: function($event) {
-                                return _vm.addStamp(stamp.id)
-                              }
-                            }
-                          },
+                          { key: stamp.id, domProps: { value: stamp } },
                           [_vm._v(_vm._s(stamp.type))]
                         )
                       }),

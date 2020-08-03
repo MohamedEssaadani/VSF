@@ -95,19 +95,15 @@
                 <select
                   name="timbres"
                   class="form-control"
+                  v-model="selectedStamps"
                   multiple
-                  @unselect="stampUnselected(stamp.id)"
                   :class="{
                             'is-invalid': form.errors.has('timbre')
                           }"
                   required
                 >
-                  <option
-                    v-for="stamp in getStamps"
-                    :key="stamp.id"
-                    :value="stamp"
-                    @click="addStamp(stamp.id)"
-                  >{{stamp.type}}</option>
+                  <option v-for="stamp in getStamps" :key="stamp.id" :value="stamp">{{stamp.type}}</option>
+                  <!--  @click="addStamp(stamp.id)"-->
                 </select>
                 <has-error :form="form" field="timbre"></has-error>
               </div>
@@ -164,13 +160,11 @@ export default {
       this.form.type = this.visit.type;
       this.form.price = this.visit.price;
       this.form.tva = this.visit.tva;
-      this.form.stamps = this.selectedStamps;
-
+      this.form.stamps = this.selectedStamps.map((stamp) => stamp.id);
       this.form
         .put(`api/visit/${this.visit.id}`)
         .then(() => {
           this.$store.dispatch("visits").then((res) => {
-            console.log(res);
             // clear data
             this.clear();
             // close modal
@@ -200,10 +194,10 @@ export default {
     refresh() {
       this.$store.dispatch("visits");
     },
-    addStamp(id) {
-      if (!this.selectedStamps.find((item) => item == id))
-        this.selectedStamps.push(id);
-    },
+    // addStamp(id) {
+    //   if (!this.selectedStamps.find((item) => item == id))
+    //     this.selectedStamps.push(id);
+    // },
   },
   data() {
     return {
