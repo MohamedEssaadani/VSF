@@ -28,7 +28,7 @@
                     <a href="#"><i class="ik ik-layers"></i><span>Visites</span></a>
                     <div class="submenu-content">
                         <router-link :to="{ name:'Visits.all' }" class="menu-item"><i class="ik ik-layers"></i><span>Types des Visites</span></router-link>                    
-                            <router-link :to="{ name:'Visits.all' }" class="menu-item"><i class="ik ik-layers"></i><span>Visites des clients</span> </router-link>            
+                            <router-link :to="{ name:'Customers.visits' }" class="menu-item"><i class="ik ik-layers"></i><span>Visites des clients</span> </router-link>            
                      </div>
                 </div>
 

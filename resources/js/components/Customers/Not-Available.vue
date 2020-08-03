@@ -1,5 +1,5 @@
 <template>
-  <div class="card-body" v-else>
+  <div class="card-body">
     <h6 style="float:left;">(0) Clients Trouvé !</h6>
     <h6 style="float:right;">
       <a

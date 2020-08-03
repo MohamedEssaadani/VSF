@@ -29,6 +29,7 @@
                 <input
                   type="text"
                   v-model="form.matricule"
+                  @keyup="fillIfExits"
                   class="form-control"
                   :class="{
                            'is-invalid': form.errors.has('matricule')
@@ -125,6 +126,25 @@
                 <has-error :form="form" field="car_brand"></has-error>
               </div>
             </div>
+
+            <label class="col-sm-4 col-lg-4 col-form-label">Visite</label>
+            <div class="col-sm-8 col-lg-8">
+              <div class="input-group">
+                <span class="input-group-prepend">
+                  <label class="input-group-text">
+                    <i class="ik ik-user"></i>
+                  </label>
+                </span>
+                <input
+                  class="form-control"
+                  v-model="form.car_brand"
+                  :class="{
+                            'is-invalid': form.errors.has('car_brand')
+                          }"
+                />
+                <has-error :form="form" field="car_brand"></has-error>
+              </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -189,6 +209,21 @@ export default {
       this.form.phone = "";
       this.form.visite_type = undefined;
       this.form.car_brand = "";
+    },
+    fillIfExits(matricule) {
+      //if user fill some characters in matricule
+      if (this.form.matricule.length > 0) {
+        //we get customer with (matricule)
+        let customer = this.$store.getters.getCustomers.find(
+          (customer) => customer.matricule == this.form.matricule
+        );
+        //check if customer is not undefined
+        if (customer !== undefined) {
+          this.form.full_name = customer.full_name;
+          this.form.phone = customer.phone;
+          this.form.car_brand = customer.car_brand;
+        }
+      }
     },
   },
 };

@@ -20,6 +20,9 @@
                   <th>Nom & Prénom</th>
                   <th>Téléphone</th>
                   <th>Marque</th>
+                  <th>Date visite</th>
+                  <th>Visite</th>
+                  <th>Total</th>
                   <th class="nosort">
                     <a
                       data-toggle="modal"
@@ -42,6 +45,9 @@
                   <td>{{ customer.full_name }}</td>
                   <td>{{ customer.phone }}</td>
                   <td>{{ customer.car_brand }}</td>
+                  <td>hna date visit</td>
+                  <td>Hna visit</td>
+                  <td>Hna total</td>
                   <td>
                     <div class="table-actions">
                       <a

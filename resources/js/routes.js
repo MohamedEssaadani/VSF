@@ -23,6 +23,12 @@ const routes = [
         path: "/visits",
         component: require("./components/Visits/Visits-List.vue").default,
         name: "Visits.all"
+    },
+    {
+        path: "/customers-visits",
+        component: require("./components/Customers-Visits/Customers-Visits-List.vue")
+            .default,
+        name: "Customers.visits"
     }
 ];
 
