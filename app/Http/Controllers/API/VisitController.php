@@ -4,8 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Visit;
 use App\VisitStamp;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class VisitController extends Controller
 {
@@ -14,7 +15,7 @@ class VisitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function index()
     {
         return response(Visit::all());
@@ -54,28 +55,40 @@ class VisitController extends Controller
         //validate $request values
         $request->validate([
             'type' => 'required|string',
-            'price' => 'required|numeric', 
-            'tva' => 'required|numeric', 
+            'price' => 'required|numeric',
+            'tva' => 'required|numeric',
         ]);
 
         //get the visit by $id and update data with update()
         $visit = Visit::findOrFail($id)
-                    ->update([
-                        'type' => $request->type,
-                        'price' => $request->price,
-                        'tva' => $request->tva,
-                    ]);
-
-        //delete from visit_stamp where visit = $id
-        VisitStamp::where("visit", $id)->delete();
-
-        // insert into visit_stamp values foreach, visit => id, stamp => each stamp id
-        foreach($request->stamps as $stamp){
-            VisitStamp::create([
-                'visit' => $id,
-                'stamp' => $stamp 
+            ->update([
+                'type' => $request->type,
+                'price' => $request->price,
+                'tva' => $request->tva,
             ]);
+
+
+        //use of transaction to make sure that everything happen or nothing happen, (to avoid to delete stamps for a visit without adding the new ones if something happened)
+        DB::beginTransaction();
+        try {
+            //delete from visit_stamp where visit = $id
+            VisitStamp::where("visit", $id)->delete();
+
+            // insert into visit_stamp values foreach, visit => id, stamp => each stamp id
+            foreach ($request->stamps as $stamp) {
+                VisitStamp::create([
+                    'visit' => $id,
+                    'stamp' => $stamp
+                ]);
+            }
+            //commit the transaction
+            DB::commit();
+        } catch (\Exception $e) { // If we catch an exception, we will roll back so nothing gets messed
+            DB::rollBack();
+            throw $e;
         }
+
+
 
         return response(201);
     }
