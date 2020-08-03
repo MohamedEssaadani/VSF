@@ -96,6 +96,7 @@
                   name="timbres"
                   class="form-control"
                   multiple
+                  @unselect="stampUnselected(stamp.id)"
                   :class="{
                             'is-invalid': form.errors.has('timbre')
                           }"
@@ -104,31 +105,11 @@
                   <option
                     v-for="stamp in getStamps"
                     :key="stamp.id"
-                    :value="stamp.id"
+                    :value="stamp"
+                    @click="addStamp(stamp.id)"
                   >{{stamp.type}}</option>
                 </select>
                 <has-error :form="form" field="timbre"></has-error>
-              </div>
-            </div>
-
-            <label class="col-sm-4 col-lg-4 col-form-label">Total</label>
-            <div class="col-sm-8 col-lg-8">
-              <div class="input-group">
-                <span class="input-group-prepend">
-                  <label class="input-group-text">
-                    <i class="ik ik-terminal"></i>
-                  </label>
-                </span>
-                <input
-                  type="text"
-                  name="total"
-                  class="form-control"
-                  :class="{
-                            'is-invalid': form.errors.has('total')
-                          }"
-                  disabled
-                />
-                <has-error :form="form" field="total"></has-error>
               </div>
             </div>
           </div>
@@ -172,14 +153,18 @@ export default {
     // calculateTotal() {
     //   let tva = this.visit.tva / 100;
     //   let ttc = this.visit.price * tva;
-    //   let total =
-    //     ttc + this.visit.narfa + this.visit.kitonse + this.visit.local;
-    //   this.visit.total = total;
+    //   this.selectedStamps.forEach((stamp) => {
+    //     console.log(stamp.price);
+    //   });
+    //   // let total = ttc + stampsTotal;
+    //   // console.log(total);
+    //   //this total is for customer
     // },
     edit() {
       this.form.type = this.visit.type;
       this.form.price = this.visit.price;
       this.form.tva = this.visit.tva;
+      this.form.stamps = this.selectedStamps;
 
       this.form
         .put(`api/visit/${this.visit.id}`)
@@ -215,6 +200,10 @@ export default {
     refresh() {
       this.$store.dispatch("visits");
     },
+    addStamp(id) {
+      if (!this.selectedStamps.find((item) => item == id))
+        this.selectedStamps.push(id);
+    },
   },
   data() {
     return {
@@ -223,6 +212,7 @@ export default {
         price: 0,
         tva: 0,
       }),
+      selectedStamps: [],
     };
   },
 };

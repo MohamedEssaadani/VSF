@@ -3418,25 +3418,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -3455,9 +3436,12 @@ __webpack_require__.r(__webpack_exports__);
     // calculateTotal() {
     //   let tva = this.visit.tva / 100;
     //   let ttc = this.visit.price * tva;
-    //   let total =
-    //     ttc + this.visit.narfa + this.visit.kitonse + this.visit.local;
-    //   this.visit.total = total;
+    //   this.selectedStamps.forEach((stamp) => {
+    //     console.log(stamp.price);
+    //   });
+    //   // let total = ttc + stampsTotal;
+    //   // console.log(total);
+    //   //this total is for customer
     // },
     edit: function edit() {
       var _this = this;
@@ -3465,6 +3449,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form.type = this.visit.type;
       this.form.price = this.visit.price;
       this.form.tva = this.visit.tva;
+      this.form.stamps = this.selectedStamps;
       this.form.put("api/visit/".concat(this.visit.id)).then(function () {
         _this.$store.dispatch("visits").then(function (res) {
           console.log(res); // clear data
@@ -3497,6 +3482,11 @@ __webpack_require__.r(__webpack_exports__);
     if user do not change anything*/
     refresh: function refresh() {
       this.$store.dispatch("visits");
+    },
+    addStamp: function addStamp(id) {
+      if (!this.selectedStamps.find(function (item) {
+        return item == id;
+      })) this.selectedStamps.push(id);
     }
   },
   data: function data() {
@@ -3505,7 +3495,8 @@ __webpack_require__.r(__webpack_exports__);
         type: "",
         price: 0,
         tva: 0
-      })
+      }),
+      selectedStamps: []
     };
   }
 });
@@ -3522,8 +3513,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Edit_Visit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Edit-Visit */ "./resources/js/components/Visits/Edit-Visit.vue");
-//
-//
 //
 //
 //
@@ -43174,12 +43163,25 @@ var render = function() {
                         class: {
                           "is-invalid": _vm.form.errors.has("timbre")
                         },
-                        attrs: { name: "timbres", multiple: "", required: "" }
+                        attrs: { name: "timbres", multiple: "", required: "" },
+                        on: {
+                          unselect: function($event) {
+                            return _vm.stampUnselected(_vm.stamp.id)
+                          }
+                        }
                       },
                       _vm._l(_vm.getStamps, function(stamp) {
                         return _c(
                           "option",
-                          { key: stamp.id, domProps: { value: stamp.id } },
+                          {
+                            key: stamp.id,
+                            domProps: { value: stamp },
+                            on: {
+                              click: function($event) {
+                                return _vm.addStamp(stamp.id)
+                              }
+                            }
+                          },
                           [_vm._v(_vm._s(stamp.type))]
                         )
                       }),
@@ -43188,33 +43190,6 @@ var render = function() {
                     _vm._v(" "),
                     _c("has-error", {
                       attrs: { form: _vm.form, field: "timbre" }
-                    })
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "col-sm-4 col-lg-4 col-form-label" }, [
-                _vm._v("Total")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-8 col-lg-8" }, [
-                _c(
-                  "div",
-                  { staticClass: "input-group" },
-                  [
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      class: {
-                        "is-invalid": _vm.form.errors.has("total")
-                      },
-                      attrs: { type: "text", name: "total", disabled: "" }
-                    }),
-                    _vm._v(" "),
-                    _c("has-error", {
-                      attrs: { form: _vm.form, field: "total" }
                     })
                   ],
                   1
@@ -43317,16 +43292,6 @@ var staticRenderFns = [
         _c("i", { staticClass: "ik ik-terminal" })
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "input-group-prepend" }, [
-      _c("label", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "ik ik-terminal" })
-      ])
-    ])
   }
 ]
 render._withStripped = true
@@ -43377,8 +43342,6 @@ var render = function() {
                         _c("td", [_vm._v(_vm._s(visit.price) + " DH")]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(visit.tva) + " %")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("0")]),
                         _vm._v(" "),
                         _c("td", [
                           _c(
@@ -43455,8 +43418,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Prix")]),
         _vm._v(" "),
         _c("th", [_vm._v("Tva")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Total")]),
         _vm._v(" "),
         _c("th", { staticClass: "nosort" })
       ])

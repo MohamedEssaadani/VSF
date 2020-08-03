@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Visit;
+use App\VisitStamp;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -65,7 +66,18 @@ class VisitController extends Controller
                         'tva' => $request->tva,
                     ]);
 
-            return response(201);
+        //delete from visit_stamp where visit = $id
+        VisitStamp::where("visit", $id)->delete();
+
+        // insert into visit_stamp values foreach, visit => id, stamp => each stamp id
+        foreach($request->stamps as $stamp){
+            VisitStamp::create([
+                'visit' => $id,
+                'stamp' => $stamp 
+            ]);
+        }
+
+        return response(201);
     }
 
     /**
