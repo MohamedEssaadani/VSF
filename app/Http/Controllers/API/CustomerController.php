@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Visit;
 use App\Customer;
 use App\CustomerVisit;
 use Illuminate\Http\Request;
@@ -54,12 +55,28 @@ class CustomerController extends Controller
              $customer->save();
         }
     
+        //calculate total
+        //we get first the selected visit
+        $visit = Visit::find($request->visit);
+        // we calculate the total with tva 
+        $ht = $visit->price;
+        $tva = $ht * $visit->tva;
+        $ttc  = $tva + $ht;
+
+        //next we calculate total of stamps prices
+        $stampsTotal = DB::table('stamps')
+                  ->join('visit_stamps', 'stamps.id', '=', 'visit_stamps.stamp')
+                  ->where('visit_stamps.visit', $request->visit)
+                  ->sum('stamps.price');
+                  
+        //finally the total is stamps total prices + total with tva
+        $total = $ttc + $stampsTotal;
 
         //customers_visites table
         CustomerVisit::create([
             "customer" => $request->matricule,
             "visit" => $request->visit, 
-            "total" => 15
+            "total" => $total
         ]);
         
         return response(201);

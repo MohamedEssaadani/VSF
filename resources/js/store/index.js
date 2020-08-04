@@ -140,7 +140,6 @@ const storeData = {
                 .get("api/customer_visit")
                 .then(res => {
                     context.commit("getCustomersVisits", res.data.data);
-                    console.log(res.data.data);
                 })
                 .catch(err => {
                     console.log(`ERROR! ${err}`);

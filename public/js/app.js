@@ -2135,6 +2135,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -66154,7 +66158,6 @@ var storeData = {
     getCustomersVisits: function getCustomersVisits(context) {
       axios.get("api/customer_visit").then(function (res) {
         context.commit("getCustomersVisits", res.data.data);
-        console.log(res.data.data);
       })["catch"](function (err) {
         console.log("ERROR! ".concat(err));
       });

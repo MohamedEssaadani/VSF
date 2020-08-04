@@ -32,8 +32,10 @@
                   @keyup="fillIfExits"
                   class="form-control"
                   :class="{
-                           'is-invalid': form.errors.has('matricule')
-                          }"
+                                        'is-invalid': form.errors.has(
+                                            'matricule'
+                                        )
+                                    }"
                 />
                 <has-error :form="form" field="matricule"></has-error>
               </div>
@@ -52,8 +54,10 @@
                   v-model="form.full_name"
                   class="form-control"
                   :class="{
-                           'is-invalid': form.errors.has('full_name')
-                          }"
+                                        'is-invalid': form.errors.has(
+                                            'full_name'
+                                        )
+                                    }"
                 />
                 <has-error :form="form" field="full_name"></has-error>
               </div>
@@ -72,8 +76,8 @@
                   v-model="form.phone"
                   class="form-control"
                   :class="{
-                          'is-invalid': form.errors.has('phone')
-                           }"
+                                        'is-invalid': form.errors.has('phone')
+                                    }"
                   required
                 />
                 <has-error :form="form" field="phone"></has-error>
@@ -92,8 +96,10 @@
                   class="form-control"
                   v-model="form.car_brand"
                   :class="{
-                            'is-invalid': form.errors.has('car_brand')
-                          }"
+                                        'is-invalid': form.errors.has(
+                                            'car_brand'
+                                        )
+                                    }"
                 />
                 <has-error :form="form" field="car_brand"></has-error>
               </div>
@@ -111,9 +117,7 @@
                   class="form-control"
                   v-model="form.visit"
                   :class="{
-                                        'is-invalid': form.errors.has(
-                                            'visit'
-                                        )
+                                        'is-invalid': form.errors.has('visit')
                                     }"
                 >
                   <option
