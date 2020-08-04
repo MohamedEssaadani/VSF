@@ -109,7 +109,7 @@
 
                 <select
                   class="form-control"
-                  v-model="form.visite_type"
+                  v-model="form.visit"
                   :class="{
                                         'is-invalid': form.errors.has(
                                             'visit'

@@ -11,7 +11,7 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>#</th>
+                    <th>#Matricule</th>
                     <th>Client</th>
                     <th>Visite</th>
                     <th>Date Visite</th>
@@ -34,9 +34,10 @@
                 </thead>
                 <tbody>
                   <tr v-for="customerVisit in getCustomersVisits" :key="customerVisit.id">
-                    <th scope="row">{{ customerVisit.id }}</th>
-                    <td>{{ customerVisit.customer }}</td>
-                    <td>{{ customerVisit.visit }}</td>
+                    <th scope="row">{{ customerVisit.matricule }}</th>
+                    <td>{{ customerVisit.full_name }}</td>
+                    <td>{{ customerVisit.type }}</td>
+                    <td>{{ customerVisit.created_at | moment('DD/MM/YYYY') }}</td>
                     <td>{{ customerVisit.total }} DH</td>
                     <td>
                       <a
@@ -61,11 +62,11 @@
 <script>
 export default {
   mounted() {
-    this.$store.dispatch("visits");
+    this.$store.dispatch("getCustomersVisits");
   },
   computed: {
-    getVisits() {
-      return this.$store.getters.getVisits;
+    getCustomersVisits() {
+      return this.$store.getters.getCustomersVisits;
     },
   },
 };

@@ -20,8 +20,6 @@
                   <th>Nom & Prénom</th>
                   <th>Téléphone</th>
                   <th>Marque</th>
-                  <th>Visite</th>
-                  <th>Date dernier visite</th>
                   <th class="nosort">
                     <a
                       data-toggle="modal"
@@ -44,8 +42,6 @@
                   <td>{{ customer.full_name }}</td>
                   <td>{{ customer.phone }}</td>
                   <td>{{ customer.car_brand }}</td>
-                  <td>hna visit</td>
-                  <td>Hna date akhir whda</td>
                   <td>
                     <div class="table-actions">
                       <a
@@ -104,10 +100,7 @@ export default {
     "not-available": NotAvailable,
   },
   mounted() {
-    this.$store.dispatch("customersList").then(() => {
-      //call this function to count customers number if its > 0 or not to set available property
-      this.setAvailable();
-    });
+    this.$store.dispatch("customersList");
   },
   computed: {
     getCustomers() {

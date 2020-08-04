@@ -1968,13 +1968,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    this.$store.dispatch("visits");
+    this.$store.dispatch("getCustomersVisits");
   },
   computed: {
-    getVisits: function getVisits() {
-      return this.$store.getters.getVisits;
+    getCustomersVisits: function getCustomersVisits() {
+      return this.$store.getters.getCustomersVisits;
     }
   }
 });
@@ -2306,10 +2307,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -2322,23 +2319,18 @@ __webpack_require__.r(__webpack_exports__);
     "not-available": _Not_Available__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   mounted: function mounted() {
-    var _this = this;
-
-    this.$store.dispatch("customersList").then(function () {
-      //call this function to count customers number if its > 0 or not to set available property
-      _this.setAvailable();
-    });
+    this.$store.dispatch("customersList");
   },
   computed: {
     getCustomers: function getCustomers() {
-      var _this2 = this;
+      var _this = this;
 
       var customers = undefined; //if user type something for filtering
 
       if (this.query !== "") {
         //filter data
         customers = this.$store.getters.getCustomers.filter(function (customer) {
-          return JSON.stringify(customer).toLowerCase().indexOf(_this2.query.toLowerCase()) !== -1;
+          return JSON.stringify(customer).toLowerCase().indexOf(_this.query.toLowerCase()) !== -1;
         });
       } //else get all data without filtering
       else customers = this.$store.getters.getCustomers;
@@ -2359,7 +2351,7 @@ __webpack_require__.r(__webpack_exports__);
       this.customer = customer;
     },
     remove: function remove(customer) {
-      var _this3 = this;
+      var _this2 = this;
 
       this.$confirm({
         message: "Vous \xEAtes sure?",
@@ -2374,7 +2366,7 @@ __webpack_require__.r(__webpack_exports__);
          */
         callback: function callback(confirm) {
           if (confirm) {
-            _this3.$store.dispatch("deleteCustomer", customer);
+            _this2.$store.dispatch("deleteCustomer", customer);
           }
         }
       });
@@ -41085,12 +41077,23 @@ var render = function() {
                   _vm._l(_vm.getCustomersVisits, function(customerVisit) {
                     return _c("tr", { key: customerVisit.id }, [
                       _c("th", { attrs: { scope: "row" } }, [
-                        _vm._v(_vm._s(customerVisit.id))
+                        _vm._v(_vm._s(customerVisit.matricule))
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(customerVisit.customer))]),
+                      _c("td", [_vm._v(_vm._s(customerVisit.full_name))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(customerVisit.visit))]),
+                      _c("td", [_vm._v(_vm._s(customerVisit.type))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("moment")(
+                              customerVisit.created_at,
+                              "DD/MM/YYYY"
+                            )
+                          )
+                        )
+                      ]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(customerVisit.total) + " DH")]),
                       _vm._v(" "),
@@ -41124,7 +41127,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("#")]),
+        _c("th", [_vm._v("#Matricule")]),
         _vm._v(" "),
         _c("th", [_vm._v("Client")]),
         _vm._v(" "),
@@ -41404,8 +41407,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.form.visite_type,
-                            expression: "form.visite_type"
+                            value: _vm.form.visit,
+                            expression: "form.visit"
                           }
                         ],
                         staticClass: "form-control",
@@ -41424,7 +41427,7 @@ var render = function() {
                               })
                             _vm.$set(
                               _vm.form,
-                              "visite_type",
+                              "visit",
                               $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
@@ -41647,10 +41650,6 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(customer.car_brand))]),
                             _vm._v(" "),
-                            _c("td", [_vm._v("hna visit")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("Hna date akhir whda")]),
-                            _vm._v(" "),
                             _c("td", [
                               _c("div", { staticClass: "table-actions" }, [
                                 _c(
@@ -41759,10 +41758,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Téléphone")]),
         _vm._v(" "),
         _c("th", [_vm._v("Marque")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Visite")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Date dernier visite")]),
         _vm._v(" "),
         _c("th", { staticClass: "nosort" }, [
           _c(
@@ -66030,7 +66025,8 @@ var storeData = {
     users: [],
     customers: [],
     visits: [],
-    stamps: []
+    stamps: [],
+    customersVisits: []
   },
   getters: {
     //users
@@ -66065,6 +66061,10 @@ var storeData = {
     //stamps
     getStamps: function getStamps(state) {
       return state.stamps;
+    },
+    //customers visits
+    getCustomersVisits: function getCustomersVisits(state) {
+      return state.customersVisits;
     }
   },
   mutations: {
@@ -66090,6 +66090,10 @@ var storeData = {
     //stamps
     getStamps: function getStamps(state, data) {
       state.stamps = data;
+    },
+    //customers visits
+    getCustomersVisits: function getCustomersVisits(state, data) {
+      state.customersVisits = data;
     }
   },
   actions: {
@@ -66144,6 +66148,15 @@ var storeData = {
         context.commit("getStamps", res.data);
       })["catch"](function (err) {
         console.log("ERROR : ".concat(err));
+      });
+    },
+    //customers visits
+    getCustomersVisits: function getCustomersVisits(context) {
+      axios.get("api/customer_visit").then(function (res) {
+        context.commit("getCustomersVisits", res.data.data);
+        console.log(res.data.data);
+      })["catch"](function (err) {
+        console.log("ERROR! ".concat(err));
       });
     }
   }

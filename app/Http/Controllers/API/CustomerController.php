@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Customer;
-use App\Http\Controllers\Controller;
+use App\CustomerVisit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class CustomerController extends Controller
 {
@@ -16,7 +18,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::latest()->paginate(10);
-        
+
         return response($customers);
     }
 
@@ -34,21 +36,32 @@ class CustomerController extends Controller
             'full_name' => 'required|string',
             //moroccan number ex : 0655669966 
             'phone' => 'required|string|size:10',
-            'car_brand' => 'required|string'
+            'car_brand' => 'required|string',
+            'visit' => 'required|integer'
         ]);
         
-        //create new customer
-        $customer = new Customer();
-        $customer->matricule = $request->matricule;
-        $customer->full_name= $request->full_name;
-        $customer->phone = $request->phone;
-        $customer->car_brand = $request->car_brand;
-
-        //save to db
-        $customer->save();
+        //if record doesnt exist we will create it
+        if(!Customer::where('matricule', $request->matricule)->exists())
+        {
+             //create new customer object
+             $customer = new Customer();
+             $customer->matricule = $request->matricule;
+             $customer->full_name= $request->full_name;
+             $customer->phone = $request->phone;
+             $customer->car_brand = $request->car_brand;
+ 
+             //save to db
+             $customer->save();
+        }
+    
 
         //customers_visites table
-
+        CustomerVisit::create([
+            "customer" => $request->matricule,
+            "visit" => $request->visit, 
+            "total" => 15
+        ]);
+        
         return response(201);
     }
 
@@ -100,6 +113,9 @@ class CustomerController extends Controller
      */
     public function destroy($matricule)
     {
+        //get the customer who have $matricule & delete it first from pivot table
+        CustomerVisit::where("customer", $matricule)
+                        ->delete();
         //get the customer who have $matricule then delete it
         Customer::where("matricule", $matricule)
                 ->delete();
