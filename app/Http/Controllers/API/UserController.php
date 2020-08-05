@@ -42,7 +42,7 @@ class UserController extends Controller
         $user = new User();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = $request->input('password');
+        $user->password = bcrypt( $request->input('password')); 
         $user->userType = $request->input('userType');
 
         //save to db
@@ -87,7 +87,6 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->userType = $request->userType;
 
-        $user->update();
 
         return response()->json($user);
     }
