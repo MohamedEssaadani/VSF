@@ -52,11 +52,12 @@
                       >
                         <i class="ik ik-eye text-blue"></i>
                       </a>
-                      /
+                      <span v-show="auth.user.userType === 'administrateur'">/</span>
                       <a
                         style="cursor: pointer;"
                         data-toggle="modal"
                         data-target="#editUserModal"
+                        v-show="auth.user.userType === 'administrateur'"
                         @click="edit(user)"
                       >
                         <i class="ik ik-edit-2 text-green"></i>
@@ -150,6 +151,9 @@ export default {
       } //else get all data without filtering
       else users = this.$store.getters.getUsers;
       return users;
+    },
+    auth() {
+      return this.$store.getters.auth;
     },
   },
 };

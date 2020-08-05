@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+
     return $request->user();
 });
-
 
 Route::apiResources(
     [
@@ -31,9 +31,10 @@ Route::apiResources(
     ]
 );
 
+
 //login route
 Route::post('/login', function (Request $request) {
-    $data = $request->validate([
+    $request->validate([
         'email' => 'required|email',
         'password' => 'required'
     ]);

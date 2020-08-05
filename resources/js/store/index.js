@@ -9,7 +9,9 @@ const storeData = {
         customers: [],
         visits: [],
         stamps: [],
-        customersVisits: []
+        customersVisits: [],
+        //for auth
+        user: null
     },
     getters: {
         //users
@@ -28,7 +30,10 @@ const storeData = {
         //stamps
         getStamps: state => state.stamps,
         //customers visits
-        getCustomersVisits: state => state.customersVisits
+        getCustomersVisits: state => state.customersVisits,
+        //auth
+        isLogged: state => !!state.user,
+        auth: state => state.user
     },
     mutations: {
         //users
@@ -57,6 +62,17 @@ const storeData = {
         //customers visits
         getCustomersVisits(state, data) {
             state.customersVisits = data;
+        },
+        //auth
+        setUserData(state, userData) {
+            state.user = userData;
+            localStorage.setItem("user", JSON.stringify(userData));
+            axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`;
+        },
+
+        clearUserData() {
+            localStorage.removeItem("user");
+            location.reload();
         }
     },
     actions: {
@@ -144,6 +160,16 @@ const storeData = {
                 .catch(err => {
                     console.log(`ERROR! ${err}`);
                 });
+        },
+        //auth
+        login({ commit }, credentials) {
+            return axios.post("api/login", credentials).then(({ data }) => {
+                commit("setUserData", data);
+            });
+        },
+
+        logout({ commit }) {
+            commit("clearUserData");
         }
     }
 };

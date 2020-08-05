@@ -7,28 +7,53 @@ const routes = [
     {
         path: "/dashboard",
         component: require("./components/Dashboard/Dashboard.vue").default,
+        meta: {
+            auth: true
+        },
         name: "Dashboard"
     },
     {
         path: "/users",
         component: require("./components/Users/Users-List.vue").default,
+        meta: {
+            auth: true
+        },
         name: "Users.all"
     },
     {
         path: "/customers",
         component: require("./components/Customers/Customers-List.vue").default,
+        meta: {
+            auth: true
+        },
         name: "Customers.all"
     },
     {
         path: "/visits",
         component: require("./components/Visits/Visits-List.vue").default,
+        meta: {
+            auth: true
+        },
         name: "Visits.all"
     },
     {
         path: "/customers-visits",
         component: require("./components/Customers-Visits/Customers-Visits-List.vue")
             .default,
+        meta: {
+            auth: true
+        },
         name: "Customers.visits"
+    },
+    {
+        path: "/login",
+        component: require("./components/Auth/Login.vue").default,
+        name: "Login"
+    },
+    {
+        path: "/",
+        component: require("./components/Auth/Login.vue").default,
+        name: "Login"
     }
 ];
 
@@ -37,4 +62,13 @@ const router = new VueRouter({
     routes: routes
 });
 
+router.beforeEach((to, from, next) => {
+    const loggedIn = localStorage.getItem("user");
+
+    if (to.matched.some(record => record.meta.auth) && !loggedIn) {
+        next("/login");
+        return;
+    }
+    next();
+});
 export default router;

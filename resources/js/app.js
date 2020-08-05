@@ -24,6 +24,9 @@ Vue.component("vue-confirm-dialog", VueConfirmDialog.default);
 //moment for dates
 Vue.use(require("vue-moment"));
 
+//side-bar
+Vue.component("side-bar", require("./components/Layouts/Side-Bar.vue").default);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -44,5 +47,21 @@ Vue.use(require("vue-moment"));
 const app = new Vue({
     el: "#app",
     router: Router,
-    store: Store
+    store: Store,
+    created() {
+        const userInfo = localStorage.getItem("user");
+        if (userInfo) {
+            const userData = JSON.parse(userInfo);
+            this.$store.commit("setUserData", userData);
+        }
+        axios.interceptors.response.use(
+            response => response,
+            error => {
+                if (error.response.status === 401) {
+                    this.$store.dispatch("logout");
+                }
+                return Promise.reject(error);
+            }
+        );
+    }
 });

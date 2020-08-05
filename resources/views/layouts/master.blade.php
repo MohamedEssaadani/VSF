@@ -40,7 +40,7 @@
 
         <div class="page-wrap">
             <!--sidebar here-->
-            @include('layouts.partials.side-bar')
+            <side-bar></side-bar>
             <!--sidebar here-->
 
             <div class="main-content">
