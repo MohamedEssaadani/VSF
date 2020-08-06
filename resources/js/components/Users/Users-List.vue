@@ -57,7 +57,7 @@
                         style="cursor: pointer;"
                         data-toggle="modal"
                         data-target="#editUserModal"
-                        v-show="auth.user.userType === 'administrateur'"
+                        v-show="auth.user.userType ==='administrateur'"
                         @click="edit(user)"
                       >
                         <i class="ik ik-edit-2 text-green"></i>
