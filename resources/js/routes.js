@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 
 const routes = [
     {
-        path: "/dashboard",
+        path: "/",
         component: require("./components/Dashboard/Dashboard.vue").default,
         meta: {
             auth: true
@@ -51,9 +51,13 @@ const routes = [
         name: "Login"
     },
     {
-        path: "/",
-        component: require("./components/Auth/Login.vue").default,
-        name: "Login"
+        path: "/revenues",
+        component: require("./components/Checkout/Revenues-Chart-Container.vue")
+            .default,
+        meta: {
+            auth: true
+        },
+        name: "Revenues"
     }
 ];
 

@@ -152,14 +152,17 @@ const storeData = {
         },
         //customers visits
         getCustomersVisits(context) {
-            axios
-                .get("api/customer_visit")
-                .then(res => {
-                    context.commit("getCustomersVisits", res.data.data);
-                })
-                .catch(err => {
-                    console.log(`ERROR! ${err}`);
-                });
+            return new Promise((resolve, reject) => {
+                axios
+                    .get("api/customer_visit")
+                    .then(res => {
+                        context.commit("getCustomersVisits", res.data.data);
+                        resolve();
+                    })
+                    .catch(err => {
+                        console.log(`ERROR! ${err}`);
+                    });
+            });
         },
         //auth
         login({ commit }, form) {
