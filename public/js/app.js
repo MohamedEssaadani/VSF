@@ -1908,6 +1908,8 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -1955,26 +1957,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      email: "",
-      password: ""
+      form: new vform__WEBPACK_IMPORTED_MODULE_0__["Form"]({
+        email: "",
+        password: ""
+      }),
+      credentialsNotMatch: ""
     };
   },
   methods: {
     login: function login() {
       var _this = this;
 
-      this.$store.dispatch("login", {
-        email: this.email,
-        password: this.password
-      }).then(function () {
+      this.$store.dispatch("login", this.form).then(function () {
         _this.$router.push({
           name: "Dashboard"
         });
       })["catch"](function (err) {
-        console.log(err);
+        if (err.response.status === 404) {
+          _this.credentialsNotMatch = err.response.data.message.toString();
+        }
       });
     }
   }
@@ -41291,37 +41311,63 @@ var render = function() {
             }
           },
           [
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.credentialsNotMatch !== "",
+                    expression: "credentialsNotMatch !== ''"
+                  }
+                ],
+                staticClass: "alert alert-danger"
+              },
+              [_c("h6", [_vm._v(_vm._s(_vm.credentialsNotMatch))])]
+            ),
+            _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c("label", { staticClass: "col-sm-4 col-lg-4 col-form-label" }, [
                 _vm._v("Email")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-6 col-lg-6" }, [
-                _c("div", { staticClass: "input-group" }, [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.email,
-                        expression: "email"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.email },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c(
+                  "div",
+                  { staticClass: "input-group" },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.email,
+                          expression: "form.email"
                         }
-                        _vm.email = $event.target.value
+                      ],
+                      staticClass: "form-control",
+                      class: { "is-invalid": _vm.form.errors.has("email") },
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.form.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "email", $event.target.value)
+                        }
                       }
-                    }
-                  })
-                ])
+                    }),
+                    _vm._v(" "),
+                    _c("has-error", {
+                      attrs: { form: _vm.form, field: "email" }
+                    })
+                  ],
+                  1
+                )
               ])
             ]),
             _vm._v(" "),
@@ -41331,31 +41377,41 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-6 col-lg-6" }, [
-                _c("div", { staticClass: "input-group" }, [
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.password,
-                        expression: "password"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "password" },
-                    domProps: { value: _vm.password },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c(
+                  "div",
+                  { staticClass: "input-group" },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.password,
+                          expression: "form.password"
                         }
-                        _vm.password = $event.target.value
+                      ],
+                      staticClass: "form-control",
+                      class: { "is-invalid": _vm.form.errors.has("password") },
+                      attrs: { type: "password" },
+                      domProps: { value: _vm.form.password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "password", $event.target.value)
+                        }
                       }
-                    }
-                  })
-                ])
+                    }),
+                    _vm._v(" "),
+                    _c("has-error", {
+                      attrs: { form: _vm.form, field: "password" }
+                    })
+                  ],
+                  1
+                )
               ])
             ]),
             _vm._v(" "),
@@ -43810,7 +43866,34 @@ var render = function() {
           _c("div", { staticClass: "card-body p-0 table-border-style" }, [
             _c("div", { staticClass: "table-responsive" }, [
               _c("table", { staticClass: "table" }, [
-                _vm._m(0),
+                _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v("#")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Nom")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("E-mail")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Type D'utilisateur")]),
+                    _vm._v(" "),
+                    _c(
+                      "th",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.auth.user.userType === "administrateur",
+                            expression:
+                              "auth.user.userType === 'administrateur'"
+                          }
+                        ],
+                        staticClass: "nosort"
+                      },
+                      [_vm._m(0)]
+                    )
+                  ])
+                ]),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -43826,89 +43909,94 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(user.userType))]),
                       _vm._v(" "),
-                      _c("td", [
-                        _c("div", { staticClass: "table-actions" }, [
-                          _c(
-                            "a",
+                      _c(
+                        "td",
+                        {
+                          directives: [
                             {
-                              staticStyle: { cursor: "pointer" },
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#showUserModal"
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.auth.user.userType === "administrateur",
+                              expression:
+                                "auth.user.userType === 'administrateur'"
+                            }
+                          ]
+                        },
+                        [
+                          _c("div", { staticClass: "table-actions" }, [
+                            _c(
+                              "a",
+                              {
+                                staticStyle: { cursor: "pointer" },
+                                attrs: {
+                                  "data-toggle": "modal",
+                                  "data-target": "#showUserModal"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.show(user)
+                                  }
+                                }
                               },
-                              on: {
-                                click: function($event) {
-                                  return _vm.show(user)
+                              [_c("i", { staticClass: "ik ik-eye text-blue" })]
+                            ),
+                            _vm._v(
+                              "\n                    /\n                    "
+                            ),
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value:
+                                      _vm.auth.user.userType ===
+                                      "administrateur",
+                                    expression:
+                                      "auth.user.userType ==='administrateur'"
+                                  }
+                                ],
+                                staticStyle: { cursor: "pointer" },
+                                attrs: {
+                                  "data-toggle": "modal",
+                                  "data-target": "#editUserModal"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.edit(user)
+                                  }
                                 }
-                              }
-                            },
-                            [_c("i", { staticClass: "ik ik-eye text-blue" })]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value:
-                                    _vm.auth.user.userType === "administrateur",
-                                  expression:
-                                    "auth.user.userType === 'administrateur'"
-                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "ik ik-edit-2 text-green"
+                                })
                               ]
-                            },
-                            [_vm._v("/")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value:
-                                    _vm.auth.user.userType === "administrateur",
-                                  expression:
-                                    "auth.user.userType === 'administrateur'"
+                            ),
+                            _vm._v(
+                              "\n                    /\n                    "
+                            ),
+                            _c(
+                              "a",
+                              {
+                                staticStyle: { cursor: "pointer" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.remove(user)
+                                  }
                                 }
-                              ],
-                              staticStyle: { cursor: "pointer" },
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#editUserModal"
                               },
-                              on: {
-                                click: function($event) {
-                                  return _vm.edit(user)
-                                }
-                              }
-                            },
-                            [
-                              _c("i", {
-                                staticClass: "ik ik-edit-2 text-green"
-                              })
-                            ]
-                          ),
-                          _vm._v(
-                            "\n                    /\n                    "
-                          ),
-                          _c(
-                            "a",
-                            {
-                              staticStyle: { cursor: "pointer" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.remove(user)
-                                }
-                              }
-                            },
-                            [_c("i", { staticClass: "ik ik-trash-2 text-red" })]
-                          )
-                        ])
-                      ])
+                              [
+                                _c("i", {
+                                  staticClass: "ik ik-trash-2 text-red"
+                                })
+                              ]
+                            )
+                          ])
+                        ]
+                      )
                     ])
                   }),
                   0
@@ -43935,35 +44023,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Nom")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("E-mail")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Type D'utilisateur")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "nosort" }, [
-          _c(
-            "a",
-            {
-              staticClass: "text-green",
-              staticStyle: { float: "right", cursor: "pointer" },
-              attrs: {
-                "data-toggle": "modal",
-                "data-target": "#createUserModal"
-              }
-            },
-            [
-              _c("i", { staticClass: "ik ik-plus-circle text-green" }),
-              _vm._v("\n                    Nouveau\n                  ")
-            ]
-          )
-        ])
-      ])
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "text-green",
+        staticStyle: { float: "right", cursor: "pointer" },
+        attrs: { "data-toggle": "modal", "data-target": "#createUserModal" }
+      },
+      [
+        _c("i", { staticClass: "ik ik-plus-circle text-green" }),
+        _vm._v("\n                    Nouveau\n                  ")
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -67105,9 +67176,9 @@ var storeData = {
       });
     },
     //auth
-    login: function login(_ref, credentials) {
+    login: function login(_ref, form) {
       var commit = _ref.commit;
-      return axios.post("api/login", credentials).then(function (_ref2) {
+      return form.post("api/login").then(function (_ref2) {
         var data = _ref2.data;
         commit("setUserData", data);
       });

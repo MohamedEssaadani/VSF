@@ -6,6 +6,9 @@
       </div>
       <div class="card-body">
         <form @submit.prevent="login">
+          <div class="alert alert-danger" v-show="credentialsNotMatch !== ''">
+            <h6>{{ credentialsNotMatch }}</h6>
+          </div>
           <div class="row">
             <label class="col-sm-4 col-lg-4 col-form-label">Email</label>
             <div class="col-sm-6 col-lg-6">
@@ -15,7 +18,13 @@
                     <i class="ik ik-terminal"></i>
                   </label>
                 </span>
-                <input type="text" v-model="email" class="form-control" />
+                <input
+                  type="text"
+                  v-model="form.email"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('email')}"
+                />
+                <has-error :form="form" field="email"></has-error>
               </div>
             </div>
           </div>
@@ -28,7 +37,13 @@
                     <i class="ik ik-terminal"></i>
                   </label>
                 </span>
-                <input type="password" v-model="password" class="form-control" />
+                <input
+                  type="password"
+                  v-model="form.password"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('password')}"
+                />
+                <has-error :form="form" field="password"></has-error>
               </div>
             </div>
           </div>
@@ -46,26 +61,29 @@
 
 
 <script>
+import { Form } from "vform";
 export default {
   data() {
     return {
-      email: "",
-      password: "",
+      form: new Form({
+        email: "",
+        password: "",
+      }),
+      credentialsNotMatch: "",
     };
   },
 
   methods: {
     login() {
       this.$store
-        .dispatch("login", {
-          email: this.email,
-          password: this.password,
-        })
+        .dispatch("login", this.form)
         .then(() => {
           this.$router.push({ name: "Dashboard" });
         })
         .catch((err) => {
-          console.log(err);
+          if (err.response.status === 404) {
+            this.credentialsNotMatch = err.response.data.message.toString();
+          }
         });
     },
   },

@@ -162,8 +162,8 @@ const storeData = {
                 });
         },
         //auth
-        login({ commit }, credentials) {
-            return axios.post("api/login", credentials).then(({ data }) => {
+        login({ commit }, form) {
+            return form.post("api/login").then(({ data }) => {
                 commit("setUserData", data);
             });
         },

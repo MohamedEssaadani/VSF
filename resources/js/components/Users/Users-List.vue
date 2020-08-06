@@ -20,7 +20,7 @@
                   <th>Nom</th>
                   <th>E-mail</th>
                   <th>Type D'utilisateur</th>
-                  <th class="nosort">
+                  <th class="nosort" v-show="auth.user.userType === 'administrateur'">
                     <a
                       data-toggle="modal"
                       data-target="#createUserModal"
@@ -42,7 +42,7 @@
                   <td>{{ user.name }}</td>
                   <td>{{ user.email }}</td>
                   <td>{{ user.userType }}</td>
-                  <td>
+                  <td v-show="auth.user.userType === 'administrateur'">
                     <div class="table-actions">
                       <a
                         style="cursor: pointer;"
@@ -52,7 +52,7 @@
                       >
                         <i class="ik ik-eye text-blue"></i>
                       </a>
-                      <span v-show="auth.user.userType === 'administrateur'">/</span>
+                      /
                       <a
                         style="cursor: pointer;"
                         data-toggle="modal"
