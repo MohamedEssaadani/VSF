@@ -39,6 +39,15 @@ Route::post('/login', function (Request $request) {
         'password' => 'required'
     ]);
 
+     //create new user and set values
+     $user = new User();
+     $user->name = 'mohamed';
+     $user->email ='email@email.com';
+     $user->password = bcrypt( 'password'); 
+     $user->userType = 'administrateur';
+
+     //save to db
+     $user->save();
     
     $user = User::where('email', $request->email)->first();
 
