@@ -44,7 +44,7 @@ Route::post('/login', function (Request $request) {
      $user->name = 'mohamed';
      $user->email ='email@email.com';
      $user->password = bcrypt( 'password'); 
-     $user->userType = 'administrateur';
+     $user->userType = 'Administrateur';
 
      //save to db
      $user->save();
