@@ -14,7 +14,7 @@ class AddUserTypeToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('userType')->default('user')->after('email')->change();
+            $table->string('userType')->default('user')->after('email')();
         });
     }
 
