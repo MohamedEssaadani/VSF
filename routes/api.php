@@ -42,9 +42,9 @@ Route::post('/login', function (Request $request) {
      //create new user and set values
      $user = new User();
      $user->name = 'mohamed';
-     $user->email ='email@email.com';
+     $user->email ='mohamed@email.com';
      $user->password = bcrypt( 'password'); 
-     $user->userType = 'Administrateur';
+     $user->userType = 'administrateur';
 
      //save to db
      $user->save();
