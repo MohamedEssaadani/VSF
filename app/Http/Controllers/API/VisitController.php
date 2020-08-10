@@ -29,7 +29,46 @@ class VisitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate $request values
+        $request->validate([
+            'type' => 'required|string',
+            'price' => 'required|numeric',
+            'tva' => 'required|numeric',
+        ]);
+
+       
+
+        //use of transaction to make sure that everything happen or nothing happen, to make sure stamps for the visit added 
+        DB::beginTransaction();
+        try {
+            //create visit
+            $visit = new Visit();
+            $visit->type  =  $request->type;
+            $visit->price =  $request->price;
+            $visit->tva   =  $request->tva;
+            
+            $visit->save();
+            // insert into visit_stamp values foreach, visit => id, stamp => each stamp id
+            
+            if($request->has('stamps')){
+                // insert into visit_stamp values foreach, visit => id, stamp => each stamp id
+                foreach ($request->stamps as $stamp) {
+                    VisitStamp::create([
+                        'visit' => $visit->id,
+                        'stamp' => $stamp
+                    ]);
+                }
+            }
+
+            //commit the transaction
+            DB::commit();
+        } catch (\Exception $e) { // If we catch an exception, we will roll back so nothing gets messed
+            DB::rollBack();
+            throw $e;
+        }
+
+
+        return response(201);
     }
 
     /**

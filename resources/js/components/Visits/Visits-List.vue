@@ -15,7 +15,20 @@
                     <th>Type</th>
                     <th>Prix</th>
                     <th>Tva</th>
-                    <th class="nosort"></th>
+                    <th class="nosort">
+                      <a
+                        data-toggle="modal"
+                        data-target="#createVisitModal"
+                        class="text-green"
+                        style="
+                              float: right;
+                              cursor: pointer;
+                            "
+                      >
+                        <i class="ik ik-plus-circle text-green"></i>
+                        Nouveau
+                      </a>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -44,15 +57,19 @@
     </div>
     <!--Edit visit modal-->
     <edit-visit v-show="isEdit" :visit="visit"></edit-visit>
+    <!--Create visit modal-->
+    <create-visit></create-visit>
   </div>
 </template>
 
 <script>
 import EditVisit from "./Edit-Visit";
+import CreateVisit from "./Create-Visit";
 
 export default {
   components: {
     "edit-visit": EditVisit,
+    "create-visit": CreateVisit,
   },
   mounted() {
     this.$store.dispatch("visits");
