@@ -24,6 +24,7 @@
                               float: right;
                               cursor: pointer;
                             "
+                        v-show="auth.user.userType === 'administrateur'"
                       >
                         <i class="ik ik-plus-circle text-green"></i>
                         Nouveau
@@ -40,6 +41,7 @@
                     <td>
                       <a
                         style="cursor: pointer; font-size:15px;"
+                        v-show="auth.user.userType === 'administrateur'"
                         @click="edit(visit)"
                         data-toggle="modal"
                         data-target="#editVisitModal"

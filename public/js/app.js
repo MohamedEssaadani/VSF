@@ -4161,6 +4161,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -82716,7 +82718,49 @@ var render = function() {
             _c("div", { staticClass: "card-body p-0 table-border-style" }, [
               _c("div", { staticClass: "table-responsive" }, [
                 _c("table", { staticClass: "table" }, [
-                  _vm._m(1),
+                  _c("thead", [
+                    _c("tr", [
+                      _c("th", [_vm._v("#")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Type")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Prix")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Tva")]),
+                      _vm._v(" "),
+                      _c("th", { staticClass: "nosort" }, [
+                        _c(
+                          "a",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value:
+                                  _vm.auth.user.userType === "administrateur",
+                                expression:
+                                  "auth.user.userType === 'administrateur'"
+                              }
+                            ],
+                            staticClass: "text-green",
+                            staticStyle: { float: "right", cursor: "pointer" },
+                            attrs: {
+                              "data-toggle": "modal",
+                              "data-target": "#createVisitModal"
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "ik ik-plus-circle text-green"
+                            }),
+                            _vm._v(
+                              "\n                      Nouveau\n                    "
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  ]),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -82736,6 +82780,16 @@ var render = function() {
                           _c(
                             "a",
                             {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.auth.user.userType === "administrateur",
+                                  expression:
+                                    "auth.user.userType === 'administrateur'"
+                                }
+                              ],
                               staticStyle: {
                                 cursor: "pointer",
                                 "font-size": "15px"
@@ -82793,40 +82847,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card-header d-block" }, [
       _c("h3", { staticStyle: { float: "left" } }, [
         _vm._v("Types des visites")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Type")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Prix")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Tva")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "nosort" }, [
-          _c(
-            "a",
-            {
-              staticClass: "text-green",
-              staticStyle: { float: "right", cursor: "pointer" },
-              attrs: {
-                "data-toggle": "modal",
-                "data-target": "#createVisitModal"
-              }
-            },
-            [
-              _c("i", { staticClass: "ik ik-plus-circle text-green" }),
-              _vm._v("\n                      Nouveau\n                    ")
-            ]
-          )
-        ])
       ])
     ])
   }
