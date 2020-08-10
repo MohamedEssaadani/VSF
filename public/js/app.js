@@ -2141,28 +2141,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.$store.dispatch("getCustomersVisits");
@@ -79479,11 +79457,7 @@ var render = function() {
                   _vm._l(_vm.getCustomersVisits, function(customerVisit) {
                     return _c("tr", { key: customerVisit.id }, [
                       _c("th", { attrs: { scope: "row" } }, [
-                        _vm._v(
-                          "\n                                        " +
-                            _vm._s(customerVisit.matricule) +
-                            "\n                                    "
-                        )
+                        _vm._v(_vm._s(customerVisit.matricule))
                       ]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(customerVisit.full_name))]),
@@ -79492,14 +79466,14 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                                        " +
+                          "\n                    " +
                             _vm._s(
                               _vm._f("moment")(
                                 customerVisit.created_at,
                                 "DD/MM/YYYY"
                               )
                             ) +
-                            "\n                                    "
+                            "\n                  "
                         )
                       ]),
                       _vm._v(" "),
@@ -79545,25 +79519,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Total")]),
         _vm._v(" "),
-        _c("th", { staticClass: "nosort" }, [
-          _c(
-            "a",
-            {
-              staticClass: "text-green",
-              staticStyle: { float: "right", cursor: "pointer" },
-              attrs: {
-                "data-toggle": "modal",
-                "data-target": "#createCustomerModal"
-              }
-            },
-            [
-              _c("i", { staticClass: "ik ik-plus-circle text-green" }),
-              _vm._v(
-                "\n                                            Nouveau\n                                        "
-              )
-            ]
-          )
-        ])
+        _c("th", { staticClass: "nosort" })
       ])
     ])
   },
