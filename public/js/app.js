@@ -4187,6 +4187,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4200,6 +4213,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     getVisits: function getVisits() {
       return this.$store.getters.getVisits;
+    },
+    auth: function auth() {
+      return this.$store.getters.auth;
     }
   },
   methods: {
@@ -82735,7 +82751,7 @@ var render = function() {
                                 value:
                                   _vm.auth.user.userType === "administrateur",
                                 expression:
-                                  "auth.user.userType === 'administrateur'"
+                                  "\n                                                auth.user.userType ===\n                                                    'administrateur'\n                                            "
                               }
                             ],
                             staticClass: "text-green",
@@ -82750,7 +82766,7 @@ var render = function() {
                               staticClass: "ik ik-plus-circle text-green"
                             }),
                             _vm._v(
-                              "\n                      Nouveau\n                    "
+                              "\n                                            Nouveau\n                                        "
                             )
                           ]
                         )
@@ -82783,7 +82799,7 @@ var render = function() {
                                   value:
                                     _vm.auth.user.userType === "administrateur",
                                   expression:
-                                    "auth.user.userType === 'administrateur'"
+                                    "\n                                                auth.user.userType ===\n                                                    'administrateur'\n                                            "
                                 }
                               ],
                               staticStyle: {
