@@ -14,7 +14,7 @@
                     <th>#</th>
                     <th>Type</th>
                     <th>Prix</th>
-                    <th>Tva</th>
+                    <!-- <th>Tva</th> -->
                     <th class="nosort">
                       <a
                         data-toggle="modal"

@@ -82682,8 +82682,6 @@ var render = function() {
                       _vm._v(" "),
                       _c("th", [_vm._v("Prix")]),
                       _vm._v(" "),
-                      _c("th", [_vm._v("Tva")]),
-                      _vm._v(" "),
                       _c("th", { staticClass: "nosort" }, [
                         _c(
                           "a",
