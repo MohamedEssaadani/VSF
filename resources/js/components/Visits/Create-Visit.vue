@@ -103,7 +103,7 @@
                             </div>
                         </div>
 
-                        <!-- <label class="col-sm-4 col-lg-4 col-form-label"
+                        <label class="col-sm-4 col-lg-4 col-form-label"
                             >Timbres</label
                         >
                         <div class="col-sm-8 col-lg-8">
@@ -136,7 +136,7 @@
                                     field="timbre"
                                 ></has-error>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
 
