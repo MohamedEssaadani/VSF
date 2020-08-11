@@ -32,7 +32,6 @@
                         <router-link :to="{ name: 'Customers.all' }">
                             <i class="ik ik-user"></i>
                             <span>Clients</span>
-                            <span class="badge badge-success">33+</span>
                         </router-link>
                     </div>
 
@@ -60,10 +59,16 @@
                     </div>
 
                     <div class="nav-item" v-show="isLogged">
+                        <router-link :to="{ name: 'Stamps.all' }">
+                            <i class="ik ik-layers"></i>
+                            <span>Timbres</span>
+                        </router-link>
+                    </div>
+
+                    <div class="nav-item" v-show="isLogged">
                         <router-link :to="{ name: 'Users.all' }">
                             <i class="ik ik-user"></i>
                             <span>Utilisateurs</span>
-                            <span class="badge badge-danger">120+</span>
                         </router-link>
                     </div>
 
@@ -75,6 +80,7 @@
                     >
                         Statistiques
                     </div>
+
                     <div
                         class="nav-item"
                         v-show="

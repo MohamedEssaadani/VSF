@@ -29,6 +29,7 @@ const storeData = {
         getVisits: state => state.visits,
         //stamps
         getStamps: state => state.stamps,
+        getStampsNumber: (state, getters) => getters.getStamps.length,
         //customers visits
         getCustomersVisits: state => state.customersVisits,
         //auth

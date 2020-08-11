@@ -26,7 +26,19 @@ class StampController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'type' => 'required|string',
+            'description' => 'required|string', 
+            'price' => 'required|numeric'
+        ]);
+
+        Stamp::create([
+            'type' => $request->type,
+            'description' => $request->description,
+            'price' => $request->price
+        ]);
+
+        return response(201);
     }
 
     /**

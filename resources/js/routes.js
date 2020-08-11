@@ -58,6 +58,14 @@ const routes = [
             auth: true
         },
         name: "Revenues"
+    },
+    {
+        path: "/stamps",
+        component: require("./components/Stamps/Stamps-List").default,
+        meta: {
+            auth: true
+        },
+        name: "Stamps.all"
     }
 ];
 

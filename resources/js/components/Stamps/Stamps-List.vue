@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-block">
-                    <h3 style="float:left;">Clients</h3>
+                    <h3 style="float:left;">Timbres</h3>
                     <div class="row" style="float:right;">
                         <div>
                             <input
@@ -18,25 +18,25 @@
 
                 <div
                     class="card-body p-0 table-border-style"
-                    v-if="getCustomersNumber > 0"
+                    v-if="getStampsNumber > 0"
                 >
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th># Matricule</th>
-                                    <th>Nom & Prénom</th>
-                                    <th>Téléphone</th>
-                                    <th>Marque</th>
+                                    <th>#</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Prix</th>
                                     <th class="nosort">
                                         <a
                                             data-toggle="modal"
-                                            data-target="#createCustomerModal"
+                                            data-target="#createStampModal"
                                             class="text-green"
                                             style="
-                              float: right;
-                              cursor: pointer;
-                            "
+                                                    float: right;
+                                                    cursor: pointer;
+                                                    "
                                         >
                                             <i
                                                 class="ik ik-plus-circle text-green"
@@ -47,21 +47,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr
-                                    v-for="customer in getCustomers"
-                                    :key="customer.matricule"
-                                >
+                                <tr v-for="stamp in getStamps" :key="stamp.id">
                                     <th scope="row">
-                                        {{ customer.matricule }}
+                                        {{ stamp.id }}
                                     </th>
-                                    <td>{{ customer.full_name }}</td>
-                                    <td>{{ customer.phone }}</td>
-                                    <td>{{ customer.car_brand }}</td>
+                                    <td>{{ stamp.type }}</td>
+                                    <td>{{ stamp.description }}</td>
+                                    <td>{{ stamp.price }} DH</td>
                                     <td>
                                         <div class="table-actions">
                                             <a
                                                 style="cursor: pointer;"
-                                                @click="show(customer)"
                                                 data-toggle="modal"
                                                 data-target="#showCustomerModal"
                                             >
@@ -72,7 +68,6 @@
                                             /
                                             <a
                                                 style="cursor: pointer;"
-                                                @click="edit(customer)"
                                                 data-toggle="modal"
                                                 data-target="#editCustomerModal"
                                             >
@@ -81,10 +76,7 @@
                                                 ></i>
                                             </a>
                                             /
-                                            <a
-                                                style="cursor: pointer;"
-                                                @click="remove(customer)"
-                                            >
+                                            <a style="cursor: pointer;">
                                                 <i
                                                     class="ik ik-trash-2 text-red"
                                                 ></i>
@@ -96,55 +88,46 @@
                         </table>
                     </div>
                 </div>
+                <!--when no stamp available-->
                 <not-available v-else></not-available>
+                <!--create stamp modal -->
+                <create-stamp></create-stamp>
             </div>
         </div>
-        <!--Create customer modal-->
-        <create-customer></create-customer>
-        <!--Edit customer modal-->
-        <edit-customer v-if="isEdit" :customer="customer"></edit-customer>
-        <!---Show customer modal -->
-        <show-customer v-if="isShow" :customer="customer"></show-customer>
-        <!--Confirm dialog -->
-        <vue-confirm-dialog></vue-confirm-dialog>
     </div>
 </template>
 
 <script>
-import CreateCustomer from "./Create-Customer";
-import EditCustomer from "./Edit-Customer";
-import ShowCustomer from "./Show-Customer";
 import NotAvailable from "./Not-Available";
+import CreateStamp from "./Create-Stamp";
 
 export default {
     components: {
-        "create-customer": CreateCustomer,
-        "edit-customer": EditCustomer,
-        "show-customer": ShowCustomer,
-        "not-available": NotAvailable
+        "not-available": NotAvailable,
+        "create-stamp": CreateStamp
     },
     mounted() {
-        this.$store.dispatch("customersList");
+        this.$store.dispatch("getStamps");
     },
     computed: {
-        getCustomers() {
-            let customers = undefined;
+        getStamps() {
+            let stamps = undefined;
             //if user type something for filtering
             if (this.query !== "") {
                 //filter data
-                customers = this.$store.getters.getCustomers.filter(
-                    customer =>
-                        JSON.stringify(customer)
+                stamps = this.$store.getters.getStamps.filter(
+                    stamp =>
+                        JSON.stringify(stamp)
                             .toLowerCase()
                             .indexOf(this.query.toLowerCase()) !== -1
                 );
             } //else get all data without filtering
-            else customers = this.$store.getters.getCustomers;
+            else stamps = this.$store.getters.getStamps;
 
-            return customers;
+            return stamps;
         },
-        getCustomersNumber() {
-            return this.$store.getters.getCustomersNumber;
+        getStampsNumber() {
+            return this.$store.getters.getStampsNumber;
         }
     },
     methods: {
