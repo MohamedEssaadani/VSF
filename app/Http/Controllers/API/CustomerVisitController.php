@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\CustomerVisit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -18,7 +19,7 @@ class CustomerVisitController extends Controller
         $customers_visits = DB::table('customer_visits')
         ->join('customers', 'customers.matricule', '=', 'customer_visits.customer')
         ->join('visits', 'visits.id', '=', 'customer_visits.visit')
-        ->select('customers.full_name', 'customers.matricule', 'visits.type', 'customer_visits.created_at', 'customer_visits.total')
+        ->select('customers.full_name', 'customers.matricule', 'visits.type', 'customer_visits.id','customer_visits.created_at', 'customer_visits.total')
         ->latest()
         ->paginate(10);
 
@@ -67,6 +68,8 @@ class CustomerVisitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        CustomerVisit::destroy($id);
+    
+        return response(201);
     }
 }

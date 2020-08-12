@@ -140,6 +140,8 @@ class VisitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Visit::destroy($id);
+
+        return response(201);
     }
 }

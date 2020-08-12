@@ -49,12 +49,17 @@ const storeData = {
         customersList(state, data) {
             state.customers = data;
         },
-        visits(state, data) {
-            state.visits = data;
-        },
         deleteCustomer(state, customer) {
             let index = state.customers.indexOf(customer);
             state.customers.splice(index, 1);
+        },
+        //visits
+        visits(state, data) {
+            state.visits = data;
+        },
+        deleteVisit(state, visit) {
+            let index = state.visits.indexOf(visit);
+            state.visits.splice(index, 1);
         },
         //stamps
         getStamps(state, data) {
@@ -67,6 +72,10 @@ const storeData = {
         //customers visits
         getCustomersVisits(state, data) {
             state.customersVisits = data;
+        },
+        deleteCustomerVisit(state, customerVisit) {
+            let index = state.customersVisits.indexOf(customerVisit);
+            state.customersVisits.splice(index, 1);
         },
         //auth
         setUserData(state, userData) {
@@ -143,6 +152,16 @@ const storeData = {
                     console.log(`Error! ${err}`);
                 });
         },
+        deleteVisit(context, visit) {
+            axios
+                .delete(`api/visit/${visit.id}`)
+                .then(() => {
+                    context.commit("deleteVisit");
+                })
+                .catch(err => {
+                    console.log(`ERROR! ${err}`);
+                });
+        },
         //stamps
         getStamps(context) {
             axios
@@ -177,6 +196,16 @@ const storeData = {
                         console.log(`ERROR! ${err}`);
                     });
             });
+        },
+        deleteCustomerVisit(context, customerVisit) {
+            axios
+                .delete(`api/customer_visit/${customerVisit.id}`)
+                .then(() => {
+                    context.commit("deleteCustomerVisit", customerVisit);
+                })
+                .catch(err => {
+                    console.log(`ERROR! ${err}`);
+                });
         },
         //auth
         login({ commit }, form) {
