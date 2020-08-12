@@ -81601,7 +81601,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "input-group-prepend" }, [
       _c("label", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "ik ik-file-text" })
+        _c("i", { staticClass: "ik ik-terminal" })
       ])
     ])
   },
@@ -81621,7 +81621,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "input-group-prepend" }, [
       _c("label", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "ik ik-user" })
+        _c("i", { staticClass: "ik ik-terminal" })
       ])
     ])
   },

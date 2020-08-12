@@ -60,7 +60,7 @@
                             <div class="input-group">
                                 <span class="input-group-prepend">
                                     <label class="input-group-text">
-                                        <i class="ik ik-file-text"></i>
+                                        <i class="ik ik-terminal"></i>
                                     </label>
                                 </span>
                                 <input
@@ -113,7 +113,7 @@
                             <div class="input-group">
                                 <span class="input-group-prepend">
                                     <label class="input-group-text">
-                                        <i class="ik ik-user"></i>
+                                        <i class="ik ik-terminal"></i>
                                     </label>
                                 </span>
                                 <input
