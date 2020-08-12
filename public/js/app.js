@@ -2432,6 +2432,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -81470,7 +81513,7 @@ var render = function() {
                             [_vm._v(_vm._s(visit.type))]
                           )
                         }),
-                        _vm._v(">\n              ")
+                        _vm._v(">\n                            ")
                       ],
                       2
                     ),
@@ -81492,7 +81535,7 @@ var render = function() {
                 staticClass: "btn btn-danger",
                 attrs: { type: "button", "data-dismiss": "modal" }
               },
-              [_vm._v("× Annuler")]
+              [_vm._v("\n                    × Annuler\n                ")]
             ),
             _vm._v(" "),
             _c(
@@ -81504,7 +81547,7 @@ var render = function() {
               },
               [
                 _c("i", { staticClass: "ik ik-save" }),
-                _vm._v("\n          Enregistrer\n        ")
+                _vm._v("\n                    Enregistrer\n                ")
               ]
             )
           ])
@@ -81525,7 +81568,7 @@ var staticRenderFns = [
           staticClass: "modal-title",
           attrs: { id: "createCustomerModalLabel" }
         },
-        [_vm._v("Nouveau Client")]
+        [_vm._v("\n                    Nouveau Client\n                ")]
       ),
       _vm._v(" "),
       _c(
@@ -81568,7 +81611,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "input-group-prepend" }, [
       _c("label", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "ik ik-at-sign" })
+        _c("i", { staticClass: "ik ik-terminal" })
       ])
     ])
   },
