@@ -27,6 +27,9 @@ Vue.use(require("vue-moment"));
 //side-bar
 Vue.component("side-bar", require("./components/Layouts/Side-Bar.vue").default);
 
+//pagination component
+Vue.component("pagination", require("laravel-vue-pagination"));
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

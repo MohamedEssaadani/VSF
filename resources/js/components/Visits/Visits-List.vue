@@ -45,7 +45,15 @@
                       <div class="table-actions">
                         <a
                           style="cursor: pointer; "
-                          v-show="auth.user.userType ==='administrateur'"
+                          @click="show(visit)"
+                          data-toggle="modal"
+                          data-target="#showVisitModal"
+                        >
+                          <i class="ik ik-eye text-blue"></i>
+                        </a>
+                        /
+                        <a
+                          style="cursor: pointer; "
                           @click="edit(visit)"
                           data-toggle="modal"
                           data-target="#editVisitModal"
@@ -55,7 +63,6 @@
                         /
                         <a
                           style="cursor: pointer; "
-                          v-show="auth.user.userType ==='administrateur'"
                           @click="remove(visit)"
                         >
                           <i class="ik ik-trash-2 text-red"></i>
@@ -74,6 +81,8 @@
     <edit-visit v-show="isEdit" :visit="visit"></edit-visit>
     <!--Create visit modal-->
     <create-visit></create-visit>
+    <!--Show visit modal-->
+    <show-visit v-show="isShow" :visit="visit"></show-visit>
     <!--Confirm dialog -->
     <vue-confirm-dialog></vue-confirm-dialog>
   </div>
@@ -82,11 +91,13 @@
 <script>
 import EditVisit from "./Edit-Visit";
 import CreateVisit from "./Create-Visit";
+import ShowVisit from "./Show-Visit";
 
 export default {
   components: {
     "edit-visit": EditVisit,
     "create-visit": CreateVisit,
+    "show-visit": ShowVisit,
   },
   mounted() {
     this.$store.dispatch("visits");
@@ -102,6 +113,10 @@ export default {
   methods: {
     edit(visit) {
       this.isEdit = true;
+      this.visit = visit;
+    },
+    show(visit) {
+      this.isShow = true;
       this.visit = visit;
     },
     remove(visit) {
@@ -126,6 +141,7 @@ export default {
   data() {
     return {
       isEdit: false,
+      isShow: false,
       visit: {},
     };
   },
