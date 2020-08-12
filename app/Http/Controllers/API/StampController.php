@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Stamp;
-use App\Http\Controllers\Controller;
+use App\StampVisit;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class StampController extends Controller
 {
@@ -61,7 +62,19 @@ class StampController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'type' => 'required|string', 
+            'description' => 'required|string', 
+            'price'=> 'required|numeric'
+        ]);
+
+        Stamp::where('id', $id)->update([
+            'type' => $request->type, 
+            'description' => $request->description, 
+            'price' => $request->price
+        ]);
+
+        return response(201);
     }
 
     /**
@@ -72,6 +85,11 @@ class StampController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //delete from visit_stamp first
+        StampVisit::where('stamp', $id)->delete();
+        //delete now stamp
+        Stamp::destroy($id);
+
+        return response(201);
     }
 }

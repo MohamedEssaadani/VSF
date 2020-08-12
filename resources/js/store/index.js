@@ -60,6 +60,10 @@ const storeData = {
         getStamps(state, data) {
             state.stamps = data;
         },
+        deleteStamp(state, stamp) {
+            let index = state.stamps.indexOf(stamp);
+            state.stamps.splice(index, 1);
+        },
         //customers visits
         getCustomersVisits(state, data) {
             state.customersVisits = data;
@@ -70,7 +74,6 @@ const storeData = {
             localStorage.setItem("user", JSON.stringify(userData));
             axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`;
         },
-
         clearUserData() {
             localStorage.removeItem("user");
             location.reload();
@@ -149,6 +152,16 @@ const storeData = {
                 })
                 .catch(err => {
                     console.log(`ERROR : ${err}`);
+                });
+        },
+        deleteStamp(context, stamp) {
+            axios
+                .delete(`api/stamp/${stamp.id}`)
+                .then(() => {
+                    context.commit("deleteStamp", stamp);
+                })
+                .catch(err => {
+                    console.log(`ERROR! ${err}`);
                 });
         },
         //customers visits
