@@ -50,8 +50,8 @@ const storeData = {
             state.customers = data;
         },
         deleteCustomer(state, customer) {
-            let index = state.customers.indexOf(customer);
-            state.customers.splice(index, 1);
+            let index = state.customers.data.indexOf(customer);
+            state.customers.data.splice(index, 1);
         },
         //visits
         visits(state, data) {

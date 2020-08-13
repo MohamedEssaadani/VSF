@@ -108865,8 +108865,8 @@ var storeData = {
       state.customers = data;
     },
     deleteCustomer: function deleteCustomer(state, customer) {
-      var index = state.customers.indexOf(customer);
-      state.customers.splice(index, 1);
+      var index = state.customers.data.indexOf(customer);
+      state.customers.data.splice(index, 1);
     },
     //visits
     visits: function visits(state, data) {
