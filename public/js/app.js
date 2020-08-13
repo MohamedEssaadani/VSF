@@ -2648,33 +2648,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2687,7 +2660,8 @@ __webpack_require__.r(__webpack_exports__);
     "not-available": _Not_Available__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   mounted: function mounted() {
-    this.$store.dispatch("customersList");
+    // this.$store.dispatch("customersList");
+    this.getResults();
   },
   computed: {
     getCustomers: function getCustomers() {
@@ -2710,6 +2684,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    getResults: function getResults() {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.$store.dispatch("customersList", page);
+    },
     edit: function edit(customer) {
       this.isEdit = true;
       this.customer = customer;
@@ -81711,14 +81689,10 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.getCustomers, function(customer) {
+                          _vm._l(_vm.getCustomers.data, function(customer) {
                             return _c("tr", { key: customer.matricule }, [
                               _c("th", { attrs: { scope: "row" } }, [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(customer.matricule) +
-                                    "\n                                "
-                                )
+                                _vm._v(_vm._s(customer.matricule))
                               ]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(customer.full_name))]),
@@ -81750,7 +81724,7 @@ var render = function() {
                                     ]
                                   ),
                                   _vm._v(
-                                    "\n                                        /\n                                        "
+                                    "\n                    /\n                    "
                                   ),
                                   _c(
                                     "a",
@@ -81773,7 +81747,7 @@ var render = function() {
                                     ]
                                   ),
                                   _vm._v(
-                                    "\n                                        /\n                                        "
+                                    "\n                    /\n                    "
                                   ),
                                   _c(
                                     "a",
@@ -81802,7 +81776,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("pagination", {
                       attrs: { data: _vm.getCustomers },
-                      on: { "pagination-change-page": _vm.getCustomers }
+                      on: { "pagination-change-page": _vm.getResults }
                     })
                   ],
                   1
@@ -81856,9 +81830,7 @@ var staticRenderFns = [
             },
             [
               _c("i", { staticClass: "ik ik-plus-circle text-green" }),
-              _vm._v(
-                "\n                                        Nouveau\n                                    "
-              )
+              _vm._v("\n                    Nouveau\n                  ")
             ]
           )
         ])
@@ -108823,7 +108795,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__
 var storeData = {
   state: {
     users: [],
-    customers: [],
+    customers: {},
     visits: [],
     stamps: [],
     customersVisits: [],
@@ -108854,7 +108826,7 @@ var storeData = {
       };
     },
     getCustomersNumber: function getCustomersNumber(state, getters) {
-      return getters.getCustomers.length;
+      return getters.getCustomers.total;
     },
     //visits
     getVisits: function getVisits(state) {
@@ -108956,8 +108928,9 @@ var storeData = {
     },
     //customers
     customersList: function customersList(context) {
-      axios.get("api/customer").then(function (response) {
-        context.commit("customersList", response.data.data);
+      var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+      axios.get("api/customer?page=".concat(page)).then(function (response) {
+        context.commit("customersList", response.data);
       })["catch"](function (error) {
         console.log("ERROR! ".concat(error));
       });
