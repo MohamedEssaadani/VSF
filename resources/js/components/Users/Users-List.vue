@@ -37,7 +37,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="user in getUsers" :key="user.id">
+                <tr v-for="user in getUsers.data" :key="user.id">
                   <th scope="row">{{ user.id }}</th>
                   <td>{{ user.name }}</td>
                   <td>{{ user.email }}</td>
@@ -72,6 +72,7 @@
               </tbody>
             </table>
           </div>
+          <pagination :data="getUsers" @pagination-change-page="getResults"></pagination>
         </div>
       </div>
     </div>
@@ -106,9 +107,13 @@ export default {
     "show-user": ShowUser,
   },
   mounted() {
-    this.$store.dispatch("usersList");
+    // this.$store.dispatch("usersList");
+    this.getResults();
   },
   methods: {
+    getResults(page = 1) {
+      this.$store.dispatch("usersList", page);
+    },
     remove(user) {
       this.$confirm({
         message: `Vous êtes sure?`,

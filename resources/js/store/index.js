@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 const storeData = {
     state: {
-        users: [],
+        users: {},
         customers: {},
         visits: [],
         stamps: [],
@@ -19,6 +19,7 @@ const storeData = {
         getUser: state => id => {
             return state.users.find(user => user.id === id);
         },
+        getUsersNumber: (state, getters) => getters.getUsers.total,
         //customers
         getCustomers: state => state.customers,
         getCustomer: state => id => {
@@ -90,11 +91,11 @@ const storeData = {
     },
     actions: {
         //users
-        usersList(context) {
+        usersList(context, page = 1) {
             axios
-                .get("api/user")
+                .get(`api/user?page=${page}`)
                 .then(response => {
-                    context.commit("usersList", response.data.data);
+                    context.commit("usersList", response.data);
                 })
                 .catch(error => {
                     console.log(`ERROR! ${error}`);

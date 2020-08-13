@@ -4287,6 +4287,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -4305,9 +4306,14 @@ __webpack_require__.r(__webpack_exports__);
     "show-user": _Show_User__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   mounted: function mounted() {
-    this.$store.dispatch("usersList");
+    // this.$store.dispatch("usersList");
+    this.getResults();
   },
   methods: {
+    getResults: function getResults() {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.$store.dispatch("usersList", page);
+    },
     remove: function remove(user) {
       var _this = this;
 
@@ -84297,54 +84303,24 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body p-0 table-border-style" }, [
-            _c("div", { staticClass: "table-responsive" }, [
-              _c("table", { staticClass: "table" }, [
-                _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v("#")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Nom")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("E-mail")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Type D'utilisateur")]),
-                    _vm._v(" "),
-                    _c(
-                      "th",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.auth.user.userType === "administrateur",
-                            expression:
-                              "auth.user.userType === 'administrateur'"
-                          }
-                        ],
-                        staticClass: "nosort"
-                      },
-                      [_vm._m(0)]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.getUsers, function(user) {
-                    return _c("tr", { key: user.id }, [
-                      _c("th", { attrs: { scope: "row" } }, [
-                        _vm._v(_vm._s(user.id))
-                      ]),
+          _c(
+            "div",
+            { staticClass: "card-body p-0 table-border-style" },
+            [
+              _c("div", { staticClass: "table-responsive" }, [
+                _c("table", { staticClass: "table" }, [
+                  _c("thead", [
+                    _c("tr", [
+                      _c("th", [_vm._v("#")]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(user.name))]),
+                      _c("th", [_vm._v("Nom")]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(user.email))]),
+                      _c("th", [_vm._v("E-mail")]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(user.userType))]),
+                      _c("th", [_vm._v("Type D'utilisateur")]),
                       _vm._v(" "),
                       _c(
-                        "td",
+                        "th",
                         {
                           directives: [
                             {
@@ -84355,89 +84331,134 @@ var render = function() {
                               expression:
                                 "auth.user.userType === 'administrateur'"
                             }
-                          ]
+                          ],
+                          staticClass: "nosort"
                         },
-                        [
-                          _c("div", { staticClass: "table-actions" }, [
-                            _c(
-                              "a",
-                              {
-                                staticStyle: { cursor: "pointer" },
-                                attrs: {
-                                  "data-toggle": "modal",
-                                  "data-target": "#showUserModal"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.show(user)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "ik ik-eye text-blue" })]
-                            ),
-                            _vm._v(
-                              "\n                    /\n                    "
-                            ),
-                            _c(
-                              "a",
-                              {
-                                directives: [
-                                  {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value:
-                                      _vm.auth.user.userType ===
-                                      "administrateur",
-                                    expression:
-                                      "auth.user.userType ==='administrateur'"
-                                  }
-                                ],
-                                staticStyle: { cursor: "pointer" },
-                                attrs: {
-                                  "data-toggle": "modal",
-                                  "data-target": "#editUserModal"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.edit(user)
-                                  }
-                                }
-                              },
-                              [
-                                _c("i", {
-                                  staticClass: "ik ik-edit-2 text-green"
-                                })
-                              ]
-                            ),
-                            _vm._v(
-                              "\n                    /\n                    "
-                            ),
-                            _c(
-                              "a",
-                              {
-                                staticStyle: { cursor: "pointer" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.remove(user)
-                                  }
-                                }
-                              },
-                              [
-                                _c("i", {
-                                  staticClass: "ik ik-trash-2 text-red"
-                                })
-                              ]
-                            )
-                          ])
-                        ]
+                        [_vm._m(0)]
                       )
                     ])
-                  }),
-                  0
-                )
-              ])
-            ])
-          ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.getUsers.data, function(user) {
+                      return _c("tr", { key: user.id }, [
+                        _c("th", { attrs: { scope: "row" } }, [
+                          _vm._v(_vm._s(user.id))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.email))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.userType))]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value:
+                                  _vm.auth.user.userType === "administrateur",
+                                expression:
+                                  "auth.user.userType === 'administrateur'"
+                              }
+                            ]
+                          },
+                          [
+                            _c("div", { staticClass: "table-actions" }, [
+                              _c(
+                                "a",
+                                {
+                                  staticStyle: { cursor: "pointer" },
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#showUserModal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.show(user)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "ik ik-eye text-blue"
+                                  })
+                                ]
+                              ),
+                              _vm._v(
+                                "\n                    /\n                    "
+                              ),
+                              _c(
+                                "a",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value:
+                                        _vm.auth.user.userType ===
+                                        "administrateur",
+                                      expression:
+                                        "auth.user.userType ==='administrateur'"
+                                    }
+                                  ],
+                                  staticStyle: { cursor: "pointer" },
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#editUserModal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.edit(user)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "ik ik-edit-2 text-green"
+                                  })
+                                ]
+                              ),
+                              _vm._v(
+                                "\n                    /\n                    "
+                              ),
+                              _c(
+                                "a",
+                                {
+                                  staticStyle: { cursor: "pointer" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.remove(user)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "ik ik-trash-2 text-red"
+                                  })
+                                ]
+                              )
+                            ])
+                          ]
+                        )
+                      ])
+                    }),
+                    0
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("pagination", {
+                attrs: { data: _vm.getUsers },
+                on: { "pagination-change-page": _vm.getResults }
+              })
+            ],
+            1
+          )
         ])
       ]),
       _vm._v(" "),
@@ -108611,7 +108632,7 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__["default"]);
 var storeData = {
   state: {
-    users: [],
+    users: {},
     customers: {},
     visits: [],
     stamps: [],
@@ -108630,6 +108651,9 @@ var storeData = {
           return user.id === id;
         });
       };
+    },
+    getUsersNumber: function getUsersNumber(state, getters) {
+      return getters.getUsers.total;
     },
     //customers
     getCustomers: function getCustomers(state) {
@@ -108723,8 +108747,9 @@ var storeData = {
   actions: {
     //users
     usersList: function usersList(context) {
-      axios.get("api/user").then(function (response) {
-        context.commit("usersList", response.data.data);
+      var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+      axios.get("api/user?page=".concat(page)).then(function (response) {
+        context.commit("usersList", response.data);
       })["catch"](function (error) {
         console.log("ERROR! ".concat(error));
       });
