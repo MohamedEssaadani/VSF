@@ -36,7 +36,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="visit in getVisits" :key="visit.id">
+                  <tr v-for="visit in getVisits.data" :key="visit.id">
                     <th scope="row">{{ visit.id }}</th>
                     <td>{{ visit.type }}</td>
                     <td>{{ visit.price }} DH</td>
@@ -73,6 +73,7 @@
                 </tbody>
               </table>
             </div>
+            <pagination :data="getVisits" @pagination-change-page="getResults"></pagination>
           </div>
         </div>
       </div>
@@ -100,7 +101,8 @@ export default {
     "show-visit": ShowVisit,
   },
   mounted() {
-    this.$store.dispatch("visits");
+    // this.$store.dispatch("visits");
+    this.getResults();
   },
   computed: {
     getVisits() {
@@ -111,6 +113,9 @@ export default {
     },
   },
   methods: {
+    getResults(page = 1) {
+      this.$store.dispatch("visits", page);
+    },
     edit(visit) {
       this.isEdit = true;
       this.visit = visit;

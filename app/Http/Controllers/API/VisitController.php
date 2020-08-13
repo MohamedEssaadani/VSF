@@ -18,7 +18,9 @@ class VisitController extends Controller
 
     public function index()
     {
-        return response(Visit::all());
+        $visits = Visit::paginate(10);
+
+        return response($visits);
     }
 
     /**

@@ -5002,6 +5002,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -5012,7 +5013,8 @@ __webpack_require__.r(__webpack_exports__);
     "show-visit": _Show_Visit__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   mounted: function mounted() {
-    this.$store.dispatch("visits");
+    // this.$store.dispatch("visits");
+    this.getResults();
   },
   computed: {
     getVisits: function getVisits() {
@@ -5023,6 +5025,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    getResults: function getResults() {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.$store.dispatch("visits", page);
+    },
     edit: function edit(visit) {
       this.isEdit = true;
       this.visit = visit;
@@ -85278,136 +85284,153 @@ var render = function() {
           _c("div", { staticClass: "card" }, [
             _vm._m(0),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body p-0 table-border-style" }, [
-              _c("div", { staticClass: "table-responsive" }, [
-                _c("table", { staticClass: "table" }, [
-                  _c("thead", [
-                    _c("tr", [
-                      _c("th", [_vm._v("#")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Type")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Prix")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Tva")]),
-                      _vm._v(" "),
-                      _c("th", { staticClass: "nosort" }, [
-                        _c(
-                          "a",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  _vm.auth.user.userType === "administrateur",
-                                expression:
-                                  "\n                                                  auth.user.userType ===\n                                                      'administrateur'\n                                              "
+            _c(
+              "div",
+              { staticClass: "card-body p-0 table-border-style" },
+              [
+                _c("div", { staticClass: "table-responsive" }, [
+                  _c("table", { staticClass: "table" }, [
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v("#")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Type")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Prix")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Tva")]),
+                        _vm._v(" "),
+                        _c("th", { staticClass: "nosort" }, [
+                          _c(
+                            "a",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.auth.user.userType === "administrateur",
+                                  expression:
+                                    "\n                                                  auth.user.userType ===\n                                                      'administrateur'\n                                              "
+                                }
+                              ],
+                              staticClass: "text-green",
+                              staticStyle: {
+                                float: "right",
+                                cursor: "pointer"
+                              },
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#createVisitModal"
                               }
-                            ],
-                            staticClass: "text-green",
-                            staticStyle: { float: "right", cursor: "pointer" },
-                            attrs: {
-                              "data-toggle": "modal",
-                              "data-target": "#createVisitModal"
-                            }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "ik ik-plus-circle text-green"
-                            }),
-                            _vm._v(
-                              "\n                      Nouveau\n                    "
-                            )
-                          ]
-                        )
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.getVisits, function(visit) {
-                      return _c("tr", { key: visit.id }, [
-                        _c("th", { attrs: { scope: "row" } }, [
-                          _vm._v(_vm._s(visit.id))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(visit.type))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(visit.price) + " DH")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(visit.tva) + " %")]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c("div", { staticClass: "table-actions" }, [
-                            _c(
-                              "a",
-                              {
-                                staticStyle: { cursor: "pointer" },
-                                attrs: {
-                                  "data-toggle": "modal",
-                                  "data-target": "#showVisitModal"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.show(visit)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "ik ik-eye text-blue" })]
-                            ),
-                            _vm._v(
-                              "\n                      /\n                      "
-                            ),
-                            _c(
-                              "a",
-                              {
-                                staticStyle: { cursor: "pointer" },
-                                attrs: {
-                                  "data-toggle": "modal",
-                                  "data-target": "#editVisitModal"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.edit(visit)
-                                  }
-                                }
-                              },
-                              [
-                                _c("i", {
-                                  staticClass: "ik ik-edit-2 text-green"
-                                })
-                              ]
-                            ),
-                            _vm._v(
-                              "\n                      /\n                      "
-                            ),
-                            _c(
-                              "a",
-                              {
-                                staticStyle: { cursor: "pointer" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.remove(visit)
-                                  }
-                                }
-                              },
-                              [
-                                _c("i", {
-                                  staticClass: "ik ik-trash-2 text-red"
-                                })
-                              ]
-                            )
-                          ])
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "ik ik-plus-circle text-green"
+                              }),
+                              _vm._v(
+                                "\n                      Nouveau\n                    "
+                              )
+                            ]
+                          )
                         ])
                       ])
-                    }),
-                    0
-                  )
-                ])
-              ])
-            ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.getVisits.data, function(visit) {
+                        return _c("tr", { key: visit.id }, [
+                          _c("th", { attrs: { scope: "row" } }, [
+                            _vm._v(_vm._s(visit.id))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(visit.type))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(visit.price) + " DH")]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(visit.tva) + " %")]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("div", { staticClass: "table-actions" }, [
+                              _c(
+                                "a",
+                                {
+                                  staticStyle: { cursor: "pointer" },
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#showVisitModal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.show(visit)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "ik ik-eye text-blue"
+                                  })
+                                ]
+                              ),
+                              _vm._v(
+                                "\n                      /\n                      "
+                              ),
+                              _c(
+                                "a",
+                                {
+                                  staticStyle: { cursor: "pointer" },
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#editVisitModal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.edit(visit)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "ik ik-edit-2 text-green"
+                                  })
+                                ]
+                              ),
+                              _vm._v(
+                                "\n                      /\n                      "
+                              ),
+                              _c(
+                                "a",
+                                {
+                                  staticStyle: { cursor: "pointer" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.remove(visit)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "ik ik-trash-2 text-red"
+                                  })
+                                ]
+                              )
+                            ])
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("pagination", {
+                  attrs: { data: _vm.getVisits },
+                  on: { "pagination-change-page": _vm.getResults }
+                })
+              ],
+              1
+            )
           ])
         ])
       ]),
@@ -108634,7 +108657,7 @@ var storeData = {
   state: {
     users: {},
     customers: {},
-    visits: [],
+    visits: {},
     stamps: [],
     customersVisits: [],
     //for auth
@@ -108782,9 +108805,9 @@ var storeData = {
       });
     },
     //visits
-    visits: function visits(context) {
-      axios.get("api/visit").then(function (res) {
-        context.commit("visits", res.data);
+    visits: function visits(context, page) {
+      axios.get("api/visit?page=".concat(page)).then(function (response) {
+        context.commit("visits", response.data);
       })["catch"](function (err) {
         console.log("Error! ".concat(err));
       });

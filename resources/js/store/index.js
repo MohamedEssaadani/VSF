@@ -7,7 +7,7 @@ const storeData = {
     state: {
         users: {},
         customers: {},
-        visits: [],
+        visits: {},
         stamps: [],
         customersVisits: [],
         //for auth
@@ -142,11 +142,11 @@ const storeData = {
                 });
         },
         //visits
-        visits(context) {
+        visits(context, page) {
             axios
-                .get("api/visit")
-                .then(res => {
-                    context.commit("visits", res.data);
+                .get(`api/visit?page=${page}`)
+                .then(response => {
+                    context.commit("visits", response.data);
                 })
                 .catch(err => {
                     console.log(`Error! ${err}`);
