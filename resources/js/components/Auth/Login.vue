@@ -78,7 +78,7 @@ export default {
       this.$store
         .dispatch("login", this.form)
         .then(() => {
-          this.$router.push({ name: "Dashboard" });
+          this.$router.push({ name: "Customers.all" });
         })
         .catch((err) => {
           if (err.response.status === 404) {

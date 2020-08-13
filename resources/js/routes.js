@@ -4,14 +4,15 @@ import Vue from "vue";
 Vue.use(VueRouter);
 
 const routes = [
-    {
-        path: "/",
-        component: require("./components/Dashboard/Dashboard.vue").default,
-        meta: {
-            auth: true
-        },
-        name: "Dashboard"
-    },
+    // {
+    //     path: "/",
+    //     component: require("./components/Dashboard/Dashboard.vue").default,
+    //     meta: {
+    //         auth: true
+    //     },
+    //     name: "Dashboard"
+    // },
+
     {
         path: "/users",
         component: require("./components/Users/Users-List.vue").default,
@@ -22,6 +23,7 @@ const routes = [
     },
     {
         path: "/customers",
+        alias: "/",
         component: require("./components/Customers/Customers-List.vue").default,
         meta: {
             auth: true
