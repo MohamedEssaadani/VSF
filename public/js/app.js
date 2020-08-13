@@ -108652,9 +108652,6 @@ var storeData = {
         });
       };
     },
-    getUsersNumber: function getUsersNumber(state, getters) {
-      return getters.getUsers.total;
-    },
     //customers
     getCustomers: function getCustomers(state) {
       return state.customers;

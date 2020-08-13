@@ -19,7 +19,6 @@ const storeData = {
         getUser: state => id => {
             return state.users.find(user => user.id === id);
         },
-        getUsersNumber: (state, getters) => getters.getUsers.total,
         //customers
         getCustomers: state => state.customers,
         getCustomer: state => id => {
