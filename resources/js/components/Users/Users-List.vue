@@ -143,11 +143,11 @@ export default {
   },
   computed: {
     getUsers() {
-      let users = undefined;
+      let users = {};
       //if user type something for filtering
       if (this.query !== "") {
         //filter data
-        users = this.$store.getters.getUsers.filter(
+        users.data = this.$store.getters.getUsers.data.filter(
           (user) =>
             JSON.stringify(user)
               .toLowerCase()

@@ -106,11 +106,11 @@ export default {
   },
   computed: {
     getCustomers() {
-      let customers = undefined;
+      let customers = {};
       //if user type something for filtering
       if (this.query !== "") {
         //filter data
-        customers = this.$store.getters.getCustomers.filter(
+        customers.data = this.$store.getters.getCustomers.data.filter(
           (customer) =>
             JSON.stringify(customer)
               .toLowerCase()

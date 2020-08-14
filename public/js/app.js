@@ -2624,11 +2624,11 @@ __webpack_require__.r(__webpack_exports__);
     getCustomers: function getCustomers() {
       var _this = this;
 
-      var customers = undefined; //if user type something for filtering
+      var customers = {}; //if user type something for filtering
 
       if (this.query !== "") {
         //filter data
-        customers = this.$store.getters.getCustomers.filter(function (customer) {
+        customers.data = this.$store.getters.getCustomers.data.filter(function (customer) {
           return JSON.stringify(customer).toLowerCase().indexOf(_this.query.toLowerCase()) !== -1;
         });
       } //else get all data without filtering
@@ -4308,11 +4308,11 @@ __webpack_require__.r(__webpack_exports__);
     getUsers: function getUsers() {
       var _this2 = this;
 
-      var users = undefined; //if user type something for filtering
+      var users = {}; //if user type something for filtering
 
       if (this.query !== "") {
         //filter data
-        users = this.$store.getters.getUsers.filter(function (user) {
+        users.data = this.$store.getters.getUsers.data.filter(function (user) {
           return JSON.stringify(user).toLowerCase().indexOf(_this2.query.toLowerCase()) !== -1;
         });
       } //else get all data without filtering
