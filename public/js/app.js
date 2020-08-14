@@ -2432,49 +2432,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3686,6 +3643,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -3698,7 +3656,8 @@ __webpack_require__.r(__webpack_exports__);
     "edit-stamp": _Edit_Stamp__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   mounted: function mounted() {
-    this.$store.dispatch("getStamps");
+    // this.$store.dispatch("getStamps");
+    this.getResults();
   },
   computed: {
     getStamps: function getStamps() {
@@ -3721,6 +3680,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    getResults: function getResults() {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.$store.dispatch("getStamps", page);
+    },
     edit: function edit(stamp) {
       this.isEdit = true;
       this.stamp = stamp;
@@ -81452,14 +81415,14 @@ var render = function() {
                         }
                       },
                       [
-                        _vm._l(_vm.getVisits, function(visit) {
+                        _vm._l(_vm.getVisits.data, function(visit) {
                           return _c(
                             "option",
                             { key: visit.id, domProps: { value: visit.id } },
                             [_vm._v(_vm._s(visit.type))]
                           )
                         }),
-                        _vm._v(">\n                            ")
+                        _vm._v(">\n              ")
                       ],
                       2
                     ),
@@ -81481,7 +81444,7 @@ var render = function() {
                 staticClass: "btn btn-danger",
                 attrs: { type: "button", "data-dismiss": "modal" }
               },
-              [_vm._v("\n                    × Annuler\n                ")]
+              [_vm._v("× Annuler")]
             ),
             _vm._v(" "),
             _c(
@@ -81493,7 +81456,7 @@ var render = function() {
               },
               [
                 _c("i", { staticClass: "ik ik-save" }),
-                _vm._v("\n                    Enregistrer\n                ")
+                _vm._v("\n          Enregistrer\n        ")
               ]
             )
           ])
@@ -81514,7 +81477,7 @@ var staticRenderFns = [
           staticClass: "modal-title",
           attrs: { id: "createCustomerModalLabel" }
         },
-        [_vm._v("\n                    Nouveau Client\n                ")]
+        [_vm._v("Nouveau Client")]
       ),
       _vm._v(" "),
       _c(
@@ -83357,98 +83320,108 @@ var render = function() {
           ]),
           _vm._v(" "),
           _vm.getStampsNumber > 0
-            ? _c("div", { staticClass: "card-body p-0 table-border-style" }, [
-                _c("div", { staticClass: "table-responsive" }, [
-                  _c("table", { staticClass: "table" }, [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.getStamps, function(stamp) {
-                        return _c("tr", { key: stamp.id }, [
-                          _c("th", { attrs: { scope: "row" } }, [
-                            _vm._v(_vm._s(stamp.id))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(stamp.type))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(stamp.description))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(stamp.price) + " DH")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("div", { staticClass: "table-actions" }, [
-                              _c(
-                                "a",
-                                {
-                                  staticStyle: { cursor: "pointer" },
-                                  attrs: {
-                                    "data-toggle": "modal",
-                                    "data-target": "#showStampModal"
+            ? _c(
+                "div",
+                { staticClass: "card-body p-0 table-border-style" },
+                [
+                  _c("div", { staticClass: "table-responsive" }, [
+                    _c("table", { staticClass: "table" }, [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.getStamps.data, function(stamp) {
+                          return _c("tr", { key: stamp.id }, [
+                            _c("th", { attrs: { scope: "row" } }, [
+                              _vm._v(_vm._s(stamp.id))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(stamp.type))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(stamp.description))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(stamp.price) + " DH")]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("div", { staticClass: "table-actions" }, [
+                                _c(
+                                  "a",
+                                  {
+                                    staticStyle: { cursor: "pointer" },
+                                    attrs: {
+                                      "data-toggle": "modal",
+                                      "data-target": "#showStampModal"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.show(stamp)
+                                      }
+                                    }
                                   },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.show(stamp)
+                                  [
+                                    _c("i", {
+                                      staticClass: "ik ik-eye text-blue"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(
+                                  "\n                    /\n                    "
+                                ),
+                                _c(
+                                  "a",
+                                  {
+                                    staticStyle: { cursor: "pointer" },
+                                    attrs: {
+                                      "data-toggle": "modal",
+                                      "data-target": "#editStampModal"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.edit(stamp)
+                                      }
                                     }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "ik ik-eye text-blue"
-                                  })
-                                ]
-                              ),
-                              _vm._v(
-                                "\n                    /\n                    "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  staticStyle: { cursor: "pointer" },
-                                  attrs: {
-                                    "data-toggle": "modal",
-                                    "data-target": "#editStampModal"
                                   },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.edit(stamp)
+                                  [
+                                    _c("i", {
+                                      staticClass: "ik ik-edit-2 text-green"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(
+                                  "\n                    /\n                    "
+                                ),
+                                _c(
+                                  "a",
+                                  {
+                                    staticStyle: { cursor: "pointer" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.remove(stamp)
+                                      }
                                     }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "ik ik-edit-2 text-green"
-                                  })
-                                ]
-                              ),
-                              _vm._v(
-                                "\n                    /\n                    "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  staticStyle: { cursor: "pointer" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.remove(stamp)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "ik ik-trash-2 text-red"
-                                  })
-                                ]
-                              )
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "ik ik-trash-2 text-red"
+                                    })
+                                  ]
+                                )
+                              ])
                             ])
                           ])
-                        ])
-                      }),
-                      0
-                    )
-                  ])
-                ])
-              ])
+                        }),
+                        0
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("pagination", {
+                    attrs: { data: _vm.getStamps },
+                    on: { "pagination-change-page": _vm.getResults }
+                  })
+                ],
+                1
+              )
             : _c("not-available"),
           _vm._v(" "),
           _c("create-stamp"),
@@ -84036,11 +84009,11 @@ var render = function() {
                       },
                       [
                         _c("option", { attrs: { value: "administrateur" } }, [
-                          _vm._v("administrateur")
+                          _vm._v("Administrateur")
                         ]),
                         _vm._v(" "),
                         _c("option", { attrs: { value: "utilisateur" } }, [
-                          _vm._v("user")
+                          _vm._v("Utilisateur")
                         ])
                       ]
                     ),
@@ -108658,7 +108631,7 @@ var storeData = {
     users: {},
     customers: {},
     visits: {},
-    stamps: [],
+    stamps: {},
     customersVisits: [],
     //for auth
     user: null
@@ -108698,7 +108671,7 @@ var storeData = {
       return state.stamps;
     },
     getStampsNumber: function getStampsNumber(state, getters) {
-      return getters.getStamps.length;
+      return getters.getStamps.total;
     },
     //customers visits
     getCustomersVisits: function getCustomersVisits(state) {
@@ -108718,8 +108691,8 @@ var storeData = {
       state.users = data;
     },
     deleteUser: function deleteUser(state, user) {
-      var index = state.users.indexOf(user);
-      state.users.splice(index, 1);
+      var index = state.users.data.indexOf(user);
+      state.users.data.splice(index, 1);
     },
     //customers
     customersList: function customersList(state, data) {
@@ -108820,8 +108793,8 @@ var storeData = {
       });
     },
     //stamps
-    getStamps: function getStamps(context) {
-      axios.get("api/stamp").then(function (res) {
+    getStamps: function getStamps(context, page) {
+      axios.get("api/stamp?page=".concat(page)).then(function (res) {
         context.commit("getStamps", res.data);
       })["catch"](function (err) {
         console.log("ERROR : ".concat(err));

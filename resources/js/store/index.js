@@ -8,7 +8,7 @@ const storeData = {
         users: {},
         customers: {},
         visits: {},
-        stamps: [],
+        stamps: {},
         customersVisits: [],
         //for auth
         user: null
@@ -29,7 +29,7 @@ const storeData = {
         getVisits: state => state.visits,
         //stamps
         getStamps: state => state.stamps,
-        getStampsNumber: (state, getters) => getters.getStamps.length,
+        getStampsNumber: (state, getters) => getters.getStamps.total,
         //customers visits
         getCustomersVisits: state => state.customersVisits,
         //auth
@@ -42,8 +42,8 @@ const storeData = {
             state.users = data;
         },
         deleteUser(state, user) {
-            let index = state.users.indexOf(user);
-            state.users.splice(index, 1);
+            let index = state.users.data.indexOf(user);
+            state.users.data.splice(index, 1);
         },
         //customers
         customersList(state, data) {
@@ -163,9 +163,9 @@ const storeData = {
                 });
         },
         //stamps
-        getStamps(context) {
+        getStamps(context, page) {
             axios
-                .get("api/stamp")
+                .get(`api/stamp?page=${page}`)
                 .then(res => {
                     context.commit("getStamps", res.data);
                 })

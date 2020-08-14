@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layouts.master')->with('page_title', 'Dashboard');
-})->name('Dashboard');
+    return view('layouts.master')->with('page_title', 'ESSAADANI');
+})->name('Home');
 
 Route::get('/{any}', function () {
     return view('layouts.master')->with('page_title', 'Dashboard');

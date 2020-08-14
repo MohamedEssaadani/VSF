@@ -80,13 +80,11 @@ class UserController extends Controller
         ]);
         
         //find user with id
-        $user = User::findOrfail($id);
-
-        //update user data
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->userType = $request->userType;
-
+        $user = User::findOrfail($id)->update([
+           "name" => $request->name,
+           "email" => $request->email,
+           "userType" => $request->userType,
+        ]);
 
         return response()->json($user);
     }

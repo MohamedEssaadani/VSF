@@ -80,8 +80,8 @@
                                         )
                                     }"
                 >
-                  <option value="administrateur">administrateur</option>
-                  <option value="utilisateur">user</option>
+                  <option value="administrateur">Administrateur</option>
+                  <option value="utilisateur">Utilisateur</option>
                 </select>
                 <has-error :form="form" field="userType"></has-error>
               </div>
