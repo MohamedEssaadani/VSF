@@ -104,8 +104,8 @@
                                         )
                                     }"
                 >
-                  <option value="administrateur">administrateur</option>
-                  <option value="utilisateur">utilisateur</option>
+                  <option value="administrateur">Administrateur</option>
+                  <option value="utilisateur">Utilisateur</option>
                 </select>
                 <has-error :form="form" field="userType"></has-error>
               </div>

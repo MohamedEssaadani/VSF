@@ -34,7 +34,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="stamp in getStamps.data" :key="stamp.id">
+                <tr v-for="stamp in getStamps" :key="stamp.id">
                   <th scope="row">{{ stamp.id }}</th>
                   <td>{{ stamp.type }}</td>
                   <td>{{ stamp.description }}</td>
@@ -68,7 +68,6 @@
               </tbody>
             </table>
           </div>
-          <pagination :data="getStamps" @pagination-change-page="getResults"></pagination>
         </div>
         <!--when no stamp available-->
         <not-available v-else></not-available>
@@ -99,8 +98,8 @@ export default {
     "edit-stamp": EditStamp,
   },
   mounted() {
-    // this.$store.dispatch("getStamps");
-    this.getResults();
+    this.$store.dispatch("getStamps");
+    // this.getResults();
   },
   computed: {
     getStamps() {
@@ -124,9 +123,9 @@ export default {
     },
   },
   methods: {
-    getResults(page = 1) {
-      this.$store.dispatch("getStamps", page);
-    },
+    // getResults(page = 1) {
+    //   this.$store.dispatch("getStamps", page);
+    // },
     edit(stamp) {
       this.isEdit = true;
       this.stamp = stamp;

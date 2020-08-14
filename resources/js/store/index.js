@@ -8,7 +8,7 @@ const storeData = {
         users: {},
         customers: {},
         visits: {},
-        stamps: {},
+        stamps: [],
         customersVisits: [],
         //for auth
         user: null
@@ -29,7 +29,7 @@ const storeData = {
         getVisits: state => state.visits,
         //stamps
         getStamps: state => state.stamps,
-        getStampsNumber: (state, getters) => getters.getStamps.total,
+        getStampsNumber: (state, getters) => getters.getStamps.length,
         //customers visits
         getCustomersVisits: state => state.customersVisits,
         //auth
