@@ -2157,6 +2157,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2168,6 +2192,18 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     getCustomersVisits: function getCustomersVisits() {
       return this.$store.getters.getCustomersVisits;
+    },
+    total: {
+      get: function get() {
+        var today = moment();
+        console.log(today.d);
+        var total = this.$store.getters.getCustomersVisits.filter(function (c) {
+          return c.created_at === today.toDate();
+        }).reduce(function (prev, curr) {
+          return prev + curr.total;
+        }, 0);
+        return total;
+      }
     }
   },
   methods: {
@@ -80889,12 +80925,47 @@ var render = function() {
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "card" }, [
-            _vm._m(0),
+            _c("div", { staticClass: "card-header d-block" }, [
+              _c("div", { staticClass: "row" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("label", { staticStyle: { float: "left" } }, [
+                    _vm._v("Caisse")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.total,
+                        expression: "total"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    staticStyle: { float: "right" },
+                    attrs: { type: "text", disabled: "" },
+                    domProps: { value: _vm.total },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.total = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm._m(1)
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body p-0 table-border-style" }, [
               _c("div", { staticClass: "table-responsive" }, [
                 _c("table", { staticClass: "table" }, [
-                  _vm._m(1),
+                  _vm._m(2),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -80995,10 +81066,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header d-block" }, [
-      _c("h3", { staticStyle: { float: "left" } }, [
-        _vm._v("Visites des clients")
-      ])
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("h3", [_vm._v("Visites des clients")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("input", {
+        staticClass: "form-control",
+        staticStyle: { "margin-top": "27px" },
+        attrs: { type: "text", placeholder: "rechercher" }
+      })
     ])
   },
   function() {

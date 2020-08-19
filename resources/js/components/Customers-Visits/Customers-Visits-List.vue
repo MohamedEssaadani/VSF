@@ -4,7 +4,29 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header d-block">
-            <h3 style="float:left;">Visites des clients</h3>
+            <div class="row">
+              <div class="col-md-4">
+                <h3>Visites des clients</h3>
+              </div>
+              <div class="col-md-4">
+                <label style="float:left;">Caisse</label>
+                <input
+                  type="text"
+                  style="float:right;"
+                  v-model="total"
+                  class="form-control"
+                  disabled
+                />
+              </div>
+              <div class="col-md-4">
+                <input
+                  type="text"
+                  style="margin-top:27px;"
+                  placeholder="rechercher"
+                  class="form-control"
+                />
+              </div>
+            </div>
           </div>
           <div class="card-body p-0 table-border-style">
             <div class="table-responsive">
@@ -44,7 +66,9 @@
                         /
                         <a
                           style="cursor: pointer;"
-                          @click="remove(customerVisit)"
+                          @click="
+                                                        remove(customerVisit)
+                                                    "
                         >
                           <i class="ik ik-trash-2 text-red"></i>
                         </a>
@@ -79,6 +103,16 @@ export default {
   computed: {
     getCustomersVisits() {
       return this.$store.getters.getCustomersVisits;
+    },
+    total: {
+      get() {
+        var today = moment();
+        console.log(today.d);
+        let total = this.$store.getters.getCustomersVisits
+          .filter((c) => c.created_at === today.toDate())
+          .reduce((prev, curr) => prev + curr.total, 0);
+        return total;
+      },
     },
   },
   methods: {
