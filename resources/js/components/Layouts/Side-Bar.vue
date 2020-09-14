@@ -78,7 +78,7 @@
           >
             <router-link :to="{ name: 'Revenues' }">
               <i class="ik ik-zap"></i>
-              <span>Caisse</span>
+              <span>Statistiques</span>
             </router-link>
           </div>
 

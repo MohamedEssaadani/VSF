@@ -107,7 +107,7 @@ export default {
     total: {
       get() {
         var today = moment();
-        console.log(today.d);
+        console.log(today.toDate());
         let total = this.$store.getters.getCustomersVisits
           .filter((c) => c.created_at === today.toDate())
           .reduce((prev, curr) => prev + curr.total, 0);

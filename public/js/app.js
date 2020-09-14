@@ -2018,6 +2018,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2196,7 +2203,7 @@ __webpack_require__.r(__webpack_exports__);
     total: {
       get: function get() {
         var today = moment();
-        console.log(today.d);
+        console.log(today.toDate());
         var total = this.$store.getters.getCustomersVisits.filter(function (c) {
           return c.created_at === today.toDate();
         }).reduce(function (prev, curr) {
@@ -80894,9 +80901,29 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [_c("revenues-chart")], 1)
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [_vm._m(0), _vm._v(" "), _c("revenues-chart")],
+    1
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticStyle: { "background-color": "#ffffff" } }, [
+      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Tous")]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Client")]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Type Visite")]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Date")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -82545,7 +82572,7 @@ var render = function() {
                 _c("router-link", { attrs: { to: { name: "Revenues" } } }, [
                   _c("i", { staticClass: "ik ik-zap" }),
                   _vm._v(" "),
-                  _c("span", [_vm._v("Caisse")])
+                  _c("span", [_vm._v("Statistiques")])
                 ])
               ],
               1
@@ -108930,8 +108957,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store(storeData);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\ESSAADANI\Desktop\essaadanivt\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\ESSAADANI\Desktop\essaadanivt\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Programming\Projects\Laravel\essaadanivt\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Programming\Projects\Laravel\essaadanivt\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
