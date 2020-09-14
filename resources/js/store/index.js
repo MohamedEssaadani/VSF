@@ -9,7 +9,7 @@ const storeData = {
         customers: {},
         visits: {},
         stamps: [],
-        customersVisits: [],
+        customersVisits: {},
         //for auth
         user: null
     },
@@ -189,7 +189,7 @@ const storeData = {
                 axios
                     .get("api/customer_visit")
                     .then(res => {
-                        context.commit("getCustomersVisits", res.data.data);
+                        context.commit("getCustomersVisits", res.data);
                         resolve();
                     })
                     .catch(err => {

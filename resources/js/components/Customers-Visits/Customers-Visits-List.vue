@@ -4,27 +4,10 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header d-block">
-            <div class="row">
-              <div class="col-md-4">
-                <h3>Visites des clients</h3>
-              </div>
-              <div class="col-md-4">
-                <label style="float:left;">Caisse</label>
-                <input
-                  type="text"
-                  style="float:right;"
-                  v-model="total"
-                  class="form-control"
-                  disabled
-                />
-              </div>
-              <div class="col-md-4">
-                <input
-                  type="text"
-                  style="margin-top:27px;"
-                  placeholder="rechercher"
-                  class="form-control"
-                />
+            <h3 style="float:left;">Visites des clients</h3>
+            <div class="row" style="float:right;">
+              <div>
+                <input type="text" placeholder="rechercher" v-model="query" class="form-control" />
               </div>
             </div>
           </div>
@@ -42,7 +25,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="customerVisit in getCustomersVisits" :key="customerVisit.id">
+                  <tr v-for="customerVisit in getCustomersVisits.data" :key="customerVisit.id">
                     <th scope="row">{{ customerVisit.matricule }}</th>
                     <td>{{ customerVisit.full_name }}</td>
                     <td>{{ customerVisit.type }}</td>
@@ -102,17 +85,20 @@ export default {
   },
   computed: {
     getCustomersVisits() {
-      return this.$store.getters.getCustomersVisits;
-    },
-    total: {
-      get() {
-        var today = moment();
-        console.log(today.toDate());
-        let total = this.$store.getters.getCustomersVisits
-          .filter((c) => c.created_at === today.toDate())
-          .reduce((prev, curr) => prev + curr.total, 0);
-        return total;
-      },
+      let customersVisits = {};
+      //if user type something for filtering
+      if (this.query !== "") {
+        //filter data
+        customersVisits.data = this.$store.getters.getCustomersVisits.data.filter(
+          (customerVisit) =>
+            JSON.stringify(customerVisit)
+              .toLowerCase()
+              .indexOf(this.query.toLowerCase()) !== -1
+        );
+      } //else get all data without filtering
+      else customersVisits = this.$store.getters.getCustomersVisits;
+
+      return customersVisits;
     },
   },
   methods: {
@@ -143,6 +129,7 @@ export default {
     return {
       customerVisit: {},
       isShow: false,
+      query: "",
     };
   },
 };

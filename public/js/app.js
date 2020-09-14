@@ -2164,23 +2164,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2191,19 +2174,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     getCustomersVisits: function getCustomersVisits() {
-      return this.$store.getters.getCustomersVisits;
-    },
-    total: {
-      get: function get() {
-        var today = moment();
-        console.log(today.toDate());
-        var total = this.$store.getters.getCustomersVisits.filter(function (c) {
-          return c.created_at === today.toDate();
-        }).reduce(function (prev, curr) {
-          return prev + curr.total;
-        }, 0);
-        return total;
-      }
+      var _this = this;
+
+      var customersVisits = {}; //if user type something for filtering
+
+      if (this.query !== "") {
+        //filter data
+        customersVisits.data = this.$store.getters.getCustomersVisits.data.filter(function (customerVisit) {
+          return JSON.stringify(customerVisit).toLowerCase().indexOf(_this.query.toLowerCase()) !== -1;
+        });
+      } //else get all data without filtering
+      else customersVisits = this.$store.getters.getCustomersVisits;
+
+      return customersVisits;
     }
   },
   methods: {
@@ -2212,7 +2195,7 @@ __webpack_require__.r(__webpack_exports__);
       this.customerVisit = customerVisit;
     },
     remove: function remove(customerVisit) {
-      var _this = this;
+      var _this2 = this;
 
       this.$confirm({
         message: "Vous \xEAtes sure?",
@@ -2227,7 +2210,7 @@ __webpack_require__.r(__webpack_exports__);
          */
         callback: function callback(confirm) {
           if (confirm) {
-            _this.$store.dispatch("deleteCustomerVisit", customerVisit);
+            _this2.$store.dispatch("deleteCustomerVisit", customerVisit);
           }
         }
       });
@@ -2236,7 +2219,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       customerVisit: {},
-      isShow: false
+      isShow: false,
+      query: ""
     };
   }
 });
@@ -80955,50 +80939,51 @@ var render = function() {
         _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header d-block" }, [
-              _c("div", { staticClass: "row" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-4" }, [
-                  _c("label", { staticStyle: { float: "left" } }, [
-                    _vm._v("Caisse")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.total,
-                        expression: "total"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    staticStyle: { float: "right" },
-                    attrs: { type: "text", disabled: "" },
-                    domProps: { value: _vm.total },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+              _c("h3", { staticStyle: { float: "left" } }, [
+                _vm._v("Visites des clients")
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "row", staticStyle: { float: "right" } },
+                [
+                  _c("div", [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.query,
+                          expression: "query"
                         }
-                        _vm.total = $event.target.value
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "rechercher" },
+                      domProps: { value: _vm.query },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.query = $event.target.value
+                        }
                       }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _vm._m(1)
-              ])
+                    })
+                  ])
+                ]
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body p-0 table-border-style" }, [
               _c("div", { staticClass: "table-responsive" }, [
                 _c("table", { staticClass: "table" }, [
-                  _vm._m(2),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c(
                     "tbody",
-                    _vm._l(_vm.getCustomersVisits, function(customerVisit) {
+                    _vm._l(_vm.getCustomersVisits.data, function(
+                      customerVisit
+                    ) {
                       return _c("tr", { key: customerVisit.id }, [
                         _c("th", { attrs: { scope: "row" } }, [
                           _vm._v(_vm._s(customerVisit.matricule))
@@ -81091,26 +81076,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("h3", [_vm._v("Visites des clients")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("input", {
-        staticClass: "form-control",
-        staticStyle: { "margin-top": "27px" },
-        attrs: { type: "text", placeholder: "rechercher" }
-      })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -108781,7 +108746,7 @@ var storeData = {
     customers: {},
     visits: {},
     stamps: [],
-    customersVisits: [],
+    customersVisits: {},
     //for auth
     user: null
   },
@@ -108960,7 +108925,7 @@ var storeData = {
     getCustomersVisits: function getCustomersVisits(context) {
       return new Promise(function (resolve, reject) {
         axios.get("api/customer_visit").then(function (res) {
-          context.commit("getCustomersVisits", res.data.data);
+          context.commit("getCustomersVisits", res.data);
           resolve();
         })["catch"](function (err) {
           console.log("ERROR! ".concat(err));
