@@ -19,3 +19,11 @@ export default {
   },
 };
 </script>
+
+<style >
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
+</style>
