@@ -70,7 +70,7 @@
                         "
           >Statistiques</div>
 
-          <div
+          <!-- <div
             class="nav-item"
             v-show="
                             isLogged && auth.user.userType === 'administrateur'
@@ -80,6 +80,35 @@
               <i class="ik ik-zap"></i>
               <span>Statistiques</span>
             </router-link>
+          </div>-->
+          <div
+            class="nav-item has-sub"
+            v-show="
+                            isLogged && auth.user.userType === 'administrateur'
+                        "
+          >
+            <a href="#">
+              <i class="ik ik-zap"></i>
+              <span>Statistiques</span>
+            </a>
+            <div class="submenu-content">
+              <router-link :to="{ name: '' }" class="menu-item">
+                <i class="ik ik-layers"></i>
+                <span>Tous</span>
+              </router-link>
+              <router-link :to="{ name: '' }" class="menu-item">
+                <i class="ik ik-user"></i>
+                <span>Par client</span>
+              </router-link>
+              <router-link :to="{ name: '' }" class="menu-item">
+                <i class="ik ik-layers"></i>
+                <span>Par Type</span>
+              </router-link>
+              <router-link :to="{ name: '' }" class="menu-item">
+                <i class="ik ik-clock"></i>
+                <span>Par Date</span>
+              </router-link>
+            </div>
           </div>
 
           <div class="nav-item" v-show="isLogged">
