@@ -52,15 +52,15 @@ const routes = [
         component: require("./components/Auth/Login.vue").default,
         name: "Login"
     },
-    {
-        path: "/revenues",
-        component: require("./components/Checkout/Revenues-Chart-Container.vue")
-            .default,
-        meta: {
-            auth: true
-        },
-        name: "Revenues"
-    },
+    // {
+    //     path: "/revenues",
+    //     component: require("./components/Checkout/Revenues-Chart-Container.vue")
+    //         .default,
+    //     meta: {
+    //         auth: true
+    //     },
+    //     name: "Revenues"
+    // },
     {
         path: "/stamps",
         component: require("./components/Stamps/Stamps-List").default,
@@ -68,6 +68,16 @@ const routes = [
             auth: true
         },
         name: "Stamps.all"
+    },
+    {
+        path: "/all-statistics",
+        component: require("./components/Checkout/All").default,
+        name: "Statistics.all"
+    },
+    {
+        path: "/all",
+        component: require("./components/Checkout/By-Date").default,
+        name: "Statistics.byDate"
     }
 ];
 

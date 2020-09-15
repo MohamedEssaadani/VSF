@@ -92,7 +92,7 @@
               <span>Statistiques</span>
             </a>
             <div class="submenu-content">
-              <router-link :to="{ name: '' }" class="menu-item">
+              <router-link :to="{ name: 'Statistics.all' }" class="menu-item">
                 <i class="ik ik-layers"></i>
                 <span>Tous</span>
               </router-link>
@@ -104,7 +104,7 @@
                 <i class="ik ik-layers"></i>
                 <span>Par Type</span>
               </router-link>
-              <router-link :to="{ name: '' }" class="menu-item">
+              <router-link :to="{ name: 'Statistics.byDate' }" class="menu-item">
                 <i class="ik ik-clock"></i>
                 <span>Par Date</span>
               </router-link>
