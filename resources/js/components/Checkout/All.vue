@@ -11,7 +11,6 @@ import Chart from "./Chart-Container";
 export default {
   components: {
     "customers-visits": CustomersVisits,
-    "all-chart": Chart,
-  },
+  }
 };
 </script>
