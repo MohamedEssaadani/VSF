@@ -3,9 +3,26 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header d-block">
-          <h3 style="float:left;">Clients</h3>
-          <div class="row" style="float:right;">
-            <div>
+          <div class="row">
+            <div class="col-md-4">
+              <h3>Clients</h3>
+            </div>
+            <div class="col-md-4">
+              Exporter :
+              <button class="btn btn-outline-danger" @click="exportPDF">
+                <i class="fa fa-file-pdf"></i>PDF
+              </button>
+              <export-excel
+                class="btn btn-outline-success"
+                :data="this.getCustomers.data"
+                :fields="json_fields"
+                type="csv"
+                name="clients.xls"
+              >
+                <i class="fa fa-file-excel"></i>Excel
+              </export-excel>
+            </div>
+            <div class="col-md-4">
               <input type="text" placeholder="rechercher" v-model="query" class="form-control" />
             </div>
           </div>
@@ -13,7 +30,7 @@
 
         <div class="card-body p-0 table-border-style" v-if="getCustomersNumber > 0">
           <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="customers">
               <thead>
                 <tr>
                   <th># Matricule</th>
@@ -92,6 +109,9 @@ import CreateCustomer from "./Create-Customer";
 import EditCustomer from "./Edit-Customer";
 import ShowCustomer from "./Show-Customer";
 import NotAvailable from "./Not-Available";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import JsonExcel from "vue-json-excel";
 
 export default {
   components: {
@@ -126,6 +146,13 @@ export default {
     },
   },
   methods: {
+    exportPDF() {
+      const doc = new jsPDF();
+
+      doc.autoTable({ html: "#customers" });
+
+      doc.save("clients.pdf");
+    },
     getResults(page = 1) {
       this.$store.dispatch("customersList", page);
     },
@@ -162,6 +189,13 @@ export default {
       isShow: false,
       customer: {},
       query: "",
+      //for excel exporting
+      json_fields: {
+        Matricule: "matricule",
+        Client: "full_name",
+        Téléphone: "phone",
+        Marque: "car_brand",
+      },
     };
   },
 };
