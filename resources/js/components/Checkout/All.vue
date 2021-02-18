@@ -30,7 +30,6 @@ export default {
                 );
                 chartData[index] = check;
             } else chartData.push([item.created_at, item.total]);
-            // chartData.push([item.created_at, item.total]);
         });
         console.log(chartData);
         this.visits = chartData;

@@ -54,7 +54,7 @@
                         </ul>
                     </div>
                     @endif
-                      <router-view></router-view>
+                        <router-view></router-view>
                 </div>
             </div>
 

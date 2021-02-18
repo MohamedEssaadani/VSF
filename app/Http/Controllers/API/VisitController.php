@@ -129,8 +129,6 @@ class VisitController extends Controller
             throw $e;
         }
 
-
-
         return response(201);
     }
 
@@ -146,4 +144,6 @@ class VisitController extends Controller
 
         return response(201);
     }
+
+     
 }

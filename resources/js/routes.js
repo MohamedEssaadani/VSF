@@ -67,6 +67,14 @@ const routes = [
             auth: true
         },
         name: "Stamps.all"
+    },
+    {
+        path: "/dashboard",
+        component: require("./components/Dashboard/Dashboard").default,
+        meta: {
+            auth: true
+        },
+        name: "Dashboard"
     }
 ];
 

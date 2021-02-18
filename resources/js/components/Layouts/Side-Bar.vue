@@ -5,7 +5,7 @@
         <div class="logo-img">
           <!--LOGO-->
         </div>
-        <span class="text">Es-saadani</span>
+        <span class="text">Fattah Aman</span>
       </a>
       <button type="button" class="nav-toggle">
         <i data-toggle="expanded" class="ik ik-toggle-right toggle-icon"></i>
@@ -18,6 +18,12 @@
     <div class="sidebar-content">
       <div class="nav-container">
         <nav id="main-menu-navigation" class="navigation-main">
+          <div class="nav-item" v-show="isLogged">
+            <router-link :to="{ name: 'Dashboard' }">
+              <i class="ik ik-user"></i>
+              <span>Dashboard</span>
+            </router-link>
+          </div>
           <div class="nav-lavel" v-show="isLogged">Gestion</div>
           <!-- <div class="nav-item" v-show="isLogged">
                         <router-link :to="{ name: 'Dashboard' }">
@@ -65,16 +71,14 @@
 
           <div
             class="nav-lavel"
-            v-show="
-                            isLogged && auth.user.userType === 'administrateur'
-                        "
-          >Statistiques</div>
+            v-show="isLogged && auth.user.userType === 'administrateur'"
+          >
+            Statistiques
+          </div>
 
           <div
             class="nav-item"
-            v-show="
-                            isLogged && auth.user.userType === 'administrateur'
-                        "
+            v-show="isLogged && auth.user.userType === 'administrateur'"
           >
             <router-link :to="{ name: 'Statistics.all' }">
               <i class="ik ik-zap"></i>
@@ -83,7 +87,7 @@
           </div>
 
           <div class="nav-item" v-show="isLogged">
-            <a style="cursor:pointer;" @click="logout()">
+            <a style="cursor: pointer" @click="logout()">
               <i class="ik ik-power"></i>
               <span>Déconnecter</span>
             </a>

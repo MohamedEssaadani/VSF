@@ -30,18 +30,18 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         //validate attributes
         $request->validate([
             'matricule' => 'required|string',
             'full_name' => 'required|string',
-            //moroccan number ex : 0655669966 
+            //moroccan number ex : 0655669966
             'phone' => 'required|string|size:10',
             'car_brand' => 'required|string',
             'visit' => 'required|integer'
         ]);
-        
-        //if record doesnt exist we will create it
+
+        //if record doesnt exist  create it
         if(!Customer::where('matricule', $request->matricule)->exists())
         {
              //create new customer object
@@ -50,15 +50,15 @@ class CustomerController extends Controller
              $customer->full_name= $request->full_name;
              $customer->phone = $request->phone;
              $customer->car_brand = $request->car_brand;
- 
+
              //save to db
              $customer->save();
         }
-    
+
         //calculate total
         //we get first the selected visit
         $visit = Visit::find($request->visit);
-        // we calculate the total with tva 
+        // we calculate the total with tva
         $ht = $visit->price;
         $tva = $ht * $visit->tva;
         $ttc  = $tva + $ht;
@@ -68,17 +68,17 @@ class CustomerController extends Controller
                   ->join('visit_stamps', 'stamps.id', '=', 'visit_stamps.stamp')
                   ->where('visit_stamps.visit', $request->visit)
                   ->sum('stamps.price');
-                  
+
         //finally the total is stamps total prices + total with tva
         $total = $ttc + $stampsTotal;
 
         //customers_visites table
         CustomerVisit::create([
             "customer" => $request->matricule,
-            "visit" => $request->visit, 
+            "visit" => $request->visit,
             "total" => $total
         ]);
-        
+
         return response(201);
     }
 
@@ -106,16 +106,16 @@ class CustomerController extends Controller
        $request->validate([
         'matricule' => 'required|string',
         'full_name' => 'required|string',
-        //moroccan number ex : 0655669966 
+        //moroccan number ex : 0655669966
         'phone' => 'required|string|size:10',
         'car_brand' => 'required|string'
         ]);
-    
+
         //get the customer with $matricule & update data with update()
         $customer = Customer::where("matricule", $matricule)
                     ->update([
                         "full_name"=> $request->full_name,
-                        "phone" => $request->phone, 
+                        "phone" => $request->phone,
                         "car_brand" => $request->car_brand
                          ]);
 

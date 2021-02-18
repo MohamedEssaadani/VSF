@@ -72,4 +72,25 @@ class CustomerVisitController extends Controller
     
         return response(201);
     }
+
+    public function getStatistics(){
+
+        $thisYear = CustomerVisit::whereYear('created_at', Carbon::now()->year)
+                                    ->count();
+        $thisMonth = CustomerVisit::whereYear('created_at', Carbon::now()->year)
+                                    ->whereMonth('created_at', Carbon::now()->month)
+                                    ->count();
+        $today = CustomerVisit::whereYear('created_at', Carbon::now()->year)
+                                    ->whereMonth('created_at', Carbon::now()->month)
+                                    ->whereDay('created_at', Carbon::now()->day)
+                                    ->count();
+
+        $array =  array(
+            'year' => $thisYear, 
+            'month' => $thisMonth, 
+            'today' => $today, 
+        );
+
+        return response($array);
+    }
 }

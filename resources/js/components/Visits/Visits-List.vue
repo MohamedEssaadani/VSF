@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header d-block">
-            <h3 style="float:left;">Types des visites</h3>
+            <h3 style="float: left">Types des visites</h3>
           </div>
           <div class="card-body p-0 table-border-style">
             <div class="table-responsive">
@@ -20,14 +20,8 @@
                         data-toggle="modal"
                         data-target="#createVisitModal"
                         class="text-green"
-                        style="
-                                                float: right;
-                                                cursor: pointer;
-                                              "
-                        v-show="
-                                                    auth.user.userType ===
-                                                        'administrateur'
-                                                "
+                        style="float: right; cursor: pointer"
+                        v-show="auth.user.userType === 'administrateur'"
                       >
                         <i class="ik ik-plus-circle text-green"></i>
                         Nouveau
@@ -44,7 +38,7 @@
                     <td>
                       <div class="table-actions">
                         <a
-                          style="cursor: pointer; "
+                          style="cursor: pointer"
                           @click="show(visit)"
                           data-toggle="modal"
                           data-target="#showVisitModal"
@@ -53,7 +47,7 @@
                         </a>
                         /
                         <a
-                          style="cursor: pointer; "
+                          style="cursor: pointer"
                           @click="edit(visit)"
                           data-toggle="modal"
                           data-target="#editVisitModal"
@@ -61,10 +55,7 @@
                           <i class="ik ik-edit-2 text-green"></i>
                         </a>
                         /
-                        <a
-                          style="cursor: pointer; "
-                          @click="remove(visit)"
-                        >
+                        <a style="cursor: pointer" @click="remove(visit)">
                           <i class="ik ik-trash-2 text-red"></i>
                         </a>
                       </div>
@@ -73,7 +64,10 @@
                 </tbody>
               </table>
             </div>
-            <pagination :data="getVisits" @pagination-change-page="getResults"></pagination>
+            <pagination
+              :data="getVisits"
+              @pagination-change-page="getResults"
+            ></pagination>
           </div>
         </div>
       </div>
