@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card">
+    <div class="card" style="width:60%; margin:0 auto;">
       <div class="card-header">
         <h6>Authentification</h6>
       </div>
