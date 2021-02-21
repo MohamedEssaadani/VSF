@@ -2099,6 +2099,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -88893,7 +88918,9 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        class: { "is-invalid": _vm.form.errors.has("email") },
+                        class: {
+                          "is-invalid": _vm.form.errors.has("email")
+                        },
                         attrs: { type: "text" },
                         domProps: { value: _vm.form.email },
                         on: {
@@ -88963,15 +88990,7 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-dark",
-                  staticStyle: { float: "right", "margin-right": "170px" },
-                  attrs: { type: "submit" }
-                },
-                [_vm._v("Connecter")]
-              )
+              _vm._m(3)
             ]
           )
         ])
@@ -89005,6 +89024,22 @@ var staticRenderFns = [
     return _c("span", { staticClass: "input-group-prepend" }, [
       _c("label", { staticClass: "input-group-text" }, [
         _c("i", { staticClass: "ik ik-terminal" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-8" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-dark", attrs: { type: "submit" } },
+          [_vm._v("\n                    Connecter\n                ")]
+        )
       ])
     ])
   }
